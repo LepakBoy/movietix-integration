@@ -1,0 +1,45 @@
+.seat-selector__header {
+  font-size: 22px;
+  font-weight: 700;
+  color: #14142b;
+}
+.seat-selector {
+  width: 100%;
+  height: 600px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  border-radius: 6px;
+}
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.seat__btn-change-movie,
+.seat__btn-change-chekout {
+  width: 35%;
+  height: 44px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.seat__btn-change-chekout,
+.seat__btn-change-movie:hover {
+  background-color: #5f2eea;
+  color: #f7f7fc;
+}
+.seat__btn-change-movie {
+  border: 2px solid #5f2eea;
+  color: #5f2eea;
+}
+@media (max-width: 576px) {
+  .seat__btn-change-movie,
+  .seat__btn-change-chekout {
+    width: 48%;
+    /* height: 48px; */
+    font-size: 12px;
+  }
+}

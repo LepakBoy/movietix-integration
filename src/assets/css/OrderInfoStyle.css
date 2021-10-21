@@ -1,0 +1,48 @@
+.main-order__header {
+  font-size: 22px;
+  font-weight: 700;
+  color: #14142b;
+}
+.order-info {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 6px;
+}
+.order-info__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.teater-logo {
+  text-align: center;
+  width: 40%;
+}
+.teater-logo img {
+  width: 100%;
+}
+.teater-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #14142b;
+}
+.property {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6b6b6b;
+}
+.value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #14142b;
+}
+.total-price__property {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+}
+.total-price__value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #5f2eea;
+}

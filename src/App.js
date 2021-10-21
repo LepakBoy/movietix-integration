@@ -7,6 +7,7 @@ import HomePage from "./pages/home";
 import LoginPage from "./pages/auth/Login";
 import Coba from "./pages/index";
 import MovieDetailPage from "./pages/User/MovieDetail";
+import OrderPage from "./pages/Order";
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Route path="/login" exact component={LoginPage} />
           <Route path="/coba" exact component={Coba} />
           <Route path="/movie-detail" exact component={MovieDetailPage} />
+          <Route path="/order" exact component={OrderPage} />
         </Switch>
       </Router>
     );

@@ -1,0 +1,43 @@
+main {
+  background-color: #eff0f6;
+}
+
+.movie-selected__header {
+  font-size: 22px;
+  font-weight: 700;
+  color: #14142b;
+}
+.btn-change-movie {
+  padding: 4px;
+  width: 140px;
+  height: 42px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #5f2eea;
+}
+.movie-selected__option {
+  padding: 26px;
+  margin-bottom: 32px;
+  height: 84px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+}
+.movie-selected-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+}
+
+@media (max-width: 992px) {
+  .main__user-selector {
+    padding: 0 !important;
+  }
+  .main__user-info {
+    padding-top: 28px !important;
+  }
+}
