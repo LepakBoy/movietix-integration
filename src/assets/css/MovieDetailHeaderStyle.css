@@ -1,0 +1,84 @@
+/* movie-detail */
+.movie-detail {
+  width: 100%;
+}
+.row {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+.movie-detail__banner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.movie-detail__img {
+  padding: 32px;
+  border-radius: 16px;
+  border: 2px solid #dedede;
+}
+.movie-detail__name {
+  color: #14142b;
+  font-size: 32px;
+  font-weight: 700;
+}
+.movie-detail__genre {
+  color: #4e4b66;
+  font-size: 18px;
+}
+.schedule,
+.casts {
+  font-size: 14px;
+  color: #8692a6;
+}
+.date,
+.director,
+.duration-time {
+  font-size: 16px;
+  font-weight: 500;
+  color: #121212;
+}
+.line {
+  color: #dedede;
+}
+.synopsis-header span {
+  color: #000000;
+  font-size: 20px;
+  font-weight: 600;
+}
+.synopsis-paragraph {
+  color: #4e4b66;
+  font-size: 16px;
+}
+@media (max-width: 992px) {
+  .movie-detail__title {
+    padding-top: 24px;
+    text-align: center;
+  }
+  .movie-detail__desc {
+    padding-left: 0 !important;
+  }
+  .casts,
+  .schedule {
+    width: 50%;
+  }
+}
+@media (max-width: 576px) {
+  .movie-detail__img {
+    transform: scale(0.9);
+  }
+  .movie-detail__title {
+    font-size: 12px;
+  }
+  .movie-detail__name {
+    font-size: 24px;
+  }
+  .movie-detail__genre {
+    font-size: 16px;
+  }
+}
+@media (max-width: 356px) {
+  .synopsis-paragraph {
+    font-size: 14px;
+  }
+}
