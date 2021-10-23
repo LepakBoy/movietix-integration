@@ -9,12 +9,13 @@ class OrderMovieSelected extends Component {
   }
 
   render() {
+    // console.log(this.props.dataMovie[0].movie_name);
     return (
       <>
         <div className="main__movie-selected">
           <header className="movie-selected__header">Movie Selected</header>
           <div className="movie-selected__option mt-4">
-            <div className="movie-selected-name">Spider-Man:Homecoming</div>
+            <div className="movie-selected-name">{this.props.dataMovie[0].movie_name}</div>
             <button className="btn-change-movie">Change movie</button>
           </div>
         </div>

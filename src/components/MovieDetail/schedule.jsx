@@ -42,9 +42,9 @@ class MovieDetailSchedule extends Component {
   render() {
     const { schedule } = this.state;
     //time schedule :
-    console.log(this.props.schedule[0]?.time_schedule);
+    // console.log(this.props.schedule[0]?.time_schedule);
     //schedule :
-    console.log(this.props.schedule);
+    // console.log(this.props.schedule);
 
     return (
       <>
@@ -110,7 +110,14 @@ class MovieDetailSchedule extends Component {
                       </div>
                       <div className="time-schedule-list d-flex justify-content-sm-start flex-wrap pt-4">
                         {item.time_schedule.map((time) => (
-                          <span key={time}>{time}</span>
+                          <span
+                            key={time}
+                            onClick={() => {
+                              this.props.handleSchedule(time, item.id_schedule, item.price);
+                            }}
+                          >
+                            {time}
+                          </span>
                         ))}
                       </div>
                       <div className="schedule-price d-flex justify-content-between pt-4">
@@ -118,7 +125,9 @@ class MovieDetailSchedule extends Component {
                         <div className="price-amount">{item.price} / seat</div>
                       </div>
                       <div className="booking-button pt-4">
-                        <button className="btn-booking">Book now</button>
+                        <button className="btn-booking" onClick={this.props.order}>
+                          Book now
+                        </button>
                       </div>
                     </div>
                   ))

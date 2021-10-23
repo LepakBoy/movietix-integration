@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import MovieDetailHeader from "../../components/MovieDetail/header";
 import MovieDetailSchedule from "../../components/MovieDetail/schedule";
 
+const dateNow = new Date().toISOString().split("T")[0];
 class MovieDetailPage extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,10 @@ class MovieDetailPage extends Component {
       id_movie: props.match.params.id,
       movieById: [],
       schedule: [],
-      dataOrder: {}
+      time_schedule: "",
+      id_schedule: 0,
+      date_booking: dateNow,
+      price: 0
     };
   }
 
@@ -49,11 +53,30 @@ class MovieDetailPage extends Component {
       });
   };
 
-  handleDataOrder = () => {
+  // functions to collect data order :
+  handleDataSchedule = (time, id, price) => {
     this.setState({
-      dataOrder: ""
+      time_schedule: time,
+      id_schedule: 0 + id,
+      price: 0 + price
     });
   };
+
+  handleOrder = () => {
+    const { id_movie, id_schedule, time_schedule, date_booking, movieById, price } = this.state;
+
+    this.props.history.push("/order", {
+      id_movie,
+      id_schedule,
+      time_schedule,
+      date_booking,
+      movieById,
+      price
+    });
+  };
+  // ##########################################
+  // KENDALA : JIKA JWT EXPIRED, MAKA TIDAK BISA GET DATA MOVIE BY ID
+  // ##########################################
 
   render() {
     // console.log("halaman detail " + this.state.id_movie);
@@ -61,11 +84,21 @@ class MovieDetailPage extends Component {
     // console.log(this.state.schedule);
     const { movieById } = this.state;
     // console.log(movieById[0]);
+    // console.log(movieById);
+    // console.log(this.state.time_schedule);
+    // console.log(this.state.id_schedule);
+    // console.log(this.state.date_booking);
+    // console.log(this.state.price);
     return (
       <>
         <Navbar />
         <MovieDetailHeader movieById={movieById[0]} />
-        <MovieDetailSchedule schedule={this.state.schedule} />
+        <MovieDetailSchedule
+          schedule={this.state.schedule}
+          handleSchedule={this.handleDataSchedule}
+          idSchedule={this.handleIdSchedule}
+          order={this.handleOrder}
+        />
         <Footer />
       </>
     );
