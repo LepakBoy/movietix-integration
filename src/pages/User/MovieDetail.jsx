@@ -12,7 +12,8 @@ class MovieDetailPage extends Component {
       //tangkap data id movie yang dilempar oleh halaman home: hanya bisa dilakukan oleh halaman penerimanya saja
       id_movie: props.match.params.id,
       movieById: [],
-      schedule: []
+      schedule: [],
+      dataOrder: {}
     };
   }
 
@@ -46,6 +47,12 @@ class MovieDetailPage extends Component {
       .catch((err) => {
         console.log(err.message);
       });
+  };
+
+  handleDataOrder = () => {
+    this.setState({
+      dataOrder: ""
+    });
   };
 
   render() {
