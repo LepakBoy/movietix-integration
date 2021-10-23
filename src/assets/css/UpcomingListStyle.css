@@ -51,8 +51,10 @@
   text-align: center;
   display: inline-block;
 }
-.upcoming-list__movie-card img {
+.movie-poster_upcoming {
   width: 160px;
+  height: 245px;
+  border-radius: 6px;
 }
 
 .movie-card__genre {
@@ -95,9 +97,5 @@
   }
   .upcoming-list__movie-card img {
     width: 100%;
-  }
-  .showing-list__movie--banner img {
-    width: 125px;
-    height: 200px;
   }
 }

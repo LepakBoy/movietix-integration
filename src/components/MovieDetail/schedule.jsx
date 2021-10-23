@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "../../Utils/axios";
 import { Link, withRouter } from "react-router-dom";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle";
@@ -9,12 +10,37 @@ import hiflix from "../../assets/logo/hiflix.png";
 import cineone from "../../assets/logo/cineone.png";
 
 class MovieDetailSchedule extends Component {
-  constructor() {
-    super();
-    this.state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      // schedule: []
+    };
   }
 
+  // componentDidMount() {
+  //   this.setState({
+  //     schedule: this.props.schedule
+  //   });
+  // }
+
+  // handleSchedule = () => {
+  //   axios
+  //     .get(`schedule/all?movie_id=${this.state.id_movie}`)
+  //     .then((res) => {
+  //       // console.log(res);
+  //       this.setState({
+  //         schedule: res.data.data
+  //       });
+  //     })
+  //     .catch();
+  // };
+
   render() {
+    const { schedule } = this.state;
+    //time schedule :
+    // console.log(schedule[0]?.time_schedule);
+    //schedule :
+    console.log(this.props.schedule);
     return (
       <>
         <section className="showtimes">
@@ -60,6 +86,96 @@ class MovieDetailSchedule extends Component {
             </div>
             <div className="showtime-schedules py-5 my-5">
               <div className="row d-flex justify-content-evenly text-center">
+                {this.props.schedule.map((item) => {
+                  <div className="schedule-1 schedule-list p-4 mx-2" key={item.id_schedule}>
+                    <div className="header d-flex justify-content-md-between">
+                      <div className="logo pe-4">
+                        <img src={ebv} alt="" />
+                      </div>
+                      <div className="cinema-detail">
+                        <div className="cinema-detail__name text-start pb-1">ebv.id</div>
+                        <div className="cinema-detail__address text-start">
+                          Whatever street No.12, South Purwokerto
+                        </div>
+                      </div>
+                    </div>
+                    <div className="time-schedule-list d-flex justify-content-sm-start flex-wrap pt-4">
+                      <span>08.30am</span>
+                      <span>10.30pm</span>
+                      <span>12.00pm</span>
+                      <span>02.00pm</span>
+                      <span>04.30pm</span>
+                      <span>07.00pm</span>
+                      <span>08.30pm</span>
+                    </div>
+                    <div className="schedule-price d-flex justify-content-between pt-4">
+                      <div className="price-title">Price</div>
+                      <div className="price-amount">Rp. 40.000/seat</div>
+                    </div>
+                    <div className="booking-button pt-4">
+                      <button className="btn-booking">Book now</button>
+                    </div>
+                  </div>;
+                })}
+
+                {/* <div className="schedule-1 schedule-list p-4 mx-2">
+                  <div className="header d-flex justify-content-md-between">
+                    <div className="logo pe-4">
+                      <img src={cineone} alt="" />
+                    </div>
+                    <div className="cinema-detail">
+                      <div className="cinema-detail__name text-start pb-1">CineOne21</div>
+                      <div className="cinema-detail__address text-start">
+                        Whatever street No.12, South Purwokerto
+                      </div>
+                    </div>
+                  </div>
+                  <div className="time-schedule-list d-flex justify-content-sm-start flex-wrap pt-4">
+                    <span>08.30am</span>
+                    <span>10.30pm</span>
+                    <span>12.00pm</span>
+                    <span>02.00pm</span>
+                    <span>04.30pm</span>
+                    <span>07.00pm</span>
+                    <span>08.30pm</span>
+                  </div>
+                  <div className="schedule-price d-flex justify-content-between pt-4">
+                    <div className="price-title">Price</div>
+                    <div className="price-amount">Rp. 40.000/seat</div>
+                  </div>
+                  <div className="booking-button pt-4">
+                    <button className="btn-booking">Book now</button>
+                  </div>
+                </div>
+                <div className="schedule-1 schedule-list p-4 mx-2">
+                  <div className="header d-flex justify-content-md-between">
+                    <div className="logo pe-4">
+                      <img src={hiflix} alt="" />
+                    </div>
+                    <div className="cinema-detail">
+                      <div className="cinema-detail__name text-start pb-1">hiflix</div>
+                      <div className="cinema-detail__address text-start">
+                        Whatever street No.12, South Purwokerto
+                      </div>
+                    </div>
+                  </div>
+                  <div className="time-schedule-list d-flex justify-content-sm-start flex-wrap pt-4">
+                    <span>08.30am</span>
+                    <span>10.30pm</span>
+                    <span>12.00pm</span>
+                    <span>02.00pm</span>
+                    <span>04.30pm</span>
+                    <span>07.00pm</span>
+                    <span>08.30pm</span>
+                  </div>
+                  <div className="schedule-price d-flex justify-content-between pt-4">
+                    <div className="price-title">Price</div>
+                    <div className="price-amount">Rp. 40.000/seat</div>
+                  </div>
+                  <div className="booking-button pt-4">
+                    <button className="btn-booking">Book now</button>
+                  </div>
+                </div>
                 <div className="schedule-1 schedule-list p-4 mx-2">
                   <div className="header d-flex justify-content-md-between">
                     <div className="logo pe-4">
@@ -146,94 +262,7 @@ class MovieDetailSchedule extends Component {
                   <div className="booking-button pt-4">
                     <button className="btn-booking">Book now</button>
                   </div>
-                </div>
-                <div className="schedule-1 schedule-list p-4 mx-2">
-                  <div className="header d-flex justify-content-md-between">
-                    <div className="logo pe-4">
-                      <img src={ebv} alt="" />
-                    </div>
-                    <div className="cinema-detail">
-                      <div className="cinema-detail__name text-start pb-1">ebv.id</div>
-                      <div className="cinema-detail__address text-start">
-                        Whatever street No.12, South Purwokerto
-                      </div>
-                    </div>
-                  </div>
-                  <div className="time-schedule-list d-flex justify-content-sm-start flex-wrap pt-4">
-                    <span>08.30am</span>
-                    <span>10.30pm</span>
-                    <span>12.00pm</span>
-                    <span>02.00pm</span>
-                    <span>04.30pm</span>
-                    <span>07.00pm</span>
-                    <span>08.30pm</span>
-                  </div>
-                  <div className="schedule-price d-flex justify-content-between pt-4">
-                    <div className="price-title">Price</div>
-                    <div className="price-amount">Rp. 40.000/seat</div>
-                  </div>
-                  <div className="booking-button pt-4">
-                    <button className="btn-booking">Book now</button>
-                  </div>
-                </div>
-                <div className="schedule-1 schedule-list p-4 mx-2">
-                  <div className="header d-flex justify-content-md-between">
-                    <div className="logo pe-4">
-                      <img src={cineone} alt="" />
-                    </div>
-                    <div className="cinema-detail">
-                      <div className="cinema-detail__name text-start pb-1">CineOne21</div>
-                      <div className="cinema-detail__address text-start">
-                        Whatever street No.12, South Purwokerto
-                      </div>
-                    </div>
-                  </div>
-                  <div className="time-schedule-list d-flex justify-content-sm-start flex-wrap pt-4">
-                    <span>08.30am</span>
-                    <span>10.30pm</span>
-                    <span>12.00pm</span>
-                    <span>02.00pm</span>
-                    <span>04.30pm</span>
-                    <span>07.00pm</span>
-                    <span>08.30pm</span>
-                  </div>
-                  <div className="schedule-price d-flex justify-content-between pt-4">
-                    <div className="price-title">Price</div>
-                    <div className="price-amount">Rp. 40.000/seat</div>
-                  </div>
-                  <div className="booking-button pt-4">
-                    <button className="btn-booking">Book now</button>
-                  </div>
-                </div>
-                <div className="schedule-1 schedule-list p-4 mx-2">
-                  <div className="header d-flex justify-content-md-between">
-                    <div className="logo pe-4">
-                      <img src={hiflix} alt="" />
-                    </div>
-                    <div className="cinema-detail">
-                      <div className="cinema-detail__name text-start pb-1">hiflix</div>
-                      <div className="cinema-detail__address text-start">
-                        Whatever street No.12, South Purwokerto
-                      </div>
-                    </div>
-                  </div>
-                  <div className="time-schedule-list d-flex justify-content-sm-start flex-wrap pt-4">
-                    <span>08.30am</span>
-                    <span>10.30pm</span>
-                    <span>12.00pm</span>
-                    <span>02.00pm</span>
-                    <span>04.30pm</span>
-                    <span>07.00pm</span>
-                    <span>08.30pm</span>
-                  </div>
-                  <div className="schedule-price d-flex justify-content-between pt-4">
-                    <div className="price-title">Price</div>
-                    <div className="price-amount">Rp. 40.000/seat</div>
-                  </div>
-                  <div className="booking-button pt-4">
-                    <button className="btn-booking">Book now</button>
-                  </div>
-                </div>
+                </div> */}
               </div>
               <div className="view-more text-center pt-5 my-5">
                 <span>View more</span>

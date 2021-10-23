@@ -1,0 +1,45 @@
+.payment-info__detail {
+  background-color: #ffffff;
+  border-radius: 6px;
+}
+.payment-info--list {
+  border-bottom: 1px solid #e6e6e6;
+}
+.info-header {
+  font-size: 22px;
+  font-weight: 700;
+  color: #14142b;
+}
+.property {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6b6b6b;
+}
+.value {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+}
+.price {
+  font-size: 22px;
+  font-weight: 600;
+  border-bottom: none !important;
+}
+
+@media (max-width: 576px) {
+  .payment-info--list {
+    display: none !important;
+  }
+  .price .property {
+    font-size: 18px;
+  }
+  .foot {
+    width: 100%;
+  }
+}
+
+@media (max-width: 356px) {
+  .price .property {
+    font-size: 14px;
+  }
+}

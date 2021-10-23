@@ -13,7 +13,9 @@
   align-items: flex-start;
 }
 .movie-detail__img {
-  padding: 32px;
+  width: 227px;
+  height: 312px;
+  padding: 28px;
   border-radius: 16px;
   border: 2px solid #dedede;
 }
