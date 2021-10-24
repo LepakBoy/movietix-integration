@@ -60,7 +60,10 @@ class PaymentMethod extends Component {
         </section>
         <div className="button-payment-group d-flex py-4 justify-content-between">
           <button className="btn-payment btn-back-step flex-grow-1 me-5">Prvious step</button>
-          <button className="btn-payment btn-confirm-payment flex-grow-1 ms-5">
+          <button
+            className="btn-payment btn-confirm-payment flex-grow-1 ms-5"
+            onClick={this.props.payOrder}
+          >
             Pay your order
           </button>
         </div>

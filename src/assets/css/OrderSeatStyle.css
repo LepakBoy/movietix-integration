@@ -5,13 +5,59 @@
 }
 .seat-selector {
   width: 100%;
-  height: 600px;
+  /* height: 600px; */
+  padding: 16px 0;
   background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: 12px;
   border-radius: 6px;
+}
+.card {
+  justify-content: center;
+}
+
+.card-body {
+  width: 90% !important;
+}
+.card-body {
+  padding: 12px !important;
+}
+.col {
+  padding: 6px 6px !important;
+}
+
+.seat__list {
+  padding: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 25%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* .seat__list:hover {
+  width: 25px;
+  height: 25px;
+} */
+.row__seat {
+  flex-wrap: nowrap !important;
+}
+.seat__list--available {
+  background-color: antiquewhite;
+}
+.seat__list--selected {
+  background-color: rgb(94, 84, 72);
+  color: #f7f7fc;
+}
+.seat__list--sold {
+  background-color: #5f2eea;
+  color: #ffffff;
+}
+.col__separator {
+  width: 28px;
 }
 .button-group {
   display: flex;
@@ -41,5 +87,12 @@
     width: 48%;
     /* height: 48px; */
     font-size: 12px;
+  }
+  .seat__list,
+  .col__seat {
+    padding: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 20%;
   }
 }

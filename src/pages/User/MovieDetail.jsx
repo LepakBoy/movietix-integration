@@ -17,7 +17,8 @@ class MovieDetailPage extends Component {
       time_schedule: "",
       id_schedule: 0,
       date_booking: dateNow,
-      price: 0
+      price: 0,
+      teater_name: ""
     };
   }
 
@@ -54,16 +55,23 @@ class MovieDetailPage extends Component {
   };
 
   // functions to collect data order :
-  handleDataSchedule = (time, id, price) => {
+  handleDataSchedule = (time, id, price, teater) => {
     this.setState({
       time_schedule: time,
       id_schedule: 0 + id,
-      price: 0 + price
+      price: 0 + price,
+      teater_name: teater
     });
   };
 
   handleOrder = () => {
-    const { id_movie, id_schedule, time_schedule, date_booking, movieById, price } = this.state;
+    const { id_movie, id_schedule, time_schedule, date_booking, movieById, price, teater_name } =
+      this.state;
+
+    if (!time_schedule) {
+      alert("select time");
+      return;
+    }
 
     this.props.history.push("/order", {
       id_movie,
@@ -71,24 +79,24 @@ class MovieDetailPage extends Component {
       time_schedule,
       date_booking,
       movieById,
-      price
+      price,
+      teater_name
     });
   };
+
+  handleChangeDate = (event) => {
+    this.setState({
+      date_booking: event.target.value
+    });
+  };
+
   // ##########################################
   // KENDALA : JIKA JWT EXPIRED, MAKA TIDAK BISA GET DATA MOVIE BY ID
   // ##########################################
 
   render() {
-    // console.log("halaman detail " + this.state.id_movie);
-    // console.log(this.state.movieById);
-    // console.log(this.state.schedule);
     const { movieById } = this.state;
-    // console.log(movieById[0]);
-    // console.log(movieById);
-    // console.log(this.state.time_schedule);
-    // console.log(this.state.id_schedule);
-    // console.log(this.state.date_booking);
-    // console.log(this.state.price);
+
     return (
       <>
         <Navbar />
@@ -98,6 +106,8 @@ class MovieDetailPage extends Component {
           handleSchedule={this.handleDataSchedule}
           idSchedule={this.handleIdSchedule}
           order={this.handleOrder}
+          date={this.state.date_booking}
+          changeDate={this.handleChangeDate}
         />
         <Footer />
       </>

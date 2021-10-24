@@ -11,6 +11,11 @@ class OrderInfo extends Component {
   }
 
   render() {
+    const { totalTicket, price, selectedSeat, dateBooking, time_schedule } = this.props;
+    console.log();
+    // let seatChoosed = selectedSeat.split(",");
+    console.log(selectedSeat);
+    // let seatChoosed = selectedSeat.split("");
     return (
       <>
         <div className="main__order-info">
@@ -21,7 +26,7 @@ class OrderInfo extends Component {
                 <img src={TeaterLogo} alt="teater logo" />
               </div>
               <div className="teater-name pt-2">
-                <span>CineOne21 Cinema</span>
+                <span>{this.props.teater_name}</span>
               </div>
             </header>
             <div className="order-info__detail pt-3 px-3">
@@ -30,8 +35,8 @@ class OrderInfo extends Component {
                 <div className="movie-value value">{this.props.dataMovie[0].movie_name}</div>
               </div>
               <div className="order-info__moviedule d-flex justify-content-between pt-2">
-                <div className="date-property property">Tuesday, 07 July 2021</div>
-                <div className="time-property value">{this.props.time_schedule}</div>
+                <div className="date-property property">{dateBooking}</div>
+                <div className="time-property value">{time_schedule}</div>
               </div>
               <div className="order-info__moviee d-flex justify-content-between pt-2">
                 <div className="price-property property">One ticket price</div>
@@ -39,12 +44,12 @@ class OrderInfo extends Component {
               </div>
               <div className="order-info__movie d-flex justify-content-between pt-2">
                 <div className="seat-property property">Seat choosed</div>
-                <div className="seat-value value">C4, C5, C6</div>
+                <div className="seat-value value">{selectedSeat}</div>
               </div>
             </div>
             <div className="total-price d-flex justify-content-between px-3 pt-5 pb-4">
               <div className="total-price__property">Total Payment</div>
-              <div className="total-price__value">Rp. 120,000</div>
+              <div className="total-price__value">{`Rp. ${totalTicket * price}`}</div>
             </div>
           </div>
         </div>

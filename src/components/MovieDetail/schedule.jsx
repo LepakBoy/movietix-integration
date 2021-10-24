@@ -21,26 +21,8 @@ class MovieDetailSchedule extends Component {
   // KENDALA : PROPS TIDAK BISA DI SET KE STATE, JIKA DI SETSTATE MAKA PROPS TIDAK BISA DI PANGGIL DI DALAM RENDER
   // ##########################################
 
-  // componentDidMount() {
-  //   this.setState({
-  //     schedule: this.props.schedule
-  //   });
-  // }
-
-  // handleSchedule = () => {
-  //   axios
-  //     .get(`schedule/all?movie_id=${this.state.id_movie}`)
-  //     .then((res) => {
-  //       // console.log(res);
-  //       this.setState({
-  //         schedule: res.data.data
-  //       });
-  //     })
-  //     .catch();
-  // };
-
   render() {
-    const { schedule } = this.state;
+    // const { schedule } = this.state;
     //time schedule :
     // console.log(this.props.schedule[0]?.time_schedule);
     //schedule :
@@ -55,7 +37,12 @@ class MovieDetailSchedule extends Component {
               <div className="row filter d-flex justify-content-center">
                 <div className="showtime__filter d-flex pt-5 justify-content-md-evenly col-md-6">
                   <div className="picker date-picker">
-                    <input type="date" className="date-picker__filter" />
+                    <input
+                      type="date"
+                      value={this.props.date}
+                      onChange={this.props.changeDate}
+                      className="date-picker__filter"
+                    />
                   </div>
                   <div className="dropdown picker location-picker">
                     <button
@@ -113,7 +100,12 @@ class MovieDetailSchedule extends Component {
                           <span
                             key={time}
                             onClick={() => {
-                              this.props.handleSchedule(time, item.id_schedule, item.price);
+                              this.props.handleSchedule(
+                                time,
+                                item.id_schedule,
+                                item.price,
+                                item.teater_name
+                              );
                             }}
                           >
                             {time}
