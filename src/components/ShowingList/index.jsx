@@ -20,7 +20,7 @@ class ShowingList extends Component {
 
   getDataMovie = () => {
     axios
-      .get("movie/all?page=1&limit=8")
+      .get("movie/all?order=id_movie")
       .then((res) => {
         this.setState({
           data: res.data.data
@@ -60,28 +60,6 @@ class ShowingList extends Component {
                   </div>
                 </div>
               ))}
-
-              {/* <div className="showing-list__movie--banner">
-                <img src={mv2} className="movie-poster" alt="movie 2" />
-              </div>
-              <div className="showing-list__movie--banner">
-                <img src={mv3} className="movie-poster" alt="movie 3" />
-              </div>
-              <div className="showing-list__movie--banner">
-                <img src={mv1} className="movie-poster" alt="movie 1" />
-              </div>
-              <div className="showing-list__movie--banner">
-                <img src={mv2} className="movie-poster" alt="movie 2" />
-              </div>
-              <div className="showing-list__movie--banner">
-                <img src={mv3} className="movie-poster" alt="movie 3" />
-              </div>
-              <div className="showing-list__movie--banner">
-                <img src={mv2} className="movie-poster" alt="movie 2" />
-              </div>
-              <div className="showing-list__movie--banner">
-                <img src={mv3} className="movie-poster" alt="movie 3" />
-              </div> */}
             </div>
           </div>
         </section>

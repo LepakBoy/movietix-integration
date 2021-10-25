@@ -46,9 +46,7 @@ class OrderSeat extends Component {
                               : "seat__list--available"
                           }  seat__list--available`}
                           onClick={() => {
-                            reserved.includes(`${rowSeat[index]}${itemLeft}`)
-                              ? null
-                              : selectSeat(`${rowSeat[index]}${itemLeft}`);
+                            selectSeat(`${rowSeat[index]}${itemLeft}`);
                           }}
                         ></div>
                       </div>

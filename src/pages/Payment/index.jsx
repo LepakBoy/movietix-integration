@@ -14,6 +14,7 @@ class Payment extends Component {
     super(props);
     this.state = {
       id_movie: props.location.state.id_movie,
+      id_schedule: props.location.state.id_schedule,
       date_booking: props.location.state.date_booking,
       totalTicket: props.location.state.totalTicket,
       movieName: props.location.state.movieName,
@@ -24,16 +25,27 @@ class Payment extends Component {
     };
   }
 
-  handlePayOrder = () => {
-    const { id_movie, id_schedule, date_booking, timeSchedule, selectedSeat } = this.state;
-    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // console.log(id_movie + "cek out button");
-    // axios.post().then().catch();
+  postBooking = () => {
+    const { date_booking, timeSchedule, id_movie, id_schedule, seat } = this.state;
+    axios
+      .post("/booking", {
+        date_booking: date_booking,
+        time_booking: timeSchedule,
+        id_movie: id_movie,
+        id_schedule: id_schedule,
+        seat: seat
+      })
+      .then((res) => {
+        console.log(res);
+        alert("booking success");
+        this.props.history.push("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   render() {
-    console.log(this.state);
     return (
       <>
         <Navbar />
@@ -42,7 +54,7 @@ class Payment extends Component {
             <div className="row payment py-5">
               <section className="col-lg-7 payment-info">
                 <PaymentInfo dataBooking={this.state} />
-                <PaymentMethod payOrder={this.handlePayOrder} />
+                <PaymentMethod postBooking={this.postBooking} />
               </section>
               <section className="col-lg-5 personal-info">
                 <PersonalInfo />

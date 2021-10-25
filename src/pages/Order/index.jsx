@@ -7,7 +7,7 @@ import "../../assets/css/OrderStyle.css";
 import MovieSelected from "../../components/Order/movieSelected";
 import OrderInfo from "../../components/Order/orderInfo";
 import OrderSeat from "../../components/Order/seatOrder";
-import axios from "axios";
+import axios from "../../Utils/axios";
 
 class Order extends Component {
   constructor(props) {
@@ -21,18 +21,32 @@ class Order extends Component {
       price: props.location.state.price,
       teater: props.location.state.teater_name,
       selectedSeat: [],
-      reservedSeat: ["A1", "C4"],
-      totalTicket: 0
+      reservedSeat: []
     };
   }
 
   componentDidMount() {
     this.getSelectedSeat();
   }
-  // +++++++++++++++++++++++ ADD FUNCTION GET SEATBOOKING TO SET SELECTED SEAT +++++
+
   getSelectedSeat = () => {
     const { id_movie, id_schedule, time_schedule, date_booking } = this.state;
-    // axios.get().then().catch();
+    axios
+      .get(
+        `seat/?id_schedule=${id_schedule}&id_movie=${id_movie}&date_booking=${date_booking}&time_booking=${time_schedule}`
+      )
+      .then((res) => {
+        const reservedSeat = res.data.data.map((item) => {
+          return item.seat.toUpperCase();
+        });
+
+        this.setState({
+          reservedSeat: reservedSeat
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   selectedSeat = (seat) => {
@@ -45,15 +59,13 @@ class Order extends Component {
         selectedSeat: deleteSeat
       });
     } else {
-      this.setState({
-        //tambah data kursi setiap kali user klik kursi
-        selectedSeat: [...this.state.selectedSeat, seat]
-      });
+      if (!this.state.reservedSeat.includes(seat)) {
+        this.setState({
+          //tambah data kursi setiap kali user klik kursi
+          selectedSeat: [...this.state.selectedSeat, seat]
+        });
+      }
     }
-
-    this.setState({
-      totalTicket: 1 + this.state.selectedSeat.length
-    });
   };
 
   handleBook = () => {
@@ -61,17 +73,10 @@ class Order extends Component {
       alert("chose seat");
       return;
     }
-    const {
-      id_movie,
-      id_schedule,
-      date_booking,
-      totalTicket,
-      teater,
-      time_schedule,
-      selectedSeat
-    } = this.state;
+    const { id_movie, id_schedule, date_booking, teater, time_schedule, selectedSeat } = this.state;
     const movieName = this.state.movieById[0].movie_name;
-    const totalAmount = this.state.totalTicket * this.state.price;
+    const totalTicket = this.state.selectedSeat.length;
+    const totalAmount = totalTicket * this.state.price;
 
     this.props.history.push("/payment", {
       id_movie,
@@ -84,44 +89,9 @@ class Order extends Component {
       time_schedule,
       selectedSeat
     });
-    // console.log(date_booking + "handleBook");
-    // console.log(totalTicket + "handleBook");
-    // console.log(movieName + "handleBook");
-    // console.log(teater + "handleBook");
-    // console.log(totalAmount + "handleBook");
   };
 
-  // KENDALA : TAMBAH NAMA HARI DI DATEBOOKING
   render() {
-    // console.log(this.state.date_booking);
-    // console.log(this.state);
-    // console.log(this.state.totalTicket);
-    // console.log(this.state.date_booking);
-    // console.log(this.state.date_booking);
-    // console.log(this.state.movieById[0].movie_name);
-    // console.log(this.state.time_schedule + " order page");
-    // console.log(this.state.selectedSeat);
-    let { date_booking } = this.state;
-    let dateBooking = date_booking.split("-").reverse();
-    const month = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ];
-
-    dateBooking[1] = month[dateBooking[1] - 1];
-    let dateBook = dateBooking.join(" ");
-    // console.log(dateBook);
-
     return (
       <>
         <Navbar />
@@ -143,8 +113,7 @@ class Order extends Component {
                   time_schedule={this.state.time_schedule}
                   price={this.state.price}
                   teater_name={this.state.teater}
-                  dateBooking={dateBook}
-                  totalTicket={this.state.totalTicket}
+                  dateBooking={this.state.date_booking}
                   selectedSeat={this.state.selectedSeat}
                 />
               </div>

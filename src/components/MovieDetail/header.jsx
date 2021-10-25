@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import axios from "../../Utils/axios";
-import { Link, withRouter } from "react-router-dom";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import "../../assets/css/MovieDetailHeaderStyle.css";
-import mv5 from "../../assets/img/mv5.jpg";
+import moment from "moment";
 
 class MovieDetailHeader extends Component {
   constructor() {
@@ -13,6 +11,8 @@ class MovieDetailHeader extends Component {
   }
 
   render() {
+    const dateFormat = moment(this.props.movieById?.releaseDate).format("MMM Do YYYY");
+
     return (
       <>
         <section className="movie-detail pb-3 mb-5" key={this.props.movieById?.id_movie}>
@@ -40,7 +40,7 @@ class MovieDetailHeader extends Component {
                   <div className="row">
                     <div className="col-md-3 p-0 pt-5 schedule">
                       <span>Release Date</span>
-                      <div className="date d-block">{this.props.movieById?.releaseDate}</div>
+                      <div className="date d-block">{dateFormat}</div>
                       <div className="duration pt-4">Duration</div>
                       <div className="duration-time d-block">{this.props.movieById?.duration}</div>
                     </div>

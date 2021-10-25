@@ -7,6 +7,7 @@ import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import { Search } from "react-bootstrap-icons";
 import "../../assets/css/NavbarStyle.css";
 import menu from "../../assets/logo/menu-toggler.png";
+import photo from "../../assets/img/photo.png";
 
 class Navbar extends Component {
   constructor(props) {
@@ -21,6 +22,9 @@ class Navbar extends Component {
   };
 
   render() {
+    // console.log(localStorage.getItem("token"));
+    const token = localStorage.getItem("token");
+
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,12 +52,12 @@ class Navbar extends Component {
                   />
                 </li>
                 <li className="nav-item">
-                  <Link to="/home" className="nav-link mx-3 ms-5" aria-current="page">
+                  <Link to="/" className="nav-link mx-3 ms-5" aria-current="page">
                     Home
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/basic-react" className="nav-link mx-3" aria-current="page">
+                  <Link to="/payment" className="nav-link mx-3" aria-current="page">
                     Payment
                   </Link>
                 </li>
@@ -99,14 +103,13 @@ class Navbar extends Component {
                 </li>
                 <Search className="BsSearch" />
                 <i className="BsSearch nav-search nav-item"></i>
-                <button
-                  onClick={this.toLogin}
-                  className="btn btn-sign-up-navbar"
-                  id="btn-sign-up-navbar"
-                  type="submit"
-                >
-                  Sign up
-                </button>
+                {token ? (
+                  <img src={photo} alt="photo" className="user-photo nav-search nav-item" />
+                ) : (
+                  <button className="btn btn-sign-up-navbar" id="btn-sign-up-navbar" type="submit">
+                    <Link to="/login"> Sign up </Link>
+                  </button>
+                )}
               </form>
               <li className="nav-item footer-nav-mobile">
                 <a className="nav-link mx-3" href="#">

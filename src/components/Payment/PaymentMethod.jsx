@@ -18,6 +18,8 @@ class PaymentMethod extends Component {
     this.state = {};
   }
 
+  click = (event) => {};
+
   render() {
     return (
       <>
@@ -26,7 +28,7 @@ class PaymentMethod extends Component {
           <div className="payment-method__option px-4 py-3">
             <div className="group-button pt-3 d-flex flex-wrap justify-content-around">
               <div className="method-payment__button g-pay d-flex mb-3 justify-content-center align-items-center">
-                <img src={GPAY} alt="gpay" />
+                <img src={GPAY} alt="gpay" onClick={this.click} />
               </div>
               <div className="method-payment__button g-pay d-flex mb-3 justify-content-center align-items-center">
                 <img src={VISA} alt="visa" />
@@ -62,7 +64,7 @@ class PaymentMethod extends Component {
           <button className="btn-payment btn-back-step flex-grow-1 me-5">Prvious step</button>
           <button
             className="btn-payment btn-confirm-payment flex-grow-1 ms-5"
-            onClick={this.props.payOrder}
+            onClick={this.props.postBooking}
           >
             Pay your order
           </button>

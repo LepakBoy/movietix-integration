@@ -10,28 +10,8 @@ import axios from "../Utils/axios";
 class HomePage extends Component {
   constructor() {
     super();
-    this.state = {
-      // data: []
-    };
+    this.state = {};
   }
-
-  // KENDALA : MENCOBA JALANIN AXIOS DI HALAMAAN PARENT DAN LEMPAR DATA KE CHILD
-  // componentDidMount() {
-  //   this.getDataMovie();
-  // }
-
-  // getDataMovie = () => {
-  //   axios
-  //     .get("movie/all?page=1&limit=8")
-  //     .then((res) => {
-  //       this.setState({
-  //         data: res.data.data
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // };
 
   handleMovieDetail = (data) => {
     //lempar data id dan id hanya bisa diterima oleh halaman tujuan

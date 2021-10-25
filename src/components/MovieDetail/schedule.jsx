@@ -17,17 +17,7 @@ class MovieDetailSchedule extends Component {
     };
   }
 
-  // ##########################################
-  // KENDALA : PROPS TIDAK BISA DI SET KE STATE, JIKA DI SETSTATE MAKA PROPS TIDAK BISA DI PANGGIL DI DALAM RENDER
-  // ##########################################
-
   render() {
-    // const { schedule } = this.state;
-    //time schedule :
-    // console.log(this.props.schedule[0]?.time_schedule);
-    //schedule :
-    // console.log(this.props.schedule);
-
     return (
       <>
         <section className="showtimes">
@@ -56,6 +46,8 @@ class MovieDetailSchedule extends Component {
                       <span className="location-selected">Location</span>
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      {/* looping by data public AP https://farizdotid.com/blog/dokumentasi-api-daerah-indonesia/
+I */}
                       <li>
                         <a className="dropdown-item" href="#">
                           Action
@@ -83,7 +75,16 @@ class MovieDetailSchedule extends Component {
                     <div className="schedule-1 schedule-list p-4 mx-2" key={item.id_schedule}>
                       <div className="header d-flex justify-content-md-between">
                         <div className="logo pe-4">
-                          <img src={ebv} alt="" />
+                          <img
+                            src={
+                              item.teater_name === "ebu.id"
+                                ? ebv
+                                : item.teater_name === "hiflix"
+                                ? hiflix
+                                : cineone
+                            }
+                            alt="logo"
+                          />
                         </div>
                         <div className="cinema-detail">
                           <div className="cinema-detail__name text-start pb-1">
