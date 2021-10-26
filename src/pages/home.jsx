@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import Jumbotron from "../components/Jumbotron";
 import Subscribe from "../components/Subscribe";
 import UpcomingList from "../components/UpcomingList";
-import axios from "../Utils/axios";
 
 class HomePage extends Component {
   constructor() {

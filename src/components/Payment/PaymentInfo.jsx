@@ -14,7 +14,8 @@ class PaymentInfo extends Component {
   render() {
     const { date_booking, timeSchedule, totalTicket, movieName, teater, totalAmount } =
       this.props.dataBooking;
-    const dateFormat = moment(date_booking).format("MMM Do YYYY");
+    const dateFormat = moment(date_booking).format("ddd, MMM Do YYYY");
+
     return (
       <>
         <div className="payment-info__header info-header pb-3">Payment Info</div>

@@ -14,10 +14,18 @@ class MovieDetailSchedule extends Component {
     super(props);
     this.state = {
       schedule: this.props.schedule
+      // time: ""
     };
   }
 
+  // setTime = (time) => {
+  //   this.setState({
+  //     time: time
+  //   });
+  // };
+
   render() {
+    // console.log(this.state.time);
     return (
       <>
         <section className="showtimes">

@@ -17,7 +17,9 @@ class OrderMovieSelected extends Component {
           <div className="movie-selected__option mt-4">
             <div className="movie-selected-name"> {this.props.dataMovie[0].movie_name}</div>
             <button className="btn-change-movie">
-              <Link to="/">Change movie</Link>
+              <Link to="/" style={{ textDecoration: "none", color: "#5f2eea" }}>
+                Change movie
+              </Link>
             </button>
           </div>
         </div>

@@ -17,15 +17,18 @@
 .card {
   justify-content: center;
 }
-
-.card-body {
-  width: 90% !important;
+.alphabet {
+  width: 28px;
+}
+.card {
+  /* width: 90% !important; */
+  border: none;
 }
 .card-body {
   padding: 12px !important;
 }
 .col {
-  padding: 6px 6px !important;
+  padding: 4px !important;
 }
 
 .seat__list {
@@ -42,8 +45,24 @@
   width: 25px;
   height: 25px;
 } */
+.screen {
+  padding: 32px 0 12px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #4e4b66;
+  font-weight: 600;
+}
+.screen-layout {
+  background-color: #9570fe;
+  width: 95%;
+  height: 6px;
+  margin: 12px auto;
+  border-radius: 12px;
+}
 .row__seat {
   flex-wrap: nowrap !important;
+  justify-content: center;
+  text-align: center;
 }
 .seat__list--available {
   background-color: #d6d8e7;
@@ -57,7 +76,7 @@
   color: #ffffff;
 }
 .col__separator {
-  width: 28px;
+  width: 48px;
 }
 .button-group {
   display: flex;
@@ -81,6 +100,11 @@
   border: 2px solid #5f2eea;
   color: #5f2eea;
 }
+@media (max-width: 768px) {
+  .movie-selected-name {
+    font-size: 16px;
+  }
+}
 @media (max-width: 576px) {
   .seat__btn-change-movie,
   .seat__btn-change-chekout {
@@ -88,11 +112,26 @@
     /* height: 48px; */
     font-size: 12px;
   }
+  .btn-change-movie a {
+    font-size: 12px;
+  }
+  .button-group {
+    padding: 0 !important;
+    flex-direction: column;
+  }
+  .seat__btn-change-chekout,
+  .seat__btn-change-movie {
+    width: 100%;
+    margin: 4px 0;
+  }
   .seat__list,
   .col__seat {
     padding: 4px;
     width: 16px;
     height: 16px;
     border-radius: 20%;
+  }
+  .movie-selected-name {
+    font-size: 14px;
   }
 }

@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import "../../assets/css/OrderInfoStyle.css";
-import TeaterLogo from "../../assets/logo/cineone.png";
+import cineone from "../../assets/logo/cineone.png";
+import hiflix from "../../assets/logo/hiflix.png";
+import ebv from "../../assets/logo/ebv.png";
 import moment from "moment";
 
 class OrderInfo extends Component {
@@ -12,7 +14,7 @@ class OrderInfo extends Component {
   }
 
   render() {
-    const { price, selectedSeat, dateBooking, time_schedule } = this.props;
+    const { price, selectedSeat, dateBooking, time_schedule, teater_name } = this.props;
     const totalTicket = selectedSeat.length;
     const totalAmount = totalTicket * price;
     const dateFormat = moment(dateBooking).format("ddd, MMM Do YYYY");
@@ -25,10 +27,13 @@ class OrderInfo extends Component {
           <div className="order-info mt-4">
             <header className="order-info__header">
               <div className="teater-logo pt-4">
-                <img src={TeaterLogo} alt="teater logo" />
+                <img
+                  src={teater_name === "hiflix" ? hiflix : teater_name === "ebu.id" ? ebv : cineone}
+                  alt="teater logo"
+                />
               </div>
               <div className="teater-name pt-2">
-                <span>{this.props.teater_name}</span>
+                <span>{teater_name}</span>
               </div>
             </header>
             <div className="order-info__detail pt-3 px-3">

@@ -19,6 +19,10 @@
   width: 40%;
 }
 .teater-logo img {
+  height: 32px;
+  width: 124px;
+}
+.teater-logo img {
   width: 100%;
 }
 .teater-name {
@@ -45,4 +49,14 @@
   font-size: 24px;
   font-weight: 700;
   color: #5f2eea;
+}
+.seat-property,
+.seat-value,
+.movie-value,
+.movie-property {
+  flex: 1;
+}
+.seat-value,
+.movie-value {
+  text-align: right;
 }

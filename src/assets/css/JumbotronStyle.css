@@ -39,3 +39,8 @@
   height: 480px;
   width: 440px;
 }
+@media (max-width: 992px) {
+  .jumbotron {
+    flex-direction: column;
+  }
+}

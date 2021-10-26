@@ -13,14 +13,6 @@ class OrderSeat extends Component {
     };
   }
 
-  componentDidMount() {
-    this.setAlphabhetSeat();
-  }
-  setAlphabhetSeat = (row, col) => {
-    // this.setState({});
-    // console.log(row, col);
-  };
-
   render() {
     const rowSeat = this.state.listSeat;
     const { leftSideSeat, rightSideSeat } = this.state;
@@ -31,10 +23,14 @@ class OrderSeat extends Component {
           <header className="seat-selector__header">Choose Your Seat</header>
           <div className="seat-selector mt-4">
             <div className="card">
-              <div className="card-body">
+              <div className="screen">
+                <span>Screen</span>
+                <div className="screen-layout"></div>
+              </div>
+              <div className="card-body ">
                 {rowSeat.map((item, index) => (
                   <div className="row row__seat" key={index}>
-                    <div className="col">{rowSeat[index]}</div>
+                    <div className="col alphabet">{rowSeat[index]}</div>
                     {leftSideSeat.map((itemLeft) => (
                       <div className="col col__seat" key={`${rowSeat[index]}${itemLeft}`}>
                         <div

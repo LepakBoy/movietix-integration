@@ -107,7 +107,10 @@ class Navbar extends Component {
                   <img src={photo} alt="photo" className="user-photo nav-search nav-item" />
                 ) : (
                   <button className="btn btn-sign-up-navbar" id="btn-sign-up-navbar" type="submit">
-                    <Link to="/login"> Sign up </Link>
+                    <Link to="/login" style={{ textDecoration: "none", color: "white" }}>
+                      {" "}
+                      Sign up{" "}
+                    </Link>
                   </button>
                 )}
               </form>

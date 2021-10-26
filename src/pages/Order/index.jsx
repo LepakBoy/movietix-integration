@@ -13,21 +13,29 @@ class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id_movie: props.location.state.id_movie,
-      id_schedule: props.location.state.id_schedule,
-      time_schedule: props.location.state.time_schedule,
-      date_booking: props.location.state.date_booking,
-      movieById: props.location.state.movieById,
-      price: props.location.state.price,
-      teater: props.location.state.teater_name,
+      id_movie: props.location.state ? props.location.state.id_movie : "",
+      id_schedule: props.location.state ? props.location.state.id_schedule : "",
+      time_schedule: props.location.state ? props.location.state.time_schedule : "",
+      date_booking: props.location.state ? props.location.state.date_booking : "",
+      movieById: props.location.state ? props.location.state.movieById : "",
+      price: props.location.state ? props.location.state.price : "",
+      teater: props.location.state ? props.location.state.teater_name : "",
       selectedSeat: [],
       reservedSeat: []
     };
   }
 
   componentDidMount() {
+    this.checkingData();
     this.getSelectedSeat();
   }
+  checkingData = () => {
+    const { id_movie, id_schedule, time_schedule, date_booking, movieById } = this.state;
+    if (!id_movie || !id_schedule || !time_schedule || !date_booking || !movieById) {
+      alert("select movie");
+      this.props.history.push("/");
+    }
+  };
 
   getSelectedSeat = () => {
     const { id_movie, id_schedule, time_schedule, date_booking } = this.state;
