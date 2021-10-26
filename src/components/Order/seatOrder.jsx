@@ -67,6 +67,27 @@ class OrderSeat extends Component {
                   </div>
                 ))}
               </div>
+              <div className="seating-key">
+                <span>Seating key</span>
+                <div className="seat-desc">
+                  <div className="seat-item seat-available">
+                    <div className="seat__desc-item available"></div>
+                    <span>Available</span>
+                  </div>
+                  <div className="seat-item seat-available">
+                    <div className="seat__desc-item selected"></div>
+                    <span>Selected</span>
+                  </div>
+                  <div className="seat-item seat-available">
+                    <div className="seat__desc-item love-nest"></div>
+                    <span>Love-Nest</span>
+                  </div>
+                  <div className="seat-item seat-available">
+                    <div className="seat__desc-item sold"></div>
+                    <span>Sold</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="button-group pt-4">

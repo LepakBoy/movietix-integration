@@ -14,18 +14,10 @@ class MovieDetailSchedule extends Component {
     super(props);
     this.state = {
       schedule: this.props.schedule
-      // time: ""
     };
   }
 
-  // setTime = (time) => {
-  //   this.setState({
-  //     time: time
-  //   });
-  // };
-
   render() {
-    // console.log(this.state.time);
     return (
       <>
         <section className="showtimes">
@@ -54,7 +46,7 @@ class MovieDetailSchedule extends Component {
                       <span className="location-selected">Location</span>
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      {/* looping by data public AP https://farizdotid.com/blog/dokumentasi-api-daerah-indonesia/
+                      {/* looping by data public API https://farizdotid.com/blog/dokumentasi-api-daerah-indonesia/
 I */}
                       <li>
                         <a className="dropdown-item" href="#">

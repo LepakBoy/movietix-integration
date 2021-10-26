@@ -78,6 +78,50 @@
 .col__separator {
   width: 48px;
 }
+.seating-key {
+  margin-top: 22px;
+  width: 100%;
+  height: 100px;
+  font-size: 18px;
+  color: #000000;
+  font-weight: 500;
+}
+.seat-desc {
+  width: 90%;
+  height: 40px;
+  margin: 16px auto 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+.seat-item {
+  width: 25%;
+  height: 100%;
+  font-size: 14px;
+  color: #4e4b66;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.seat__desc-item {
+  width: 22px;
+  height: 22px;
+  margin-right: 6px;
+  display: inline-block;
+  border-radius: 6px;
+}
+.available {
+  background-color: #d6d8e7;
+}
+.selected {
+  background-color: #5f2eea;
+}
+.love-nest {
+  background-color: #f589d7;
+}
+.sold {
+  background-color: #6e7191;
+}
 .button-group {
   display: flex;
   justify-content: space-between;
