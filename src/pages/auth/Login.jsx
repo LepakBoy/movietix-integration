@@ -6,6 +6,8 @@ import jumbotron from "../../assets/img/jumbotron.png";
 import google from "../../assets/logo/flat-color-icons_google.png";
 import facebook from "../../assets/logo/bx_bxl-facebook-circle.png";
 import axios from "../../Utils/axios";
+import { connect } from "react-redux";
+import { login } from "../../stores/action/auth";
 
 class LoginPage extends Component {
   constructor() {
@@ -35,34 +37,22 @@ class LoginPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    axios
-      .post("auth/login", this.state.form)
-      .then((res) => {
-        console.log(res.data.data.token);
-        localStorage.setItem("token", res.data.data.token);
-        this.props.history.push("/");
-      })
-      .catch((error) => {
-        this.setState({
-          isError: true,
-          msg: error.response.data.msg
-        });
-        setTimeout(() => {
-          this.setState({
-            isError: false,
-            msg: ""
-          });
-        }, 2000);
-      });
+    this.props.login(this.state.form).then((res) => {
+      console.log(res);
+      //  kalo mau ambil data user dari store redux :
+      // localStorage.setItem("token", this.props.auth.id_user);
+      // res memiliki 2 property : action dan value
+      localStorage.setItem("token", res.value.data.data.token);
+      this.props.history.push("/");
+    });
   };
 
   handleReset = (event) => {
     event.preventDefault();
   };
   render() {
-    // untuk melihat hasil inputan email dan password
-    // console.log(this.state.form);
+    // ambil dari store redux auth
+    const { msg, isError } = this.props.auth;
     return (
       <>
         <section className="body">
@@ -104,7 +94,7 @@ class LoginPage extends Component {
                 <button className="sign-in__button" type="submit">
                   Sign In
                 </button>
-                {this.state.isError && <div className="alert alert-danger">{this.state.msg}</div>}
+                {isError && <div className="alert alert-danger">{msg}</div>}
               </form>
               <div className="forgot-pass">
                 Forgot your password?{" "}
@@ -131,5 +121,13 @@ class LoginPage extends Component {
     );
   }
 }
+// tidak diimport karna akan memanggil state dari reducer
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+// harus diimport karna akan menjalankan function dari action
+const mapDispatchToProps = {
+  login
+};
 
-export default LoginPage;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

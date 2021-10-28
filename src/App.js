@@ -9,21 +9,35 @@ import Coba from "./pages/index";
 import MovieDetailPage from "./pages/User/MovieDetail";
 import OrderPage from "./pages/Order";
 import PaymentPage from "./pages/Payment";
+import PrivateRoute from "./helper/routes/privateRoutes";
+import PublicRoute from "./helper/routes/publicRoutes";
+
+import CounterClass from "./pages/Basic-React/Counter/counter.class";
+import CounterFunc from "./pages/Basic-React/Counter/counter.functional";
+
+import { Provider } from "react-redux";
+import store from "./stores/store";
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route path="/basic-react" exact component={BasicReact} />
-          <Route path="/" exact component={HomePage} />
-          <Route path="/login" exact component={LoginPage} />
-          <Route path="/coba" exact component={Coba} />
-          <Route path="/movie-detail/:id" exact component={MovieDetailPage} />
-          <Route path="/order" exact component={OrderPage} />
-          <Route path="/payment" exact component={PaymentPage} />
-        </Switch>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Switch>
+            {/* <Route path="/basic-react" exact component={BasicReact} /> */}
+            <PublicRoute path="/basic-react" exact component={BasicReact} />
+            <PublicRoute path="/" exact component={HomePage} />
+            {/* restricted = true : jika sudah login maka tidak bisa masuk ke halaman login */}
+            <PublicRoute path="/login" restricted={true} exact component={LoginPage} />
+            <Route path="/coba" exact component={Coba} />
+            <Route path="/movie-detail/:id" exact component={MovieDetailPage} />
+            <PrivateRoute path="/order" exact component={OrderPage} />
+            <PrivateRoute path="/payment" exact component={PaymentPage} />
+            <PrivateRoute path="/basic-counter-class" exact component={CounterClass} />
+            <PublicRoute path="/basic-counter-func" exact component={CounterFunc} />
+          </Switch>
+        </Router>
+      </Provider>
     );
   }
 }

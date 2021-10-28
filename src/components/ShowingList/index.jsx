@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "../../assets/css/ShowingListStyle.css";
 import axios from "../../Utils/axios";
-import mv1 from "../../assets/img/mv1.jpg";
-import mv2 from "../../assets/img/mv2.jpg";
-import mv3 from "../../assets/img/mv3.jpg";
 
 class ShowingList extends Component {
   constructor() {
