@@ -1,6 +1,10 @@
 .footer {
   width: 100%;
 }
+.footer,
+.footer__copyright {
+  background-color: #ffff;
+}
 .footer .container {
   width: 100%;
   display: flex;

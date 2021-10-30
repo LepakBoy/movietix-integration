@@ -12,8 +12,8 @@ const auth = (state = initialState, action) => {
     case "LOGIN_PENDING": {
       return {
         ...state,
-        isError: true,
-        isLoading: false,
+        isError: false,
+        isLoading: true,
         msg: ""
       };
     }

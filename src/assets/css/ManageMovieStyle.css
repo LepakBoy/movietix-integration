@@ -1,0 +1,127 @@
+* {
+  font-family: "Mulish", sans-serif;
+}
+body {
+  background-color: #f5f6f8;
+  height: 2000px;
+}
+.form-movie__header,
+.data-movie__header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000000;
+}
+.wrapper {
+  background-color: white;
+}
+textarea {
+  width: 100%;
+}
+.manage-movie-input {
+  height: 42px;
+}
+.manage-movie-input,
+textarea,
+.movie-banner img {
+  border: 1px solid #dedede;
+  border-radius: 4px;
+  background-color: #fcfdfe;
+}
+.manage-movie-input,
+.label,
+textarea {
+  font-size: 16px;
+  color: #4e4b66;
+}
+.movie-manage-button {
+  width: 172px;
+  height: 42px;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(95, 46, 234, 0.24);
+  font-size: 16px;
+  font-weight: 700;
+}
+.button-reset {
+  background-color: #ffffff;
+  border: 3px solid #5f2eea;
+  color: #5f2eea;
+}
+.button-submit {
+  background-color: #5f2eea;
+  border: 3px solid #5f2eea;
+  color: #ffffff;
+}
+
+/* data movie */
+.sort-button {
+  height: 42px;
+  border-radius: 16px;
+  background-color: #fcfdfe;
+  color: #4e4b66;
+  border: 1px solid #dedede;
+}
+.movie-name-search {
+  border: 1px solid #dedede;
+  border-radius: 16px;
+  height: 42px;
+  width: 256px;
+  background-color: #fcfdfe;
+}
+.movie-list-col {
+  width: 265px;
+}
+.movie-card {
+  width: 85%;
+  border: 0.5px solid #dedede;
+  border-radius: 8px;
+}
+.movie-card-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #14142b;
+  overflow-wrap: break-word;
+}
+.movie-card-category {
+  font-size: 14px;
+  color: #a0a3bd;
+}
+.btn-update {
+  border: 1px solid #5f2eea;
+  border-radius: 4px;
+  background-color: white;
+  color: #5f2eea;
+}
+.btn-update:hover {
+  background-color: #5f2eea;
+  color: white;
+}
+.btn-delete {
+  border: 1px solid #ed2e7e;
+  border-radius: 4px;
+  background-color: white;
+  color: #ed2e7e;
+}
+.btn-delete:hover {
+  background-color: #ed2e7e;
+  color: white;
+}
+
+/* responsive */
+@media (max-width: 1400px) {
+  .movie-card-col {
+    /* width: 25%; */
+  }
+}
+
+@media (max-width: 426px) {
+  .sort-option {
+    flex-direction: column;
+  }
+  .sort {
+    width: 100%;
+    margin-top: 24px;
+  }
+  .dropdown-toggle {
+    width: 100%;
+  }
+}

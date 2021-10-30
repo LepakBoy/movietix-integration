@@ -1,0 +1,134 @@
+* {
+  font-family: "Mulish", sans-serif;
+}
+body {
+  background-color: #f5f6f8;
+  height: 2000px;
+}
+.container {
+  max-width: 1160px;
+}
+.form-movie__header,
+.data-schedule__header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000000;
+}
+.wrapper {
+  background-color: white;
+  border-radius: 24px;
+}
+.label {
+  color: #4e4b66;
+  font-size: 16px;
+}
+
+.schedule-input,
+.dropdown-toggle {
+  height: 47px;
+  background-color: #fcfdfe;
+  border: 1px solid #dedede;
+  border-radius: 16px;
+  font-size: 14px;
+  color: #4e4b66;
+  text-align: start;
+  padding-left: 18px;
+}
+.btn-premiere {
+  width: 120px;
+  height: 64px;
+  border: none;
+  background-color: white;
+}
+.btn-premiere img {
+  width: 100%;
+}
+.add-time {
+  border: 1px solid #5f2eea !important;
+  border-radius: 8px;
+}
+.btn-time-list {
+  width: 90px;
+  height: 30px;
+  border: none;
+  background-color: white;
+  font-size: 13px;
+  color: #4e4b66;
+}
+.btn-schedule {
+  width: 45%;
+  height: 42px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(95, 46, 234, 0.24);
+}
+.btn-submit {
+  background-color: #5f2eea;
+  color: white;
+
+  border: none;
+}
+.btn-reset {
+  border: 3px solid #5f2eea;
+  background-color: white;
+  color: #5f2eea;
+}
+/* DATA SCHEDULE */
+.search-schedule {
+  width: 145px;
+}
+.cinema-detail__name {
+  font-size: 24px;
+  color: #000000;
+  font-weight: 600;
+}
+.cinema-detail__address {
+  color: #6e7191;
+  font-size: 12px;
+  font-weight: 300;
+}
+.logo,
+.cinema-detail {
+}
+.cinema-logo {
+  width: 105px;
+}
+.cinema-detail {
+  width: 60%;
+}
+.time-list {
+  font-size: 12px;
+  color: #a0a3bd;
+}
+.price-title {
+  color: #6b6b6b;
+  font-size: 16px;
+}
+.price-amount {
+  color: #000000;
+  font-weight: 600;
+}
+.btn-delete {
+  height: 36px;
+  background-color: white;
+  border: 1px solid #ed2e7e;
+  border-radius: 4px;
+  color: #ed2e7e;
+}
+.btn-update {
+  height: 36px;
+  background-color: white;
+  border: 1px solid #5f2eea;
+  border-radius: 4px;
+  color: #5f2eea;
+}
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .data-schedule__header {
+    flex-direction: column;
+  }
+  .sort-option {
+    justify-content: space-between;
+  }
+}
