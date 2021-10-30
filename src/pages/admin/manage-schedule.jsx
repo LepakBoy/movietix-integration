@@ -13,7 +13,6 @@ const ManageSchedule = () => {
         <FormSchedule />
         <DataSchedule />
       </div>
-
       <Footer />
     </>
   );

@@ -1,0 +1,43 @@
+* {
+  font-family: "Mulish", sans-serif;
+}
+body {
+  background-color: #f5f6f8;
+  height: 2000px;
+}
+.container {
+  max-width: 1160px;
+}
+.header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000000;
+}
+.wrapper {
+  background-color: white;
+  border-radius: 4px;
+}
+.content {
+  height: 380px;
+}
+.dropdown-toggle {
+  height: 50px;
+  background-color: #fcfdfe;
+  color: #4e4b66;
+  border: 1px solid #dedede;
+  border-radius: 4px;
+}
+.btn-filter {
+  background-color: #5f2eea;
+  color: white;
+  font-weight: 600;
+  height: 50px;
+  box-shadow: 0 8px 24px rgba(95, 46, 234, 0.24);
+}
+.btn-reset {
+  border: 3px solid #5f2eea;
+  color: #5f2eea;
+  font-weight: 600;
+  height: 50px;
+  box-shadow: 0 8px 24px rgba(95, 46, 234, 0.24);
+}

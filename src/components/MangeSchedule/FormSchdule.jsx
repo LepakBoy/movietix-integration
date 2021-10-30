@@ -1,5 +1,9 @@
 import React from "react";
 import banner from "../../assets/img/mv5.jpg";
+import addTime from "../../assets/logo/add-time.png";
+import ebv from "../../assets/logo/ebv.png";
+import cineone from "../../assets/logo/cineone.png";
+import hiflix from "../../assets/logo/hiflix.png";
 
 const FormSchedule = () => {
   return (
@@ -57,13 +61,13 @@ const FormSchedule = () => {
                         <div className="label mb-2">Premiere</div>
                         <div className="premiere-btn-group d-flex justify-content-between">
                           <button type="submit" className="btn-premiere-ebuid btn-premiere">
-                            <img src="./assets/logo/ebv.png" alt="" />
+                            <img src={ebv} alt="" />
                           </button>
                           <button type="submit" className="btn-premiere-ebuid btn-premiere">
-                            <img src="./assets/logo/hiflix.png" alt="" />
+                            <img src={hiflix} alt="" />
                           </button>
                           <button type="submit" className="btn-premiere-ebuid btn-premiere">
-                            <img src="./assets/logo/cineone.png" alt="" />
+                            <img src={cineone} alt="" />
                           </button>
                         </div>
                       </div>
@@ -125,7 +129,7 @@ const FormSchedule = () => {
                         <div className="row">
                           <div className="time-list d-flex justify-content-between flex-wrap">
                             <button className="btn-time-list col-3 add-time">
-                              <img src="./assets/logo/add-time.png" alt="" />
+                              <img src={addTime} alt="" />
                             </button>
                             <button className="btn-time-list col-3">08.30am</button>
                             <button className="btn-time-list col-3">08.30am</button>

@@ -15,6 +15,8 @@ import CounterClass from "./pages/Basic-React/Counter/counter.class";
 import CounterFunc from "./pages/Basic-React/Counter/counter.functional";
 import ManageMovie from "./pages/admin/manage-movie";
 import ManageSchedule from "./pages/admin/manage-schedule";
+import Profile from "./pages/User/profile";
+import Dashboard from "./pages/admin/dashboard";
 
 import { Provider } from "react-redux";
 import store from "./stores/store";
@@ -38,6 +40,8 @@ class App extends Component {
             <PublicRoute path="/basic-counter-func" exact component={CounterFunc} />
             <Route path="/manage-movie" exact component={ManageMovie} />
             <Route path="/manage-schedule" exact component={ManageSchedule} />
+            <Route path="/profile" exact component={Profile} />
+            <Route path="/dashboard" exact component={Dashboard} />
           </Switch>
         </Router>
       </Provider>

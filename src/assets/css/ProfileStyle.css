@@ -1,0 +1,95 @@
+* {
+  font-family: "Mulish", sans-serif;
+}
+body {
+  background-color: #f5f6f8;
+}
+.profile-badges,
+.profile-account-settings,
+.profile-order-history {
+  background-color: white;
+  border-radius: 6px;
+}
+.image-user {
+  width: 136px;
+  height: 136px;
+}
+.profile-title {
+  font-size: 14px;
+  font-weight: 400;
+  color: #4e4b66;
+}
+.profile-menu:hover {
+  cursor: pointer;
+}
+.profile-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+.profile-menu {
+  /* color: #aaaaaa; */
+}
+.order-settings {
+  /* color: #aaaaaa; */
+}
+.header {
+  font-size: 18px;
+}
+.border-bottom {
+  border-bottom: 1px solid #dedede;
+}
+.account-settings-input {
+  width: 100%;
+}
+.account-settings-input {
+  border: 1px solid #dedede;
+  border-radius: 4px;
+  background-color: #fcfdfe;
+  color: #4e4b66;
+  font-size: 16x;
+}
+.account-privacy-input {
+  color: #a0a3bd;
+  border: 1px solid #dedede;
+  border-radius: 4px;
+  background-color: #fcfdfe;
+}
+.button-update-account-detail {
+  height: 46px;
+  background-color: #5f2eea;
+  border: none;
+  border-radius: 4px;
+  color: #f7f7fc;
+  font-weight: 600;
+}
+/* profile order history */
+.order-list-item {
+  border: 0.5px solid #dedede;
+  border-radius: 8px;
+}
+.date-order {
+  font-size: 14px;
+  font-weight: 400;
+  color: #aaaaaa;
+}
+.movie-name-order {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000000;
+}
+.teater-logo img {
+  width: 140px;
+  vertical-align: middle;
+}
+.ticket-status {
+  padding: 12px 22px;
+  background-color: #00ba88;
+  color: #f7f7fc;
+  font-size: 14px;
+  border-radius: 4px;
+  border: none;
+}
+.show-ticket {
+  border: none;
+  background-color: white;
+}

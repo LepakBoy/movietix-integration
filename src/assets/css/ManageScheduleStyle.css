@@ -3,7 +3,6 @@
 }
 body {
   background-color: #f5f6f8;
-  height: 2000px;
 }
 .container {
   max-width: 1160px;
@@ -35,13 +34,13 @@ body {
   padding-left: 18px;
 }
 .btn-premiere {
-  width: 120px;
+  width: 100px;
   height: 64px;
   border: none;
   background-color: white;
 }
 .btn-premiere img {
-  width: 100%;
+  width: 90%;
 }
 .add-time {
   border: 1px solid #5f2eea !important;

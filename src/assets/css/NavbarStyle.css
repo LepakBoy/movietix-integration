@@ -37,6 +37,9 @@ Link {
   list-style: none;
   align-items: center;
 }
+#navbarDropdown {
+  border: none;
+}
 .btn-sign-up-navbar {
   width: 36%;
   height: 40px;
