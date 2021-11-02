@@ -5,9 +5,9 @@ import banner from "../../assets/img/banner.jpg";
 import jumbotron from "../../assets/img/jumbotron.png";
 import google from "../../assets/logo/flat-color-icons_google.png";
 import facebook from "../../assets/logo/bx_bxl-facebook-circle.png";
-import axios from "../../Utils/axios";
 import { connect } from "react-redux";
 import { login } from "../../stores/action/auth";
+import { getDataUser } from "../../stores/action/dataUser";
 
 class LoginPage extends Component {
   constructor() {
@@ -37,6 +37,7 @@ class LoginPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
     this.props.login(this.state.form).then((res) => {
       console.log(res);
       //  kalo mau ambil data user dari store redux :
@@ -104,7 +105,7 @@ class LoginPage extends Component {
                 </span>
               </div>
               <div className="or">Or</div>
-              <div className="button-group">
+              <div className="button-group-login">
                 <button className="button btn-google">
                   <img src={google} alt="google" className="btn-forgot__img" />{" "}
                   <span className="google">Google</span>
@@ -122,12 +123,15 @@ class LoginPage extends Component {
   }
 }
 // tidak diimport karna akan memanggil state dari reducer
+//memanggil state yang ada di store(reducer)
 const mapStateToProps = (state) => ({
   auth: state.auth
 });
 // harus diimport karna akan menjalankan function dari action
+//menjalankan function di action
 const mapDispatchToProps = {
-  login
+  login,
+  getDataUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

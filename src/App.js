@@ -17,6 +17,8 @@ import ManageMovie from "./pages/admin/manage-movie";
 import ManageSchedule from "./pages/admin/manage-schedule";
 import Profile from "./pages/User/profile";
 import Dashboard from "./pages/admin/dashboard";
+import Signup from "./pages/auth/Signup";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 import { Provider } from "react-redux";
 import store from "./stores/store";
@@ -42,6 +44,8 @@ class App extends Component {
             <Route path="/manage-schedule" exact component={ManageSchedule} />
             <Route path="/profile" exact component={Profile} />
             <Route path="/dashboard" exact component={Dashboard} />
+            <Route path="/signup" exact component={Signup} />
+            <Route path="/reset-password" exact component={ResetPassword} />
           </Switch>
         </Router>
       </Provider>

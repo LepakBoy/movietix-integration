@@ -20,7 +20,7 @@ const Profile = () => {
           <div className="col-md-9">
             <div className="rofile-account-settings ps-1">
               <div className="wrapper p-3 px-4 py-4 mt-3 mb-5">
-                <div className="header border-bottom pb-4">
+                <div className="header  pb-4">
                   <span
                     style={!setting ? { color: "#aaaaaa" } : { colotr: "#4e4b66" }}
                     className="me-5 profile-menu"

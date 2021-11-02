@@ -14,6 +14,10 @@ body {
 .wrapper {
   background-color: white;
 }
+.movie-banner img {
+  width: 159px;
+  height: 244px;
+}
 textarea {
   width: 100%;
 }
@@ -54,8 +58,8 @@ textarea {
 
 /* data movie */
 .sort-button {
-  height: 42px;
-  border-radius: 16px;
+  height: 42px !important;
+  border-radius: 16px !important;
   background-color: #fcfdfe;
   color: #4e4b66;
   border: 1px solid #dedede;
@@ -73,6 +77,13 @@ textarea {
 .movie-card {
   width: 85%;
   border: 0.5px solid #dedede;
+  border-radius: 8px;
+}
+.movie-card-name {
+  height: 56px;
+}
+.movie-card-banner {
+  height: 258px;
   border-radius: 8px;
 }
 .movie-card-name {

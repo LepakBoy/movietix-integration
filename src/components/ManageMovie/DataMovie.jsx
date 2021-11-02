@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import MovieBanner from "../../assets/img/mv5.jpg";
+import { connect } from "react-redux";
+import { getAllMovie } from "../../stores/action/movieAll";
+import { deleteMovie } from "../../stores/action/movieAll";
 
-const DataMovie = () => {
+const DataMovie = (props) => {
+  const { dataMovie } = props.dataMovie;
+
   return (
     <>
       <div className="row mt-4 pt-4">
@@ -9,7 +13,7 @@ const DataMovie = () => {
         <div className="d-flex sort-option justify-content-end col-md-6 align-items-center">
           <div className="dropdown sort me-4">
             <button
-              className="btn btn-secondary dropdown-toggle sort-button px-5"
+              className="btn btn-secondary dropdown-toggle sort-button px-5 sort-movie"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
@@ -42,163 +46,54 @@ const DataMovie = () => {
           />
         </div>
         <div className="wrapper mb-5 p-4 pt-5 mt-4 d-flex flex-wrap justify-content-center">
-          {/* mapping from here  */}
-          <div className="movie-list-col py-5 px-1 text-center">
-            <div className="movie-card mx-auto p-4">
-              <img src={MovieBanner} alt="" className="movie-card-banner w-100" />
-              <div className="movie-card-name pt-2">
-                <span>Spider-man:Homecoming</span>
-              </div>
-              <div className="movie-card-category">
-                <span>Action, Adventure</span>
-              </div>
-              <div className="button-group-card">
-                <button className="btn-update btn-card d-block mx-auto w-100 my-3 py-1">
-                  Update
-                </button>
-                <button className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="movie-list-col py-5 px-1 text-center">
-            <div className="movie-card mx-auto p-4">
-              <img src={MovieBanner} alt="" className="movie-card-banner w-100" />
-              <div className="movie-card-name pt-2">
-                <span>Spider-man:Homecoming</span>
-              </div>
-              <div className="movie-card-category">
-                <span>Action, Adventure</span>
-              </div>
-              <div className="button-group-card">
-                <button className="btn-update btn-card d-block mx-auto w-100 my-3 py-1">
-                  Update
-                </button>
-                <button className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1">
-                  Delete
-                </button>
+          {dataMovie.map((item) => (
+            <div className="movie-list-col py-5 px-1 text-center" key={item.id_movie}>
+              <div className="movie-card mx-auto p-4">
+                <img
+                  src={
+                    item.image
+                      ? `http://localhost:3000/uploads/movie/${item.image}`
+                      : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                  }
+                  alt=""
+                  className="movie-card-banner w-100"
+                />
+                <div className="movie-card-name pt-2">
+                  <span>{item.movie_name}</span>
+                </div>
+                <div className="movie-card-category">
+                  <span>{item.category}</span>
+                </div>
+                <div className="button-group-card">
+                  <button
+                    className="btn-update btn-card d-block mx-auto w-100 my-3 py-1"
+                    onClick={() => props.setIsUpdate(true, item)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1"
+                    onClick={() => props.deleteMovie(item.id_movie)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="movie-list-col py-5 px-1 text-center">
-            <div className="movie-card mx-auto p-4">
-              <img src={MovieBanner} alt="" className="movie-card-banner w-100" />
-              <div className="movie-card-name pt-2">
-                <span>Spider-man:Homecoming</span>
-              </div>
-              <div className="movie-card-category">
-                <span>Action, Adventure</span>
-              </div>
-              <div className="button-group-card">
-                <button className="btn-update btn-card d-block mx-auto w-100 my-3 py-1">
-                  Update
-                </button>
-                <button className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="movie-list-col py-5 px-1 text-center">
-            <div className="movie-card mx-auto p-4">
-              <img src={MovieBanner} alt="" className="movie-card-banner w-100" />
-              <div className="movie-card-name pt-2">
-                <span>Spider-man:Homecoming</span>
-              </div>
-              <div className="movie-card-category">
-                <span>Action, Adventure</span>
-              </div>
-              <div className="button-group-card">
-                <button className="btn-update btn-card d-block mx-auto w-100 my-3 py-1">
-                  Update
-                </button>
-                <button className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="movie-list-col py-5 px-1 text-center">
-            <div className="movie-card mx-auto p-4">
-              <img src={MovieBanner} alt="" className="movie-card-banner w-100" />
-              <div className="movie-card-name pt-2">
-                <span>Spider-man:Homecoming</span>
-              </div>
-              <div className="movie-card-category">
-                <span>Action, Adventure</span>
-              </div>
-              <div className="button-group-card">
-                <button className="btn-update btn-card d-block mx-auto w-100 my-3 py-1">
-                  Update
-                </button>
-                <button className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="movie-list-col py-5 px-1 text-center">
-            <div className="movie-card mx-auto p-4">
-              <img src={MovieBanner} alt="" className="movie-card-banner w-100" />
-              <div className="movie-card-name pt-2">
-                <span>Spider-man:Homecoming</span>
-              </div>
-              <div className="movie-card-category">
-                <span>Action, Adventure</span>
-              </div>
-              <div className="button-group-card">
-                <button className="btn-update btn-card d-block mx-auto w-100 my-3 py-1">
-                  Update
-                </button>
-                <button className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="movie-list-col py-5 px-1 text-center">
-            <div className="movie-card mx-auto p-4">
-              <img src={MovieBanner} alt="" className="movie-card-banner w-100" />
-              <div className="movie-card-name pt-2">
-                <span>Spider-man:Homecoming</span>
-              </div>
-              <div className="movie-card-category">
-                <span>Action, Adventure</span>
-              </div>
-              <div className="button-group-card">
-                <button className="btn-update btn-card d-block mx-auto w-100 my-3 py-1">
-                  Update
-                </button>
-                <button className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="movie-list-col py-5 px-1 text-center">
-            <div className="movie-card mx-auto p-4">
-              <img src={MovieBanner} alt="" className="movie-card-banner w-100" />
-              <div className="movie-card-name pt-2">
-                <span>Spider-man:Homecoming</span>
-              </div>
-              <div className="movie-card-category">
-                <span>Action, Adventure</span>
-              </div>
-              <div className="button-group-card">
-                <button className="btn-update btn-card d-block mx-auto w-100 my-3 py-1">
-                  Update
-                </button>
-                <button className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>
   );
 };
 
-export default DataMovie;
+const mapStateToProps = (state) => ({
+  dataMovie: state.getAllMovie
+});
+
+const mapDispatchToProps = {
+  getAllMovie,
+  deleteMovie
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataMovie);

@@ -63,9 +63,9 @@ class Navbar extends Component {
                 </li>
 
                 <li className="nav-item">
-                  <a className="nav-link mx-3" href="order-page.html">
-                    Profile
-                  </a>
+                  <Link to="/profile" className="nav-link mx-3" aria-current="page">
+                    Payment
+                  </Link>
                 </li>
               </ul>
               <form className="d-flex" id="search-navbar">
