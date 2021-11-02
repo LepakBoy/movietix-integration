@@ -71,7 +71,7 @@ body {
   font-family: "Inter", sans-serif;
 }
 .sign-in__form--email {
-  margin-top: 49px;
+  margin-top: 0;
 }
 label {
   margin-top: 22px;

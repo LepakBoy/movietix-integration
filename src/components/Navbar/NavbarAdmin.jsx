@@ -8,7 +8,6 @@ import { Search } from "react-bootstrap-icons";
 import "../../assets/css/NavbarStyle.css";
 import menu from "../../assets/logo/menu-toggler.png";
 import photo from "../../assets/img/photo.png";
-import { connect } from "react-redux";
 
 class Navbar extends Component {
   constructor(props) {
@@ -23,10 +22,8 @@ class Navbar extends Component {
   };
 
   render() {
-    const { dataUser } = this.props;
     // console.log(localStorage.getItem("token"));
     const token = localStorage.getItem("token");
-    console.log(dataUser.user.role, "nabaaaaaaaaaaarrrrrrrrrrrrrr");
 
     return (
       <>
@@ -46,61 +43,30 @@ class Navbar extends Component {
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                {dataUser.user.role === "user" ? (
-                  <>
-                    <li className="nav-item search-mobile mt-5">
-                      <input
-                        className="form-control me-2"
-                        type="search"
-                        placeholder="Search..."
-                        aria-label="Search"
-                      />
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/" className="nav-link mx-3 ms-5" aria-current="page">
-                        Home
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/payment" className="nav-link mx-3" aria-current="page">
-                        Payment
-                      </Link>
-                    </li>
+                <li className="nav-item search-mobile mt-5">
+                  <input
+                    className="form-control me-2"
+                    type="search"
+                    placeholder="Search..."
+                    aria-label="Search"
+                  />
+                </li>
+                <li className="nav-item">
+                  <Link to="/manage-movie" className="nav-link mx-3 ms-5" aria-current="page">
+                    Manage Movie
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/manage-schedule" className="nav-link mx-3" aria-current="page">
+                    Manage Schedule
+                  </Link>
+                </li>
 
-                    <li className="nav-item">
-                      <Link to="/profile" className="nav-link mx-3" aria-current="page">
-                        Profile
-                      </Link>
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li className="nav-item search-mobile mt-5">
-                      <input
-                        className="form-control me-2"
-                        type="search"
-                        placeholder="Search..."
-                        aria-label="Search"
-                      />
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/manage-movie" className="nav-link mx-3 ms-5" aria-current="page">
-                        Manage Movie
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/payment" className="nav-link mx-3" aria-current="page">
-                        admin
-                      </Link>
-                    </li>
-
-                    <li className="nav-item">
-                      <Link to="/profile" className="nav-link mx-3" aria-current="page">
-                        Profile
-                      </Link>
-                    </li>
-                  </>
-                )}
+                <li className="nav-item">
+                  <Link to="/profile" className="nav-link mx-3" aria-current="page">
+                    Profile
+                  </Link>
+                </li>
               </ul>
               <form className="d-flex" id="search-navbar">
                 <li className="nav-item dropdown">
@@ -161,10 +127,4 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  dataUser: state.getDataUser
-});
-// harus diimport karna akan menjalankan function dari action
-//menjalankan function di action
-
-export default connect(mapStateToProps)(Navbar);
+export default withRouter(Navbar);

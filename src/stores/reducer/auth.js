@@ -42,6 +42,35 @@ const auth = (state = initialState, action) => {
         ...state
       };
     }
+    // REGISTER
+    case "REGISTER_PENDING": {
+      return {
+        ...state,
+        isError: false,
+        isLoading: true,
+        msg: ""
+      };
+    }
+    case "REGISTER_FULFILLED": {
+      return {
+        ...state,
+        isError: false,
+        isLoading: false,
+        // action.payload : res di UI
+        // payload dapet dari action auth
+        idUser: action.payload.data.data.id_user,
+        msg: action.payload.data.msg
+      };
+    }
+    case "REGISTER_REJECTED": {
+      return {
+        ...state,
+        isError: true,
+        isLoading: false,
+        idUser: "",
+        msg: action.payload.response.data.msg
+      };
+    }
   }
 };
 

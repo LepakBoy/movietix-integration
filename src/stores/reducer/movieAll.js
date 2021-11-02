@@ -56,6 +56,30 @@ const getAllMovie = (state = initialState, action) => {
         msg: action.payload.data.data.msg
       };
     }
+    case "UPDATEMOVIE_PENDING": {
+      return {
+        ...state,
+        isError: false,
+        isLoading: true,
+        msg: ""
+      };
+    }
+    case "UPDATEMOVIE_FULFILLED": {
+      return {
+        ...state,
+        isError: false,
+        isLoading: false,
+        msg: action.payload.data.data.msg
+      };
+    }
+    case "UPDATEMOVIE_REJECTED": {
+      return {
+        ...state,
+        isError: true,
+        isLoading: false,
+        msg: action.payload.data.data.msg
+      };
+    }
     case "DELETEMOVIE_PENDING": {
       return {
         ...state,
@@ -77,13 +101,11 @@ const getAllMovie = (state = initialState, action) => {
         ...state,
         isError: true,
         isLoading: false,
-        msg: action.payload.data.data.msg
+        msg: "action.payload.data.data.msg"
       };
     }
     default: {
-      return {
-        ...state
-      };
+      return state;
     }
   }
 };

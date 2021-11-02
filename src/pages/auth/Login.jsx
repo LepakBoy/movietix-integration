@@ -16,9 +16,7 @@ class LoginPage extends Component {
       form: {
         email: "",
         password: ""
-      },
-      isError: false,
-      msg: ""
+      }
     };
   }
 
@@ -40,10 +38,13 @@ class LoginPage extends Component {
 
     this.props.login(this.state.form).then((res) => {
       console.log(res);
+      this.props.getDataUser(res.value.data.data.id_user);
+
       //  kalo mau ambil data user dari store redux :
       // localStorage.setItem("token", this.props.auth.id_user);
       // res memiliki 2 property : action dan value
       localStorage.setItem("token", res.value.data.data.token);
+      // this.props.getDataUser(res.value.data.data.id_user);
       this.props.history.push("/");
     });
   };

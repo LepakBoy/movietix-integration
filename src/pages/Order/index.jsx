@@ -8,6 +8,7 @@ import MovieSelected from "../../components/Order/movieSelected";
 import OrderInfo from "../../components/Order/orderInfo";
 import OrderSeat from "../../components/Order/seatOrder";
 import axios from "../../Utils/axios";
+import NavbarAdmin from "../../components/Navbar/NavbarAdmin";
 
 class Order extends Component {
   constructor(props) {

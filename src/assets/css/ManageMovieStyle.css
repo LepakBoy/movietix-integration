@@ -70,6 +70,7 @@ textarea {
   height: 42px;
   width: 256px;
   background-color: #fcfdfe;
+  padding: 0;
 }
 .movie-list-col {
   width: 265px;

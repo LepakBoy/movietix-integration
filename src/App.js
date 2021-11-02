@@ -21,33 +21,36 @@ import Signup from "./pages/auth/Signup";
 import ResetPassword from "./pages/auth/ResetPassword";
 
 import { Provider } from "react-redux";
-import store from "./stores/store";
+import { store, persistor } from "./stores/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
-          <Switch>
-            {/* <Route path="/basic-react" exact component={BasicReact} /> */}
-            <PublicRoute path="/basic-react" exact component={BasicReact} />
-            <PublicRoute path="/" exact component={HomePage} />
-            {/* restricted = true : jika sudah login maka tidak bisa masuk ke halaman login */}
-            <PublicRoute path="/login" restricted={true} exact component={LoginPage} />
-            <Route path="/coba" exact component={Coba} />
-            <Route path="/movie-detail/:id" exact component={MovieDetailPage} />
-            <PrivateRoute path="/order" exact component={OrderPage} />
-            <PrivateRoute path="/payment" exact component={PaymentPage} />
-            <PrivateRoute path="/basic-counter-class" exact component={CounterClass} />
-            <PublicRoute path="/basic-counter-func" exact component={CounterFunc} />
-            <Route path="/manage-movie" exact component={ManageMovie} />
-            <Route path="/manage-schedule" exact component={ManageSchedule} />
-            <Route path="/profile" exact component={Profile} />
-            <Route path="/dashboard" exact component={Dashboard} />
-            <Route path="/signup" exact component={Signup} />
-            <Route path="/reset-password" exact component={ResetPassword} />
-          </Switch>
-        </Router>
+        <PersistGate persistor={persistor}>
+          <Router>
+            <Switch>
+              {/* <Route path="/basic-react" exact component={BasicReact} /> */}
+              <PublicRoute path="/basic-react" exact component={BasicReact} />
+              <PrivateRoute path="/" exact component={HomePage} />
+              {/* restricted = true : jika sudah login maka tidak bisa masuk ke halaman login */}
+              <PublicRoute path="/login" restricted={true} exact component={LoginPage} />
+              <Route path="/coba" exact component={Coba} />
+              <Route path="/movie-detail/:id" exact component={MovieDetailPage} />
+              <PrivateRoute path="/order" exact component={OrderPage} />
+              <PrivateRoute path="/payment" exact component={PaymentPage} />
+              <PrivateRoute path="/basic-counter-class" exact component={CounterClass} />
+              <PublicRoute path="/basic-counter-func" exact component={CounterFunc} />
+              <Route path="/manage-movie" exact component={ManageMovie} />
+              <Route path="/manage-schedule" exact component={ManageSchedule} />
+              <Route path="/profile" exact component={Profile} />
+              <Route path="/dashboard" exact component={Dashboard} />
+              <Route path="/signup" exact component={Signup} />
+              <Route path="/reset-password" exact component={ResetPassword} />
+            </Switch>
+          </Router>
+        </PersistGate>
       </Provider>
     );
   }

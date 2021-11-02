@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { getAllMovie } from "../../stores/action/movieAll";
-import { deleteMovie } from "../../stores/action/movieAll";
+import { getAllMovie, deleteMovie } from "../../stores/action/movieAll";
+import { selectedMovieToManage } from "../../stores/action/manageMovie";
 
 const DataMovie = (props) => {
   const { dataMovie } = props.dataMovie;
 
+  const deleteData = (e, id) => {
+    e.preventDefault();
+
+    props.deleteMovie(id).then((res) => {
+      props.getAllMovie();
+    });
+  };
+
+  const selectedDataMovie = (stat, data) => {
+    console.log(stat, data);
+    props.selectedMovieToManage(stat, data);
+  };
+
+  console.log(props.dataSelected);
   return (
     <>
       <div className="row mt-4 pt-4">
@@ -67,13 +81,14 @@ const DataMovie = (props) => {
                 <div className="button-group-card">
                   <button
                     className="btn-update btn-card d-block mx-auto w-100 my-3 py-1"
-                    onClick={() => props.setIsUpdate(true, item)}
+                    // onClick={() => props.setIsUpdate(true, item)}
+                    onClick={() => props.selectedMovieToManage(true, item)}
                   >
                     Update
                   </button>
                   <button
                     className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1"
-                    onClick={() => props.deleteMovie(item.id_movie)}
+                    onClick={(event) => deleteData(event, item.id_movie)}
                   >
                     Delete
                   </button>
@@ -81,6 +96,7 @@ const DataMovie = (props) => {
               </div>
             </div>
           ))}
+          {/* TOAST DELETE DATA */}
         </div>
       </div>
     </>
@@ -88,12 +104,14 @@ const DataMovie = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  dataMovie: state.getAllMovie
+  dataMovie: state.getAllMovie,
+  dataSelected: state.selecdtedData
 });
 
 const mapDispatchToProps = {
   getAllMovie,
-  deleteMovie
+  deleteMovie,
+  selectedMovieToManage
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataMovie);

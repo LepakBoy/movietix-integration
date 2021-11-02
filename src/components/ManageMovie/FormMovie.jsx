@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { postMovie } from "../../stores/action/movieAll";
+import { postMovie, getAllMovie, updateMovie } from "../../stores/action/movieAll";
 
 const FormMovie = (props) => {
+  const form = props.form;
   const [formData, setFormData] = useState({
-    movie_name: null,
-    director: null,
-    releaseDate: null,
-    category: null,
-    cast: null,
-    duration: null,
-    synopsis: null,
-    image: null
+    movie_name: "",
+    director: "",
+    releaseDate: "",
+    category: "",
+    cast: "",
+    duration: "",
+    synopsis: "",
+    image: ""
   });
 
   const isUpdate = props.isUpdate;
-  const form = props.form;
 
-  const { releaseDate, duration } = form;
+  const { releaseDate, duration, id_movie } = form;
   const date = moment(releaseDate).format("YYYY-MM-DD");
 
   const changeText = (e) => {
@@ -29,36 +29,53 @@ const FormMovie = (props) => {
   };
 
   //tambah get data yang baru di post
-  const postData = () => {
-    props.postMovie(formData);
-  };
-
-  const updateData = () => {};
-
-  const resetForm = () => {
-    setFormData({
-      movie_name: null,
-      director: null,
-      releaseDate: null,
-      category: null,
-      cast: null,
-      duration: null,
-      synopsis: null,
-      image: null
+  const postData = (e) => {
+    e.preventDefault();
+    props.postMovie(formData).then((res) => {
+      props.getAllMovie();
     });
   };
-  console.log(formData);
+
+  const updateData = (e) => {
+    e.preventDefault();
+    console.log(e.target.reset(), "reseeeeeeeeettttttttttttttt");
+    props.updateMovie(id_movie, formData).then((res) => {
+      setFormData({
+        movie_name: ""
+      });
+      e.target.reset();
+      console.log(res);
+      props.getAllMovie();
+    });
+  };
+
+  // director: "",
+  //     releaseDate: "",
+  //     category: "",
+  //     cast: "",
+  //     duration: "",
+  //     synopsis: "",
+  //     image: "
+  const resetForm = () => {
+    setFormData({
+      movie_name: ""
+    });
+  };
+
+  useEffect(() => {
+    // setFormData({...props.})
+  });
+  console.log(formData, "form data");
   console.log(isUpdate);
+  console.log(props, "state");
+
   return (
     <>
       <div className="row pt-3 mt-3">
         <div className="form-movie col-md-12 px-0">
           <div className="form-movie__header">Form Movie</div>
           <div className="wrapper p-4 pt-5 mt-4">
-            <form
-              action=""
-              onSubmit={isUpdate ? (event) => updateData(event) : (event) => postData(event)}
-            >
+            <form action="" onSubmit={isUpdate ? updateData : (event) => postData(event)}>
               <div className="form-movie__data row">
                 <div className="col-md-3">
                   <div className="movie-banner p-3 d-flex justify-content-center align-items-center">
@@ -174,7 +191,11 @@ const FormMovie = (props) => {
                 </div>
                 <div className="button-group row  py-3 my-2">
                   <div className="col-md-12 justify-content-end d-flex ">
-                    <button className="movie-manage-button button-reset me-5" onClick={resetForm}>
+                    <button
+                      className="movie-manage-button button-reset me-5"
+                      type="reset"
+                      onClick={resetForm}
+                    >
                       Reset
                     </button>
                     <button className="movie-manage-button button-submit" type="submit">
@@ -191,11 +212,14 @@ const FormMovie = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  dataMovie: state.getAllMovie
+  dataMovie: state.getAllMovie,
+  dataSelected: state.manageMovie
 });
 
 const mapDispatchToProps = {
-  postMovie
+  postMovie,
+  getAllMovie,
+  updateMovie
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormMovie);
