@@ -109,7 +109,7 @@ class Navbar extends Component {
                   <button className="btn btn-sign-up-navbar" id="btn-sign-up-navbar" type="submit">
                     <Link to="/signup" style={{ textDecoration: "none", color: "white" }}>
                       {" "}
-                      Sign up{" "}
+                      Login{" "}
                     </Link>
                   </button>
                 )}

@@ -19,7 +19,6 @@ import Profile from "./pages/User/profile";
 import Dashboard from "./pages/admin/dashboard";
 import Signup from "./pages/auth/Signup";
 import ResetPassword from "./pages/auth/ResetPassword";
-
 import { Provider } from "react-redux";
 import { store, persistor } from "./stores/store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -33,7 +32,7 @@ class App extends Component {
             <Switch>
               {/* <Route path="/basic-react" exact component={BasicReact} /> */}
               <PublicRoute path="/basic-react" exact component={BasicReact} />
-              <PrivateRoute path="/" exact component={HomePage} />
+              <PublicRoute path="/" exact component={HomePage} />
               {/* restricted = true : jika sudah login maka tidak bisa masuk ke halaman login */}
               <PublicRoute path="/login" restricted={true} exact component={LoginPage} />
               <Route path="/coba" exact component={Coba} />
@@ -44,8 +43,8 @@ class App extends Component {
               <PublicRoute path="/basic-counter-func" exact component={CounterFunc} />
               <Route path="/manage-movie" exact component={ManageMovie} />
               <Route path="/manage-schedule" exact component={ManageSchedule} />
-              <Route path="/profile" exact component={Profile} />
               <Route path="/dashboard" exact component={Dashboard} />
+              <Route path="/profile" exact component={Profile} />
               <Route path="/signup" exact component={Signup} />
               <Route path="/reset-password" exact component={ResetPassword} />
             </Switch>

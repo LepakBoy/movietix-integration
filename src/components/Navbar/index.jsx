@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-
-// import "../../assets/logo/menu-toggler.png";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import { Search } from "react-bootstrap-icons";
 import "../../assets/css/NavbarStyle.css";
 import menu from "../../assets/logo/menu-toggler.png";
-import photo from "../../assets/img/photo.png";
 import { connect } from "react-redux";
 
 class Navbar extends Component {
@@ -22,11 +19,16 @@ class Navbar extends Component {
     this.props.history.push("/login");
   };
 
+  handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
   render() {
     const { dataUser } = this.props;
     // console.log(localStorage.getItem("token"));
     const token = localStorage.getItem("token");
-    console.log(dataUser.user.role, "nabaaaaaaaaaaarrrrrrrrrrrrrr");
+    console.log(dataUser.user.user_image);
 
     return (
       <>
@@ -46,7 +48,7 @@ class Navbar extends Component {
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                {dataUser.user.role === "user" ? (
+                {dataUser.user.role === "user" || !token ? (
                   <>
                     <li className="nav-item search-mobile mt-5">
                       <input
@@ -84,16 +86,25 @@ class Navbar extends Component {
                       />
                     </li>
                     <li className="nav-item">
-                      <Link to="/manage-movie" className="nav-link mx-3 ms-5" aria-current="page">
-                        Manage Movie
+                      <Link to="/" className="nav-link mx-3 ms-5" aria-current="page">
+                        Home
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link to="/payment" className="nav-link mx-3" aria-current="page">
-                        admin
+                      <Link to="/manage-movie" className="nav-link mx-3" aria-current="page">
+                        Movies
                       </Link>
                     </li>
-
+                    <li className="nav-item">
+                      <Link to="/manage-schedule" className="nav-link mx-3" aria-current="page">
+                        Schedule
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/dashboard" className="nav-link mx-3" aria-current="page">
+                        Dashboard
+                      </Link>
+                    </li>
                     <li className="nav-item">
                       <Link to="/profile" className="nav-link mx-3" aria-current="page">
                         Profile
@@ -116,14 +127,14 @@ class Navbar extends Component {
                   </a>
                   <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li>
-                      <a className="dropdown-item" href="index.html">
-                        Login
+                      <a className="dropdown-item" onClick={this.handleLogout}>
+                        Logout
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="movie-detail.html">
-                        Movie detail
-                      </a>
+                      <Link to="/signup" className="dropdown-item" aria-current="page">
+                        Signup
+                      </Link>
                     </li>
                     <li>
                       <hr className="dropdown-divider" />
@@ -138,12 +149,20 @@ class Navbar extends Component {
                 <Search className="BsSearch" />
                 <i className="BsSearch nav-search nav-item"></i>
                 {token ? (
-                  <img src={photo} alt="photo" className="user-photo nav-search nav-item" />
+                  <img
+                    src={
+                      dataUser.user.user_image
+                        ? `http://localhost:3000/uploads/user/${dataUser.user.user_image}`
+                        : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                    }
+                    alt="photo"
+                    className="user-photo nav-search nav-item"
+                  />
                 ) : (
                   <button className="btn btn-sign-up-navbar" id="btn-sign-up-navbar" type="submit">
-                    <Link to="/signup" style={{ textDecoration: "none", color: "white" }}>
+                    <Link to="/login" style={{ textDecoration: "none", color: "white" }}>
                       {" "}
-                      Sign up{" "}
+                      Login{" "}
                     </Link>
                   </button>
                 )}

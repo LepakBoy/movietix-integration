@@ -39,6 +39,8 @@ Link {
 }
 #navbarDropdown {
   border: none;
+  background-color: white;
+  height: unset;
 }
 .btn-sign-up-navbar {
   width: 36%;
@@ -57,6 +59,11 @@ Link {
 }
 .bi-search {
   cursor: pointer;
+}
+.user-photo {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
 }
 @media (max-width: 991px) {
   .navbar-nav {

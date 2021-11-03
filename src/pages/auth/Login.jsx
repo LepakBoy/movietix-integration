@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
 import "../../assets/css/LoginStyle.css";
 import banner from "../../assets/img/banner.jpg";
 import jumbotron from "../../assets/img/jumbotron.png";
