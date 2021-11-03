@@ -20,7 +20,6 @@ const ManageMovie = (props) => {
     setIsUpdate(stat);
     setForm(item);
   };
-  console.log(form, "parent");
   return (
     <>
       <Navbar />

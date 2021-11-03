@@ -53,7 +53,7 @@ const getAllMovie = (state = initialState, action) => {
         ...state,
         isError: true,
         isLoading: false,
-        msg: action.payload.data.data.msg
+        msg: action.payload
       };
     }
     case "UPDATEMOVIE_PENDING": {

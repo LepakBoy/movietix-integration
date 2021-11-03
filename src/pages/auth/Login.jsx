@@ -36,7 +36,6 @@ class LoginPage extends Component {
     event.preventDefault();
 
     this.props.login(this.state.form).then((res) => {
-      console.log(res);
       this.props.getDataUser(res.value.data.data.id_user);
 
       //  kalo mau ambil data user dari store redux :
@@ -44,6 +43,7 @@ class LoginPage extends Component {
       // res memiliki 2 property : action dan value
       localStorage.setItem("token", res.value.data.data.token);
       // this.props.getDataUser(res.value.data.data.id_user);
+
       this.props.history.push("/");
     });
   };

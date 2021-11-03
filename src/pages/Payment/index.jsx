@@ -25,6 +25,17 @@ class Payment extends Component {
     };
   }
 
+  componentDidMount() {
+    this.checkingData();
+  }
+  checkingData = () => {
+    const { id_movie, id_schedule, time_schedule, date_booking, movieById } = this.state;
+    if (!id_movie || !id_schedule || !time_schedule || !date_booking || !movieById) {
+      alert("select movie");
+      this.props.history.push("/");
+    }
+  };
+
   postBooking = () => {
     const { date_booking, timeSchedule, id_movie, id_schedule, seat } = this.state;
     axios

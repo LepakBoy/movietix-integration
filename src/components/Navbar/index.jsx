@@ -26,10 +26,8 @@ class Navbar extends Component {
 
   render() {
     const { dataUser } = this.props;
-    // console.log(localStorage.getItem("token"));
     const token = localStorage.getItem("token");
-    console.log(dataUser.user.user_image);
-
+    console.log(dataUser.user, "navbar");
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -183,7 +181,5 @@ class Navbar extends Component {
 const mapStateToProps = (state) => ({
   dataUser: state.getDataUser
 });
-// harus diimport karna akan menjalankan function dari action
-//menjalankan function di action
 
 export default connect(mapStateToProps)(Navbar);

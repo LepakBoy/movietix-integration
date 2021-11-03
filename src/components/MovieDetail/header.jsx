@@ -22,7 +22,7 @@ class MovieDetailHeader extends Component {
                 <img
                   src={
                     this.props.movieById?.image
-                      ? `http://localhost:3000/uploads/movie/${this.props.movieById?.image}`
+                      ? `${process.env.REACT_APP_BASEURL}/uploads/movie/${this.props.movieById?.image}`
                       : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
                   }
                   alt="movie 5"

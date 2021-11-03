@@ -14,12 +14,6 @@ const DataMovie = (props) => {
     });
   };
 
-  const selectedDataMovie = (stat, data) => {
-    console.log(stat, data);
-    props.selectedMovieToManage(stat, data);
-  };
-
-  console.log(props.dataSelected);
   return (
     <>
       <div className="row mt-4 pt-4">
@@ -66,7 +60,7 @@ const DataMovie = (props) => {
                 <img
                   src={
                     item.image
-                      ? `http://localhost:3000/uploads/movie/${item.image}`
+                      ? `${process.env.REACT_APP_BASEURL}uploads/movie/${item.image}`
                       : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
                   }
                   alt=""
@@ -82,7 +76,7 @@ const DataMovie = (props) => {
                   <button
                     className="btn-update btn-card d-block mx-auto w-100 my-3 py-1"
                     // onClick={() => props.setIsUpdate(true, item)}
-                    onClick={() => props.selectedMovieToManage(true, item)}
+                    onClick={() => props.setIsUpdate(true, item)}
                   >
                     Update
                   </button>

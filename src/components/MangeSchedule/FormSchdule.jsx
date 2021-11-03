@@ -4,8 +4,12 @@ import addTime from "../../assets/logo/add-time.png";
 import ebv from "../../assets/logo/ebv.png";
 import cineone from "../../assets/logo/cineone.png";
 import hiflix from "../../assets/logo/hiflix.png";
+import { connect } from "react-redux";
 
-const FormSchedule = () => {
+const FormSchedule = (props) => {
+  const { dataAllMovie } = props;
+
+  console.log(dataAllMovie.dataMovie);
   return (
     <>
       <div className="row pt-5">
@@ -35,21 +39,16 @@ const FormSchedule = () => {
                             Select Movie
                           </button>
                           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li>
-                              <a className="dropdown-item" href="#">
-                                Action
-                              </a>
-                            </li>
-                            <li>
-                              <a className="dropdown-item" href="#">
-                                Another action
-                              </a>
-                            </li>
-                            <li>
-                              <a className="dropdown-item" href="#">
-                                Something else here
-                              </a>
-                            </li>
+                            {dataAllMovie.dataMovie.map((item) => {
+                              <>
+                                <li>
+                                  <a className="dropdown-item" href="#">
+                                    {item.movie_name}
+                                  </a>
+                                </li>
+                                ;
+                              </>;
+                            })}
                           </ul>
                         </div>
                       </div>
@@ -157,4 +156,8 @@ const FormSchedule = () => {
   );
 };
 
-export default FormSchedule;
+const mapStateToProps = (state) => ({
+  dataAllMovie: state.getAllMovie
+});
+
+export default connect(mapStateToProps)(FormSchedule);

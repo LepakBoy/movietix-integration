@@ -10,6 +10,7 @@ import MovieDetailPage from "./pages/User/MovieDetail";
 import OrderPage from "./pages/Order";
 import PaymentPage from "./pages/Payment";
 import PrivateRoute from "./helper/routes/privateRoutes";
+import AdminRoute from "./helper/routes/adminRoutes";
 import PublicRoute from "./helper/routes/publicRoutes";
 import CounterClass from "./pages/Basic-React/Counter/counter.class";
 import CounterFunc from "./pages/Basic-React/Counter/counter.functional";
@@ -41,12 +42,12 @@ class App extends Component {
               <PrivateRoute path="/payment" exact component={PaymentPage} />
               <PrivateRoute path="/basic-counter-class" exact component={CounterClass} />
               <PublicRoute path="/basic-counter-func" exact component={CounterFunc} />
-              <Route path="/manage-movie" exact component={ManageMovie} />
-              <Route path="/manage-schedule" exact component={ManageSchedule} />
-              <Route path="/dashboard" exact component={Dashboard} />
-              <Route path="/profile" exact component={Profile} />
-              <Route path="/signup" exact component={Signup} />
-              <Route path="/reset-password" exact component={ResetPassword} />
+              <AdminRoute path="/manage-movie" exact component={ManageMovie} />
+              <AdminRoute path="/manage-schedule" exact component={ManageSchedule} />
+              <AdminRoute path="/dashboard" exact component={Dashboard} />
+              <PrivateRoute path="/profile" exact component={Profile} />
+              <PublicRoute path="/signup" restricted={true} exact component={Signup} />
+              <PublicRoute path="/reset-password" exact component={ResetPassword} />
             </Switch>
           </Router>
         </PersistGate>
@@ -54,28 +55,5 @@ class App extends Component {
     );
   }
 }
-
-// function App() {
-//   return (
-//     <>
-//       <div className="App">
-//         <header className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <p>
-//             Edit <code>src/App.js</code> and save to reload.
-//           </p>
-//           <a
-//             className="App-link"
-//             href="https://reactjs.org"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Learn React
-//           </a>
-//         </header>
-//       </div>
-//     </>
-//   );
-// }
 
 export default App;
