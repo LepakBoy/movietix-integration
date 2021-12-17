@@ -26,7 +26,7 @@ class Payment extends Component {
   }
 
   componentDidMount() {
-    this.checkingData();
+    // this.checkingData();
   }
   checkingData = () => {
     const { id_movie, id_schedule, time_schedule, date_booking, movieById } = this.state;

@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "../../assets/css/ShowingListStyle.css";
+
 import axios from "../../Utils/axios";
 
 class ShowingList extends Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      month: new Date().toISOString().split("T")[0].split("-")[1]
     };
   }
 
@@ -17,7 +19,7 @@ class ShowingList extends Component {
 
   getDataMovie = () => {
     axios
-      .get("movie/all?order=id_movie")
+      .get(`movie/all?order=id_movie&filter=${this.state.month}`)
       .then((res) => {
         this.setState({
           data: res.data.data
@@ -30,6 +32,8 @@ class ShowingList extends Component {
 
   render() {
     const { data } = this.state;
+    console.log(this.state.month);
+
     return (
       <>
         <section className="showing-list">
@@ -39,24 +43,38 @@ class ShowingList extends Component {
               <span className="shwoing-list__all">view all</span>
             </header>
             <div className="showing-list__movie">
-              {data.map((item) => (
-                <div className="showing-list__movie--banner" key={item.id_movie}>
-                  <div
-                    className="showing-list__movie--content px-4 py-4"
-                    onClick={() => this.props.handleMovieDetail(item.id_movie)}
-                  >
-                    <img
-                      src={
-                        item.image
-                          ? `${process.env.REACT_APP_BASEURL}uploads/movie/${item.image}`
-                          : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
-                      }
-                      className="movie-poster"
-                      alt="movie-banner"
-                    />
+              {data.length > 0 ? (
+                data.map((item) => (
+                  <div className="showing-list__movie--banner" key={item.id_movie}>
+                    <div
+                      className="showing-list__movie--content px-4 py-4"
+                      onClick={() => this.props.handleMovieDetail(item.id_movie)}
+                    >
+                      <img
+                        src={
+                          item.image
+                            ? `${process.env.REACT_APP_BASEURL}uploads/movie/${item.image}`
+                            : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                        }
+                        className="movie-poster"
+                        alt="movie-banner"
+                      />
+                      <div>
+                        <p className="movie-card__name ">{item.movie_name}</p>
+                      </div>
+                      <div className="movie-card__genre text-center">
+                        <span>{item.category}</span>
+                      </div>
+                      <div className="movie-card__genre text-center">
+                        <span>{item.director}</span>
+                      </div>
+                      <button className="detail-btn mt-2 w-100">Detail</button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <div>no data</div>
+              )}
             </div>
           </div>
         </section>

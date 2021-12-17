@@ -34,6 +34,7 @@ class Order extends Component {
     if (!id_movie || !id_schedule || !time_schedule || !date_booking || !movieById) {
       alert("select movie");
       this.props.history.push("/");
+      return;
     }
   };
 

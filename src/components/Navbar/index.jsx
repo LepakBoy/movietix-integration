@@ -27,7 +27,8 @@ class Navbar extends Component {
   render() {
     const { dataUser } = this.props;
     const token = localStorage.getItem("token");
-    console.log(dataUser.user, "navbar");
+    console.log(token);
+    console.log(dataUser.user.role, "navbar");
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -46,7 +47,7 @@ class Navbar extends Component {
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                {dataUser.user.role === "user" || !token ? (
+                {token ? (
                   <>
                     <li className="nav-item search-mobile mt-5">
                       <input
@@ -61,11 +62,33 @@ class Navbar extends Component {
                         Home
                       </Link>
                     </li>
-                    <li className="nav-item">
-                      <Link to="/payment" className="nav-link mx-3" aria-current="page">
-                        Payment
-                      </Link>
-                    </li>
+                    {dataUser.user.role === "user" ? (
+                      <li className="nav-item">
+                        <Link to="/payment" className="nav-link mx-3" aria-current="page">
+                          Payment
+                        </Link>
+                      </li>
+                    ) : null}
+
+                    {dataUser.user.role === "admin" ? (
+                      <>
+                        <li className="nav-item">
+                          <Link to="/manage-movie" className="nav-link mx-3" aria-current="page">
+                            Movies
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link to="/manage-schedule" className="nav-link mx-3" aria-current="page">
+                            Schedule
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link to="/dashboard" className="nav-link mx-3" aria-current="page">
+                            Dashboard
+                          </Link>
+                        </li>
+                      </>
+                    ) : null}
 
                     <li className="nav-item">
                       <Link to="/profile" className="nav-link mx-3" aria-current="page">
@@ -73,43 +96,7 @@ class Navbar extends Component {
                       </Link>
                     </li>
                   </>
-                ) : (
-                  <>
-                    <li className="nav-item search-mobile mt-5">
-                      <input
-                        className="form-control me-2"
-                        type="search"
-                        placeholder="Search..."
-                        aria-label="Search"
-                      />
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/" className="nav-link mx-3 ms-5" aria-current="page">
-                        Home
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/manage-movie" className="nav-link mx-3" aria-current="page">
-                        Movies
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/manage-schedule" className="nav-link mx-3" aria-current="page">
-                        Schedule
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/dashboard" className="nav-link mx-3" aria-current="page">
-                        Dashboard
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/profile" className="nav-link mx-3" aria-current="page">
-                        Profile
-                      </Link>
-                    </li>
-                  </>
-                )}
+                ) : null}
               </ul>
               <form className="d-flex" id="search-navbar">
                 <li className="nav-item dropdown">

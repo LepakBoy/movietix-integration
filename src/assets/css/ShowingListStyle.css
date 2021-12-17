@@ -59,6 +59,13 @@
   padding: 60px 0;
   width: 100%;
 }
+.detail-btn {
+  background-color: white;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid #5f2eea;
+  color: #5f2eea;
+}
 .showing-list_detail {
   width: 100%;
   top: 50%;
@@ -76,11 +83,16 @@
   font-weight: 600;
 }
 .movie-card__name {
+  width: 80;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-top: 18px;
   font-size: 16px;
   font-weight: 700;
-  white-space: initial;
+  /* white-space: initial; */
 }
+
 .showing__detail-genre {
   font-size: 12px;
   font-weight: 400;

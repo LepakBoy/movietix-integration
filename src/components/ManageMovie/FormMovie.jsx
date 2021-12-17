@@ -187,7 +187,7 @@ const FormMovie = (props) => {
                               value={formData.duration}
                             />
                           </div>
-                          <div className="col-6 minute pe-0">
+                          {/* <div className="col-6 minute pe-0">
                             <div className="label my-2">Duration Minutes</div>
                             <input
                               type="text"
@@ -197,7 +197,7 @@ const FormMovie = (props) => {
                               onChange={(event) => changeText(event)}
                               value={formData.duration}
                             />
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
