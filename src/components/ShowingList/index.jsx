@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "../../assets/css/ShowingListStyle.css";
+import { connect } from "react-redux";
 
 import axios from "../../Utils/axios";
 
 class ShowingList extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       data: [],
@@ -32,7 +33,7 @@ class ShowingList extends Component {
 
   render() {
     const { data } = this.state;
-    console.log(this.state.month);
+    const { dataUser } = this.props;
 
     return (
       <>
@@ -48,7 +49,11 @@ class ShowingList extends Component {
                   <div className="showing-list__movie--banner" key={item.id_movie}>
                     <div
                       className="showing-list__movie--content px-4 py-4"
-                      onClick={() => this.props.handleMovieDetail(item.id_movie)}
+                      onClick={
+                        dataUser.user.role === "user"
+                          ? () => this.props.handleMovieDetail(item.id_movie)
+                          : null
+                      }
                     >
                       <img
                         src={
@@ -60,7 +65,7 @@ class ShowingList extends Component {
                         alt="movie-banner"
                       />
                       <div>
-                        <p className="movie-card__name ">{item.movie_name}</p>
+                        <p className="movie-card__name text-center ">{item.movie_name}</p>
                       </div>
                       <div className="movie-card__genre text-center">
                         <span>{item.category}</span>
@@ -68,7 +73,9 @@ class ShowingList extends Component {
                       <div className="movie-card__genre text-center">
                         <span>{item.director}</span>
                       </div>
-                      <button className="detail-btn mt-2 w-100">Detail</button>
+                      {dataUser.user.role === "user" ? (
+                        <button className="detail-btn mt-2 w-100">Detail</button>
+                      ) : null}
                     </div>
                   </div>
                 ))
@@ -82,5 +89,7 @@ class ShowingList extends Component {
     );
   }
 }
-
-export default withRouter(ShowingList);
+const mapStateToProps = (state) => ({
+  dataUser: state.getDataUser
+});
+export default connect(mapStateToProps)(ShowingList);

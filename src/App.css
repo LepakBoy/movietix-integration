@@ -36,6 +36,9 @@
     transform: rotate(360deg);
   }
 }
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
-} */
+}
+.nav-link:hover {
+  cursor: pointer;
+}

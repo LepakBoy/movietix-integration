@@ -17,6 +17,11 @@
   white-space: nowrap;
   overflow-x: auto;
 }
+.coming-soon {
+  font-size: 48px;
+  color: #5f2eea;
+  font-weight: 700;
+}
 .month-name {
   margin: 0 4px;
   padding: 8px 4px;

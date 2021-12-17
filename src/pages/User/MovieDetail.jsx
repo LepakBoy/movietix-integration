@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import MovieDetailHeader from "../../components/MovieDetail/header";
 import MovieDetailSchedule from "../../components/MovieDetail/schedule";
+import { Modal, Button } from "react-bootstrap";
 
 const dateNow = new Date().toISOString().split("T")[0];
 class MovieDetailPage extends Component {
@@ -18,9 +19,14 @@ class MovieDetailPage extends Component {
       id_schedule: 0,
       date_booking: dateNow,
       price: 0,
-      teater_name: ""
+      teater_name: "",
+      show: false
     };
   }
+  handleClose = () => {
+    this.setState({ show: false });
+    // router.push("/auth/login");
+  };
 
   componentDidMount() {
     this.handleMovieById();
@@ -69,7 +75,7 @@ class MovieDetailPage extends Component {
       this.state;
 
     if (!time_schedule) {
-      alert("select time");
+      this.setState({ show: true });
       return;
     }
 
@@ -96,7 +102,6 @@ class MovieDetailPage extends Component {
 
   render() {
     const { movieById } = this.state;
-
     return (
       <>
         <Navbar />
@@ -108,7 +113,19 @@ class MovieDetailPage extends Component {
           order={this.handleOrder}
           date={this.state.date_booking}
           changeDate={this.handleChangeDate}
+          idMovie={this.state.id_movie}
         />
+        <Modal show={this.state.show} onHide={this.handleClose} backdrop="static" keyboard={false}>
+          <Modal.Header>
+            <Modal.Title>Oops..cannot continue</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Please select time before continue</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={this.handleClose}>
+              Ok
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Footer />
       </>
     );

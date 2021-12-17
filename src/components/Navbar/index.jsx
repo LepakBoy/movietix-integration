@@ -27,8 +27,7 @@ class Navbar extends Component {
   render() {
     const { dataUser } = this.props;
     const token = localStorage.getItem("token");
-    console.log(token);
-    console.log(dataUser.user.role, "navbar");
+
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -62,13 +61,6 @@ class Navbar extends Component {
                         Home
                       </Link>
                     </li>
-                    {dataUser.user.role === "user" ? (
-                      <li className="nav-item">
-                        <Link to="/payment" className="nav-link mx-3" aria-current="page">
-                          Payment
-                        </Link>
-                      </li>
-                    ) : null}
 
                     {dataUser.user.role === "admin" ? (
                       <>
@@ -98,40 +90,16 @@ class Navbar extends Component {
                   </>
                 ) : null}
               </ul>
-              <form className="d-flex" id="search-navbar">
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Location
-                  </a>
-                  <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li>
-                      <a className="dropdown-item" onClick={this.handleLogout}>
-                        Logout
-                      </a>
-                    </li>
-                    <li>
-                      <Link to="/signup" className="dropdown-item" aria-current="page">
-                        Signup
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Something else here
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <Search className="BsSearch" />
+              <form className="d-flex justify-content-end" id="search-navbar">
+                {token ? (
+                  <li className="nav-item">
+                    <a className="nav-link mx-3" onClick={this.handleLogout}>
+                      Logout
+                    </a>
+                  </li>
+                ) : null}
+
+                {/* <Search className="BsSearch" /> */}
                 <i className="BsSearch nav-search nav-item"></i>
                 {token ? (
                   <img
