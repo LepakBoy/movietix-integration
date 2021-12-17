@@ -25,7 +25,6 @@ class MovieDetailPage extends Component {
   }
   handleClose = () => {
     this.setState({ show: false });
-    // router.push("/auth/login");
   };
 
   componentDidMount() {

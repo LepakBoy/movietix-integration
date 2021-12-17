@@ -70,7 +70,11 @@ export default function MovieDetailSchedule(props) {
                     {/* looping by data public API https://farizdotid.com/blog/dokumentasi-api-daerah-indonesia/
     I */}
                     {cities.map((item) => (
-                      <li key={item} onClick={() => setSelectedCity(item)}>
+                      <li
+                        key={item}
+                        onClick={() => setSelectedCity(item)}
+                        className="location-item"
+                      >
                         <a className="dropdown-item">{item === "" ? "All locations" : item}</a>
                       </li>
                     ))}

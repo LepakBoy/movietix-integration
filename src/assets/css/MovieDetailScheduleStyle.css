@@ -21,6 +21,12 @@
 .location-picker {
   width: 40%;
 }
+.location-item:hover {
+  cursor: pointer;
+}
+.active-paginate {
+  background-color: #5f2eea;
+}
 .schedule-list {
   width: 320px;
   margin-top: 32px;

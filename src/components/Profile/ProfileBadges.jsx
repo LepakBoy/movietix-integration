@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dot from "../../assets/logo/dot.png";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getDataUser } from "../../stores/action/dataUser";
+import axios from "../../Utils/axios";
 
-const ProfileBadges = (props) => {
-  const { dataUser } = props;
+export default function ProfileBadges(props) {
+  const dispatch = useDispatch();
+  const [dataUser, setDataUser] = useState({ first_name: "", last_name: "", image: "" });
+
+  const user = useSelector((state) => state.getDataUser);
+
+  // console.log(user.user, "selector");
+  // const dispatch = useDispatch(getDataUser(user.user.id_user));
+
+  useEffect(() => {
+    dispatch(getDataUser(user.user.id_user)).then((res) => {
+      setDataUser({
+        ...dataUser,
+        first_name: res.value.data.data[0].first_name,
+        last_name: res.value.data.data[0].last_name,
+        image: res.value.data.data[0].user_image
+      });
+    });
+  }, [dispatch]);
+
+  // console.log(dataUser, "dataaaa");
 
   return (
     <>
@@ -17,8 +38,8 @@ const ProfileBadges = (props) => {
         <div className="profile-img text-center pt-2">
           <img
             src={
-              dataUser.user.user_image
-                ? `${process.env.REACT_APP_BASEURL}/uploads/user/${dataUser.user.user_image}`
+              dataUser.image
+                ? `${process.env.REACT_APP_BASEURL}/uploads/user/${dataUser.image}`
                 : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
             }
             alt="photo"
@@ -26,7 +47,7 @@ const ProfileBadges = (props) => {
           />
         </div>
         <div className="profile-name text-center py-3">
-          <span>{`${dataUser.user.first_name} ${dataUser.user.last_name}`}</span>
+          <span>{`${user.user.first_name} ${dataUser.last_name}`}</span>
         </div>
         <div className="profile-title text-center pb-5">
           <span>Moviegoers</span>
@@ -34,10 +55,10 @@ const ProfileBadges = (props) => {
       </div>
     </>
   );
-};
+}
 
-const mapStateToProps = (state) => ({
-  dataUser: state.getDataUser
-});
+// const mapStateToProps = (state) => ({
+//   dataUser: state.getDataUser
+// });
 
-export default connect(mapStateToProps)(ProfileBadges);
+// export default connect(mapStateToProps)(ProfileBadges);
