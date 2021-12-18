@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../assets/css/LoginStyle.css";
+import { Link, withRouter } from "react-router-dom";
 import banner from "../../assets/img/banner.jpg";
 import jumbotron from "../../assets/img/jumbotron.png";
 import google from "../../assets/logo/flat-color-icons_google.png";
@@ -105,7 +106,10 @@ class LoginPage extends Component {
                 </span>
               </div>
               <div className="or">Or</div>
-              <div className="button-group-login">
+              <div className="forgot-pass">
+                <Link to="/signup">Create new account</Link>
+              </div>
+              {/* <div className="button-group-login">
                 <button className="button btn-google">
                   <img src={google} alt="google" className="btn-forgot__img" />{" "}
                   <span className="google">Google</span>
@@ -114,7 +118,7 @@ class LoginPage extends Component {
                   <img src={facebook} alt="facebook" className="btn-forgot__img" />{" "}
                   <span className="facebook">Facebook</span>
                 </button>
-              </div>
+              </div> */}
             </div>
           </section>
         </section>

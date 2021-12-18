@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -6,11 +6,25 @@ import ProfileBadges from "../../components/Profile/ProfileBadges";
 import "../../assets/css/ProfileStyle.css";
 import AccountSettings from "../../components/Profile/AccountSettings";
 import OrderHistory from "../../components/Profile/OrderHistroy";
+import axios from "../../Utils/axios";
 
 const Profile = () => {
+  const [dataOrder, setdataOrder] = useState([]);
   const [setting, setSetting] = useState(true);
   const dataUser = useSelector((state) => state.getDataUser);
   const { user } = dataUser;
+
+  // console.log(dataOrder);
+
+  const getOrder = () => {
+    axios.get(`/booking/user/${user.id_user}`).then((res) => {
+      setdataOrder(res.data.data);
+    });
+  };
+
+  useEffect(() => {
+    getOrder();
+  }, []);
 
   return (
     <>
@@ -41,7 +55,7 @@ const Profile = () => {
                     </span>
                   ) : null}
 
-                  {setting ? <AccountSettings /> : <OrderHistory />}
+                  {setting ? <AccountSettings /> : <OrderHistory dataOrder={dataOrder} />}
                 </div>
               </div>
             </div>

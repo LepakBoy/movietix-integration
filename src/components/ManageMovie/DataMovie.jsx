@@ -85,7 +85,7 @@ const DataMovie = (props) => {
                   className="hover-pointer"
                   onClickCapture={() => props.handleSort(item.val)}
                 >
-                  <a className="dropdown-item">{item.text}</a>
+                  <a className="dropdown-item text-center">{item.text}</a>
                 </li>
               ))}
             </ul>

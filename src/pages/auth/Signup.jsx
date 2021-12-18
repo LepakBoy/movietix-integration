@@ -6,8 +6,11 @@ import google from "../../assets/logo/flat-color-icons_google.png";
 import facebook from "../../assets/logo/bx_bxl-facebook-circle.png";
 import { connect } from "react-redux";
 import { register } from "../../stores/action/auth";
+import { Modal, Button } from "react-bootstrap";
 
 const Signup = (props) => {
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
   const [dataRegister, setDataRegister] = useState({});
 
   const handleChangeForm = (e) => {
@@ -17,18 +20,45 @@ const Signup = (props) => {
     });
   };
 
+  const handleClose = () => {
+    setShow(false);
+    error.split(" ")[0] === "Success" ? props.history.push("/login") : null;
+  };
+
   const submitRegister = (e) => {
     e.preventDefault();
-    props.register(dataRegister).then((res) => {
-      alert("success register, please login");
-      props.history.push("/login");
-    });
+
+    if (dataRegister.password.length < 6) {
+      setError("Password at least 6 characters");
+      setShow(true);
+      return;
+    }
+    props
+      .register(dataRegister)
+      .then((res) => {
+        setError("Success register, please check your email for account activation before login");
+        setShow(true);
+      })
+      .then((err) => {
+        console.log(err, "reeeeeeeee");
+      });
   };
 
   const { msg, isError } = props.auth;
-  console.log(dataRegister);
+  console.log(dataRegister.password);
   return (
     <>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+        <Modal.Header>
+          <Modal.Title>{error.split(" ")[0] === "Success" ? "Success.." : "Oopss.."}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{error}</Modal.Body>
+        <Modal.Footer>
+          <Button variant={"primary"} onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="body">
         <section className="banner-signup">
           <div className="banner__overlay-signup">

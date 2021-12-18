@@ -68,6 +68,11 @@ body {
   font-weight: 600;
 }
 /* profile order history */
+.order-list {
+  /* background-color: red; */
+  height: 740px;
+  overflow-y: auto;
+}
 .order-list-item {
   border: 0.5px solid #dedede;
   border-radius: 8px;

@@ -133,7 +133,7 @@ const FormMovie = (props) => {
       });
     });
   };
-  console.log(formData, "form");
+
   const resetForm = (e) => {
     e.preventDefault();
     setFormData({
