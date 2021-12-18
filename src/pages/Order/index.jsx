@@ -8,6 +8,7 @@ import MovieSelected from "../../components/Order/movieSelected";
 import OrderInfo from "../../components/Order/orderInfo";
 import OrderSeat from "../../components/Order/seatOrder";
 import axios from "../../Utils/axios";
+import { Modal, Button } from "react-bootstrap";
 
 class Order extends Component {
   constructor(props) {
@@ -21,7 +22,9 @@ class Order extends Component {
       price: props.location.state ? props.location.state.price : "",
       teater: props.location.state ? props.location.state.teater_name : "",
       selectedSeat: [],
-      reservedSeat: []
+      reservedSeat: [],
+      show: false,
+      error: ""
     };
   }
 
@@ -79,7 +82,7 @@ class Order extends Component {
 
   handleBook = () => {
     if (this.state.selectedSeat.length < 1) {
-      alert("chose seat");
+      this.setState({ ...this.state, error: "Please choose seat", show: true });
       return;
     }
     const { id_movie, id_schedule, date_booking, teater, time_schedule, selectedSeat } = this.state;
@@ -99,10 +102,26 @@ class Order extends Component {
       selectedSeat
     });
   };
+  handleClose = () => {
+    this.setState({ show: false });
+  };
 
   render() {
     return (
       <>
+        <Modal show={this.state.show} onHide={this.handleClose} backdrop="static" keyboard={false}>
+          <Modal.Header>
+            <Modal.Title>
+              {this.state.error.split(" ")[0] === "Success" ? "Success.." : "Oopss.."}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{this.state.error}</Modal.Body>
+          <Modal.Footer>
+            <Button variant={"primary"} onClick={this.handleClose}>
+              Ok
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Navbar />
         <main>
           <div className="container">
