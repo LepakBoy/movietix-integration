@@ -42,3 +42,6 @@
 .nav-link:hover {
   cursor: pointer;
 }
+.hover-pointer:hover {
+  cursor: pointer;
+}

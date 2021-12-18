@@ -2,20 +2,69 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { getAllMovie, deleteMovie } from "../../stores/action/movieAll";
 import { selectedMovieToManage } from "../../stores/action/manageMovie";
+import { Modal, Button } from "react-bootstrap";
 
 const DataMovie = (props) => {
+  const [show, setShow] = useState(false);
+  const [del, setDel] = useState(false);
+  const [error, setError] = useState("");
   const { dataMovie } = props.dataMovie;
+  const [idSelected, setIdSelected] = useState({ id: "", name: "" });
+  const [sort, setsort] = useState([
+    { text: "A-Z", val: "ASC" },
+    { text: "Z-A", val: "DESC" }
+  ]);
+  const [paginate, setPaginate] = useState({
+    page: 1,
+    order: "movie_name",
+    sort: "ASC",
+    limit: 4,
+    totalPage: 0
+  });
 
-  const deleteData = (e, id) => {
-    e.preventDefault();
+  const deleteData = () => {
+    // e.preventDefault();
+    const { page, order, sort, limit } = paginate;
 
-    props.deleteMovie(id).then((res) => {
-      props.getAllMovie();
+    props.deleteMovie(idSelected.id).then((res) => {
+      setShow(false);
+      setIdSelected({ id: "", name: "" });
+      props.getAllMovie(page, order, sort, limit).then((res) => {
+        props.totalPage(res.value.data.pagination.totalPage);
+      });
     });
+  };
+
+  const handleDeleteBtn = (id, name) => {
+    setShow(true);
+    setDel(true);
+    setIdSelected({ ...idSelected, id: id, name: name });
+    setError("Are you sure want to delete this movie? ");
+  };
+
+  const handleClose = () => {
+    setShow(false);
+    setIdSelected({ ...idSelected, id: "", name: "" });
   };
 
   return (
     <>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+        <Modal.Header>
+          <Modal.Title>{error.split(" ")[0] === "Success" ? "Success.." : "Oopss.."}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{error}</Modal.Body>
+        <Modal.Footer>
+          <Button variant={del ? "danger" : "primary"} onClick={deleteData}>
+            {del ? "Delete" : "Ok"}
+          </Button>
+          {del ? (
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+          ) : null}
+        </Modal.Footer>
+      </Modal>
       <div className="row mt-4 pt-4">
         <div className="data-movie__header col-md-6">Data Movie</div>
         <div className="d-flex sort-option justify-content-end col-md-6 align-items-center">
@@ -30,21 +79,15 @@ const DataMovie = (props) => {
               Sort
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </li>
+              {sort.map((item) => (
+                <li
+                  key={item.val}
+                  className="hover-pointer"
+                  onClickCapture={() => props.handleSort(item.val)}
+                >
+                  <a className="dropdown-item">{item.text}</a>
+                </li>
+              ))}
             </ul>
           </div>
           <input
@@ -82,7 +125,8 @@ const DataMovie = (props) => {
                   </button>
                   <button
                     className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1"
-                    onClick={(event) => deleteData(event, item.id_movie)}
+                    // onClick={(event) => deleteData(event, item.id_movie)}
+                    onClick={() => handleDeleteBtn(item.id_movie, item.movie_name)}
                   >
                     Delete
                   </button>
@@ -90,7 +134,6 @@ const DataMovie = (props) => {
               </div>
             </div>
           ))}
-          {/* TOAST DELETE DATA */}
         </div>
       </div>
     </>

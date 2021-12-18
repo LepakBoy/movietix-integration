@@ -14,12 +14,11 @@ const AccountSetings = () => {
 
   const getDataUser = (id) => {
     axios.get(`/user/${id}`).then((res) => {
-      // console.log(res.data.data[0]);
-      setGetUser({
-        ...getUser,
-        first_name: res.data.data[0].first_name,
-        last_name: res.data.data[0].last_name
-      });
+      // setGetUser({
+      //   ...getUser,
+      //   first_name: res.data.data[0].first_name,
+      //   last_name: res.data.data[0].last_name
+      // });
     });
   };
 
@@ -27,9 +26,13 @@ const AccountSetings = () => {
     setShow(false);
   };
 
-  // console.log(getUser, "getuser");
-
   const updateUser = () => {
+    if (getUser.first_name === "" && getUser.last_name === "") {
+      setError("At least 1 input must be filled");
+      setShow(true);
+      return;
+    }
+
     axios.patch("/user/update-profile", getUser).then((res) => {
       // console.log(res.data.data.id, "res");
       getDataUser(res.data.data.id);
@@ -100,9 +103,9 @@ const AccountSetings = () => {
               className="account-settings-input py-2 ps-4 mt-2"
               type="text"
               name="first_name"
-              placeholder="adad"
+              placeholder="Enter your first name"
               onChange={changeText}
-              value={getUser.first_name}
+              // value={getUser.first_name}
             />
           </div>
           <div className="col-md-6 username">
@@ -112,7 +115,8 @@ const AccountSetings = () => {
               type="text"
               name="last_name"
               onChange={changeText}
-              value={getUser.last_name}
+              placeholder="Enter your last name"
+              // value={getUser.last_name}
             />
           </div>
           <div className="col-md-6 contact mt-4">

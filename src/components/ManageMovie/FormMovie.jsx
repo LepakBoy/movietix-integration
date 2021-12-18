@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 import { postMovie, getAllMovie, updateMovie } from "../../stores/action/movieAll";
+import { Modal, Button } from "react-bootstrap";
 
 const FormMovie = (props) => {
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
   const form = props.form;
   const { releaseDate, duration, id_movie } = form;
   const [formData, setFormData] = useState({
@@ -14,9 +17,20 @@ const FormMovie = (props) => {
     cast: "",
     duration: "",
     synopsis: "",
-    image: ""
+    image: null
   });
   const [isUpdate, setIsUpdate] = useState(false);
+  const [paginate, setPaginate] = useState({
+    page: 1,
+    order: "movie_name",
+    sort: "ASC",
+    limit: 4,
+    totalPage: 0
+  });
+
+  const handleClose = () => {
+    setShow(false);
+  };
 
   useEffect(() => {
     setFormData({
@@ -41,26 +55,68 @@ const FormMovie = (props) => {
 
   //tambah get data yang baru di post
   const postData = (e) => {
+    const { page, order, sort, limit } = paginate;
     e.preventDefault();
-    props.postMovie(formData).then((res) => {
-      props.getAllMovie();
-    });
-    setIsUpdate(false);
-    setFormData({
-      movie_name: "",
-      director: "",
-      releaseDate: "",
-      category: "",
-      cast: "",
-      duration: "",
-      synopsis: "",
-      image: null
-    });
+    for (const item in formData) {
+      if (formData[item] === "") {
+        setError("All input must be filled");
+        setShow(true);
+        setFormData({
+          movie_name: "",
+          director: "",
+          releaseDate: "",
+          category: "",
+          cast: "",
+          duration: "",
+          synopsis: "",
+          image: null
+        });
+        return;
+      }
+    }
+    props
+      .postMovie(formData)
+      .then((res) => {
+        setShow(true);
+        setError("Success post new data");
+        props.getAllMovie(page, order, sort, limit).then((res) => {
+          props.totalPage(res.value.data.pagination.totalPage);
+        });
+        setIsUpdate(false);
+        setFormData({
+          movie_name: "",
+          director: "",
+          releaseDate: "",
+          category: "",
+          cast: "",
+          duration: "",
+          synopsis: "",
+          image: ""
+        });
+      })
+      .catch((err) => {
+        setError("All input must be filled");
+        setShow(true);
+
+        setFormData({
+          movie_name: "",
+          director: "",
+          releaseDate: "",
+          category: "",
+          cast: "",
+          duration: "",
+          synopsis: "",
+          image: ""
+        });
+      });
   };
 
   const updateData = (e) => {
     e.preventDefault();
+    const { page, order, sort, limit } = paginate;
     props.updateMovie(id_movie, formData).then((res) => {
+      setError("Success update movie");
+      setShow(true);
       setFormData({
         movie_name: "",
         director: "",
@@ -72,10 +128,12 @@ const FormMovie = (props) => {
         image: ""
       });
       setIsUpdate(false);
-      props.getAllMovie();
+      props.getAllMovie(page, order, sort, limit).then((res) => {
+        // setPaginate({ ...paginate, totalPage: res.value.data.pagination.totalPage });
+      });
     });
   };
-
+  console.log(formData, "form");
   const resetForm = (e) => {
     e.preventDefault();
     setFormData({
@@ -93,6 +151,17 @@ const FormMovie = (props) => {
 
   return (
     <>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+        <Modal.Header>
+          <Modal.Title>{error.split(" ")[0] === "Success" ? "Success.." : "Oopss.."}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{error}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="row pt-3 mt-3">
         <div className="form-movie col-md-12 px-0">
           <div className="form-movie__header">Form Movie</div>
@@ -113,6 +182,7 @@ const FormMovie = (props) => {
                       alt=""
                     />
                   </div>
+                  {/* <input type="file" /> */}
                 </div>
                 <div className="col-md-9">
                   <div className="row">
@@ -211,6 +281,8 @@ const FormMovie = (props) => {
                     cols="100"
                     className="ps-3"
                     rows="4"
+                    onChange={(event) => changeText(event)}
+                    // placeholder={formData.synopsis}
                     value={formData.synopsis}
                   ></textarea>
                 </div>
