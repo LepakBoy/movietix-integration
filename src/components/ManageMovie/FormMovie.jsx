@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 import { postMovie, getAllMovie, updateMovie } from "../../stores/action/movieAll";
 import { Modal, Button } from "react-bootstrap";
 
 const FormMovie = (props) => {
+  const [imagePrev, setImagePrev] = useState("");
+  const target = useRef(null);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
   const form = props.form;
@@ -53,11 +55,20 @@ const FormMovie = (props) => {
     });
   };
 
+  const handleFile = (e) => {
+    setFormData({ ...formData, image: e.target.files[0] });
+    if (e.target.files[0]) {
+      setImagePrev(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
   //tambah get data yang baru di post
-  const postData = (e) => {
+  const postData = () => {
+    const dataImage = new FormData();
     const { page, order, sort, limit } = paginate;
-    e.preventDefault();
+
     for (const item in formData) {
+      dataImage.append(item, formData[item]);
       if (formData[item] === "") {
         setError("All input must be filled");
         setShow(true);
@@ -74,8 +85,9 @@ const FormMovie = (props) => {
         return;
       }
     }
+
     props
-      .postMovie(formData)
+      .postMovie(dataImage)
       .then((res) => {
         setShow(true);
         setError("Success post new data");
@@ -93,6 +105,7 @@ const FormMovie = (props) => {
           synopsis: "",
           image: ""
         });
+        setImagePrev("");
       })
       .catch((err) => {
         setError("All input must be filled");
@@ -111,31 +124,23 @@ const FormMovie = (props) => {
       });
   };
 
-  const updateData = (e) => {
-    e.preventDefault();
+  const updateData = () => {
+    const dataImage = new FormData();
+    for (const item in formData) {
+      dataImage.append(item, formData[item]);
+    }
     const { page, order, sort, limit } = paginate;
-    props.updateMovie(id_movie, formData).then((res) => {
+    props.updateMovie(id_movie, dataImage).then((res) => {
       setError("Success update movie");
       setShow(true);
-      setFormData({
-        movie_name: "",
-        director: "",
-        releaseDate: "",
-        category: "",
-        cast: "",
-        duration: "",
-        synopsis: "",
-        image: ""
-      });
-      setIsUpdate(false);
+      resetForm();
       props.getAllMovie(page, order, sort, limit).then((res) => {
         // setPaginate({ ...paginate, totalPage: res.value.data.pagination.totalPage });
       });
     });
   };
 
-  const resetForm = (e) => {
-    e.preventDefault();
+  const resetForm = () => {
     setFormData({
       movie_name: "",
       director: "",
@@ -147,6 +152,7 @@ const FormMovie = (props) => {
       image: null
     });
     setIsUpdate(false);
+    setImagePrev("");
   };
 
   return (
@@ -166,98 +172,109 @@ const FormMovie = (props) => {
         <div className="form-movie col-md-12 px-0">
           <div className="form-movie__header">Form Movie</div>
           <div className="wrapper p-4 pt-5 mt-4">
-            <form
-              onReset={(event) => resetForm(event)}
-              onSubmit={isUpdate ? updateData : (event) => postData(event)}
-            >
-              <div className="form-movie__data row">
-                <div className="col-md-3">
-                  <div className="movie-banner p-3 d-flex justify-content-center align-items-center">
-                    <img
-                      src={
-                        formData.image
-                          ? `${process.env.REACT_APP_BASEURL}uploads/movie/${formData.image}`
-                          : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
-                      }
-                      alt=""
-                    />
-                  </div>
-                  {/* <input type="file" /> */}
+            <div className="form-movie__data row">
+              <div className="col-md-3">
+                <div className="movie-banner p-3 d-flex justify-content-center align-items-center">
+                  <img
+                    src={
+                      imagePrev
+                        ? imagePrev
+                        : formData.image
+                        ? `${process.env.REACT_APP_BASEURL}uploads/movie/${formData.image}`
+                        : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                    }
+                    alt=""
+                  />
+                  <input
+                    type="file"
+                    name="user_image"
+                    ref={target}
+                    style={{ display: "none" }}
+                    onChange={handleFile}
+                  />
+                  <button
+                    className="d-block mt-4 mx-auto btn-image"
+                    onClick={() => target.current.click()}
+                  >
+                    Choose image
+                  </button>
                 </div>
-                <div className="col-md-9">
-                  <div className="row">
-                    <div className="col-md-6 left-side">
-                      <div className="movie-name">
-                        <div className="label my-2">Movie Name</div>
-                        <input
-                          type="text"
-                          className="manage-movie-input ps-3 mb-3 w-100"
-                          name="movie_name"
-                          id=""
-                          onChange={(event) => changeText(event)}
-                          value={formData.movie_name}
-                        />
-                      </div>
-                      <div className="movie-director">
-                        <div className="label my-2">Director</div>
-                        <input
-                          type="text"
-                          className="manage-movie-input ps-3 mb-3 w-100"
-                          name="director"
-                          id=""
-                          onChange={(event) => changeText(event)}
-                          value={formData.director}
-                        />
-                      </div>
-                      <div className="movie-release">
-                        <div className="label my-2">Release Date</div>
-                        <input
-                          type="date"
-                          className="manage-movie-input ps-3 mb-3 w-100"
-                          name="releaseDate"
-                          id=""
-                          onChange={(event) => changeText(event)}
-                          value={formData.releaseDate}
-                        />
-                      </div>
+                {/* <input type="file" /> */}
+              </div>
+              <div className="col-md-9">
+                <div className="row">
+                  <div className="col-md-6 left-side">
+                    <div className="movie-name">
+                      <div className="label my-2">Movie Name</div>
+                      <input
+                        type="text"
+                        className="manage-movie-input ps-3 mb-3 w-100"
+                        name="movie_name"
+                        id=""
+                        onChange={(event) => changeText(event)}
+                        value={formData.movie_name}
+                      />
                     </div>
-                    <div className="col-md-6 right-side pe-0">
-                      <div className="movie-category">
-                        <div className="label my-2">Category</div>
-                        <input
-                          type="text"
-                          className="manage-movie-input ps-3 mb-3 w-100"
-                          name="category"
-                          id=""
-                          onChange={(event) => changeText(event)}
-                          value={formData.category}
-                        />
-                      </div>
-                      <div className="movie-cast">
-                        <div className="label my-2">Cast</div>
-                        <input
-                          type="text"
-                          className="manage-movie-input ps-3 mb-3 w-100"
-                          name="cast"
-                          id=""
-                          onChange={(event) => changeText(event)}
-                          value={formData.cast}
-                        />
-                      </div>
-                      <div className="movie-duration ">
-                        <div className="row">
-                          <div className="col-6 hour ps-0">
-                            <div className="label my-2">Duration Hour</div>
-                            <input
-                              type="text"
-                              className="manage-movie-input ps-3 mb-3 w-100"
-                              name="duration"
-                              id=""
-                              onChange={(event) => changeText(event)}
-                              value={formData.duration}
-                            />
-                          </div>
-                          {/* <div className="col-6 minute pe-0">
+                    <div className="movie-director">
+                      <div className="label my-2">Director</div>
+                      <input
+                        type="text"
+                        className="manage-movie-input ps-3 mb-3 w-100"
+                        name="director"
+                        id=""
+                        onChange={(event) => changeText(event)}
+                        value={formData.director}
+                      />
+                    </div>
+                    <div className="movie-release">
+                      <div className="label my-2">Release Date</div>
+                      <input
+                        type="date"
+                        className="manage-movie-input ps-3 mb-3 w-100"
+                        name="releaseDate"
+                        id=""
+                        onChange={(event) => changeText(event)}
+                        value={formData.releaseDate}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 right-side pe-0">
+                    <div className="movie-category">
+                      <div className="label my-2">Category</div>
+                      <input
+                        type="text"
+                        className="manage-movie-input ps-3 mb-3 w-100"
+                        name="category"
+                        id=""
+                        onChange={(event) => changeText(event)}
+                        value={formData.category}
+                      />
+                    </div>
+                    <div className="movie-cast">
+                      <div className="label my-2">Cast</div>
+                      <input
+                        type="text"
+                        className="manage-movie-input ps-3 mb-3 w-100"
+                        name="cast"
+                        id=""
+                        onChange={(event) => changeText(event)}
+                        value={formData.cast}
+                      />
+                    </div>
+                    <div className="movie-duration ">
+                      <div className="row">
+                        <div className="col-6 hour ps-0">
+                          <div className="label my-2">Duration Hour</div>
+                          <input
+                            type="text"
+                            className="manage-movie-input ps-3 mb-3 w-100"
+                            name="duration"
+                            id=""
+                            onChange={(event) => changeText(event)}
+                            value={formData.duration}
+                          />
+                        </div>
+                        {/* <div className="col-6 minute pe-0">
                             <div className="label my-2">Duration Minutes</div>
                             <input
                               type="text"
@@ -268,36 +285,43 @@ const FormMovie = (props) => {
                               value={formData.duration}
                             />
                           </div> */}
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="synopsis">
-                  <div className="label my-2">Synopsis</div>
-                  <textarea
-                    name="synopsis"
-                    id=""
-                    cols="100"
-                    className="ps-3"
-                    rows="4"
-                    onChange={(event) => changeText(event)}
-                    // placeholder={formData.synopsis}
-                    value={formData.synopsis}
-                  ></textarea>
-                </div>
-                <div className="button-group row  py-3 my-2">
-                  <div className="col-md-12 justify-content-end d-flex ">
-                    <button className="movie-manage-button button-reset me-5" type="reset">
-                      Reset
-                    </button>
-                    <button className="movie-manage-button button-submit" type="submit">
-                      {isUpdate ? "Update" : "Submit"}
-                    </button>
-                  </div>
+              </div>
+              <div className="synopsis">
+                <div className="label my-2">Synopsis</div>
+                <textarea
+                  name="synopsis"
+                  id=""
+                  cols="100"
+                  className="ps-3"
+                  rows="4"
+                  onChange={(event) => changeText(event)}
+                  // placeholder={formData.synopsis}
+                  value={formData.synopsis}
+                ></textarea>
+              </div>
+              <div className="button-group row  py-3 my-2">
+                <div className="col-md-12 justify-content-end d-flex ">
+                  <button
+                    onClick={resetForm}
+                    className="movie-manage-button button-reset me-5"
+                    type="reset"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    onClick={isUpdate ? updateData : (event) => postData(event)}
+                    className="movie-manage-button button-submit"
+                    type="submit"
+                  >
+                    {isUpdate ? "Update" : "Submit"}
+                  </button>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>

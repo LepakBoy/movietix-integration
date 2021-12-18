@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import cineone from "../../assets/logo/cineone.png";
 import hiflix from "../../assets/logo/hiflix.png";
+import ebv from "../../assets/logo/ebv.png";
 
 const OrderHistory = (props) => {
   const [dataHistory, setDataHistory] = useState([]);
@@ -9,6 +10,7 @@ const OrderHistory = (props) => {
     setDataHistory(props.dataOrder);
   }, []);
 
+  console.log(dataHistory, "history");
   return (
     <>
       <div className="order-list">
@@ -21,15 +23,30 @@ const OrderHistory = (props) => {
                     <div className="date-order pt-3">{`${item.date_booking.split("T")[0]} - ${
                       item.time_booking
                     }`}</div>
-                    <div className="movie-name-order pt-2 pb-4">Spider-Man:Homecoming</div>
+                    <div className="movie-name-order pt-2 pb-4">{item.movie_name}</div>
                   </div>
                   <div className="teater-logo d-flex align-items-center justify-content-end">
-                    <img src={cineone} alt="" />
+                    <img
+                      src={
+                        item.teater_name === "ebu.ud"
+                          ? ebv
+                          : item.teater_name === "hiflix"
+                          ? hiflix
+                          : cineone
+                      }
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div className="detail-ticket d-flex justify-content-between pt-3">
-                  <button className="ticket-status">
-                    {!item.payment_status ? "Waiting for payment" : "Active"}
+                  <button
+                    className={
+                      item.booking_status === "not active"
+                        ? "ticket-pending ticket-status"
+                        : "ticket-active ticket-status"
+                    }
+                  >
+                    {item.booking_status === "not active" ? "Waiting for payment" : "Active"}
                   </button>
                   <button className="show-ticket show-detail">Show Details</button>
                 </div>

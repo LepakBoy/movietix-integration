@@ -14,8 +14,6 @@ const Profile = () => {
   const dataUser = useSelector((state) => state.getDataUser);
   const { user } = dataUser;
 
-  // console.log(dataOrder);
-
   const getOrder = () => {
     axios.get(`/booking/user/${user.id_user}`).then((res) => {
       setdataOrder(res.data.data);
