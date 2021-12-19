@@ -30,6 +30,7 @@ class MovieDetailPage extends Component {
   componentDidMount() {
     this.handleMovieById();
     this.handleSchedule();
+    // console.log(this.props);
   }
 
   handleMovieById = () => {

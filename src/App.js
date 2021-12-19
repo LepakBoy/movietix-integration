@@ -19,6 +19,7 @@ import ManageSchedule from "./pages/admin/manage-schedule";
 import Profile from "./pages/User/profile";
 import Dashboard from "./pages/admin/dashboard";
 import Signup from "./pages/auth/Signup";
+import Ticket from "./pages/Order/TIcket";
 import ResetPassword from "./pages/auth/ResetPassword";
 import { Provider } from "react-redux";
 import { store, persistor } from "./stores/store";
@@ -47,6 +48,7 @@ class App extends Component {
               <AdminRoute path="/dashboard" exact component={Dashboard} />
               <PrivateRoute path="/profile" exact component={Profile} />
               <PublicRoute path="/signup" restricted={true} exact component={Signup} />
+              <PublicRoute path="/ticket/:id" exact component={Ticket} />
               <PublicRoute path="/reset-password" exact component={ResetPassword} />
             </Switch>
           </Router>

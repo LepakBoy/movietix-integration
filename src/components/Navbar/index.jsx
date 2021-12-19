@@ -6,6 +6,7 @@ import { Search } from "react-bootstrap-icons";
 import "../../assets/css/NavbarStyle.css";
 import menu from "../../assets/logo/menu-toggler.png";
 import { connect } from "react-redux";
+import axios from "../../Utils/axios";
 
 class Navbar extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Navbar extends Component {
   };
 
   handleLogout = () => {
+    axios.post("auth/logout");
     localStorage.clear();
     window.location.href = "/";
   };

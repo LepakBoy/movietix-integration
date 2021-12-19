@@ -29,7 +29,7 @@ class Payment extends Component {
   }
   handleClose = () => {
     this.setState({ show: false });
-    this.state.error.split(" ")[0] === "Success" ? this.props.history.push("/") : null;
+    // this.state.error.split(" ")[0] === "Success" ? this.props.history.push("/ticket") : null;
   };
 
   componentDidMount() {
@@ -54,15 +54,19 @@ class Payment extends Component {
         seat: seat
       })
       .then((res) => {
-        console.log(res);
-        this.setState({ ...this.state, error: "Success booking", show: true });
+        console.log(res.data.data.result.id_booking, "ressssss");
+        // this.setState({ ...this.state, error: "Success booking", show: true });
+        this.props.history.push(`ticket/${res.data.data.result.id_booking}`);
+        // this.props.history.push("/ticket");
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err.response);
+        alert("awok");
       });
   };
 
   render() {
+    // console.log(this.state, "state paymnet");
     return (
       <>
         <Modal show={this.state.show} onHide={this.handleClose} backdrop="static" keyboard={false}>

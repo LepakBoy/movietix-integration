@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 const PersonalInfo = () => {
   const user = useSelector((state) => state.getDataUser);
-  console.log(user.user, "userrrrrrrrrrr");
+
   return (
     <>
       <div className="user-info__header info-header pb-3">Personal Info</div>

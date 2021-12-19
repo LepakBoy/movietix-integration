@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import cineone from "../../assets/logo/cineone.png";
 import hiflix from "../../assets/logo/hiflix.png";
 import ebv from "../../assets/logo/ebv.png";
 
 const OrderHistory = (props) => {
+  const history = useHistory();
   const [dataHistory, setDataHistory] = useState([]);
 
   useEffect(() => {
     setDataHistory(props.dataOrder);
   }, []);
+
+  const toTicket = (id) => {
+    history.push(`/ticket/${id}`);
+  };
 
   console.log(dataHistory, "history");
   return (
@@ -48,7 +54,12 @@ const OrderHistory = (props) => {
                   >
                     {item.booking_status === "not active" ? "Waiting for payment" : "Active"}
                   </button>
-                  <button className="show-ticket show-detail">Show Details</button>
+                  <button
+                    onClick={() => toTicket(item.id_booking)}
+                    className="show-ticket show-detail"
+                  >
+                    Show Details
+                  </button>
                 </div>
               </div>
             ))
