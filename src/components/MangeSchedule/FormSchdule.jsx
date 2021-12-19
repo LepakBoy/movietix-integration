@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import banner from "../../assets/img/mv5.jpg";
 import addTime from "../../assets/logo/add-time.png";
 import ebv from "../../assets/logo/ebv.png";
 import cineone from "../../assets/logo/cineone.png";
 import hiflix from "../../assets/logo/hiflix.png";
 import { connect } from "react-redux";
+import axios from "../../Utils/axios";
 
 const FormSchedule = (props) => {
   const { dataAllMovie } = props;
+  const [allMovie, setAllMovie] = useState([]);
+  const [schedule, setSchedule] = useState({});
+  const [movieSchedule, setmovieSchedule] = useState({});
 
-  console.log(dataAllMovie.dataMovie);
+  const getAllMovie = () => {
+    axios.get("/movie/all").then((res) => {
+      setAllMovie(res.data.data);
+    });
+  };
+
+  const getMovieById = (id) => {
+    axios.get(`/movie/${id}`).then((res) => {
+      setmovieSchedule(res.data.data[0]);
+      // console.log(res.data.data[0], "data");
+    });
+  };
+  // console.log(allMovie, "all movie");
+  console.log(schedule);
+
+  // props.schedule.id_schedule ? getMovieById(props.schedule.id_movie) : alert("gaada");
+
+  useEffect(() => {
+    getAllMovie();
+    setSchedule(props.schedule);
+
+    // console.log(schedule, "props");
+  }, [props]);
+  // schedule ? alert("ada") : alert("ga ada");
+  // console.log(props.schedule, "state sch form sch");
   return (
     <>
       <div className="row pt-5">
@@ -39,16 +67,13 @@ const FormSchedule = (props) => {
                             Select Movie
                           </button>
                           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            {dataAllMovie.dataMovie.map((item) => {
-                              <>
-                                <li>
-                                  <a className="dropdown-item" href="#">
-                                    {item.movie_name}
-                                  </a>
-                                </li>
-                                ;
-                              </>;
-                            })}
+                            {allMovie.map((item) => (
+                              <li key={item.id_movie}>
+                                <a className="dropdown-item" href="#">
+                                  {item.movie_name}
+                                </a>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       </div>
