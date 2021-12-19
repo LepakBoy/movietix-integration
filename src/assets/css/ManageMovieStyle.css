@@ -11,6 +11,10 @@ body {
   font-weight: 700;
   color: #000000;
 }
+.btn-image {
+  border-radius: 3px;
+  font-size: 12px;
+}
 .wrapper {
   background-color: white;
 }

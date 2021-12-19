@@ -16,7 +16,6 @@ const OrderHistory = (props) => {
     history.push(`/ticket/${id}`);
   };
 
-  console.log(dataHistory, "history");
   return (
     <>
       <div className="order-list">

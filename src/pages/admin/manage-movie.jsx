@@ -20,6 +20,7 @@ const ManageMovie = (props) => {
     totalPage: 0
   });
 
+  console.log(paginate);
   useEffect(() => {
     const { page, order, sort, limit } = paginate;
     props.getAllMovie(page, order, sort, limit).then((res) => {

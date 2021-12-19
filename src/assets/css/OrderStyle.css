@@ -7,6 +7,14 @@ main {
   font-weight: 700;
   color: #14142b;
 }
+.ticket-label {
+  color: #aaaaaa;
+  font-weight: 500;
+}
+.ticket-data {
+  font-size: 20px;
+  font-weight: 700;
+}
 .btn-change-movie {
   padding: 4px;
   width: 140px;

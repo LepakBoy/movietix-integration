@@ -1,41 +1,87 @@
 import React, { useState, useEffect } from "react";
-import TeaterLogo from "../../assets/logo/ebv.png";
 import axios from "../../Utils/axios";
 import ebv from "../../assets/logo/ebv.png";
 import hiflix from "../../assets/logo/hiflix.png";
 import cineone from "../../assets/logo/cineone.png";
+import Pagination from "react-paginate";
 
 const DataSchedule = (props) => {
+  const [cities, setCities] = useState(["", "jakarta", "bandung", "bogor", "depok"]);
   const [selectedSchedule, setSelectedSchedule] = useState({});
+  const [allMovies, setAllMovies] = useState([]);
   const [allSchedule, setAllSchedule] = useState([]);
   const [filter, setFilter] = useState({
-    page: "",
-    limit: "",
+    page: 1,
+    limit: 6,
     location: "",
-    sort: "",
-    movie_id: ""
+    sort: "ASC",
+    movie_id: "",
+    totalPage: 0
   });
-  const { page, limit, location, sort, movie_id } = filter;
+  const [sortList, setSortList] = useState([
+    { text: "A-Z", val: "ASC" },
+    { text: "Z-A", val: "DESC" }
+  ]);
+  // const { page, limit, location, sort, movie_id, totalPage } = filter;
 
   const updateSelectedSchedule = (data) => {
     props.selectedSchedule(data);
   };
 
-  const getAllSchedule = () => {
+  const getAllMovie = () => {
+    axios.get("/movie/all").then((res) => {
+      setAllMovies(res.data.data);
+    });
+  };
+
+  console.log(allMovies);
+
+  const handlePagination = (e) => {
+    const { limit, location, sort, movie_id } = filter;
+    const selectedPage = e.selected + 1;
+    setFilter({ ...filter, page: selectedPage });
+    getAllSchedule(selectedPage, limit, location, sort, movie_id);
+  };
+
+  const getAllSchedule = (page, limit, location, sort, movie_id) => {
     axios
       .get(
         `/schedule/all?page=${page}&limit=${limit}&location=${location}&sort=${sort}&movie_id=${movie_id}`
       )
       .then((res) => {
+        // console.log(res.data.pagination.totalPage);
         setAllSchedule(res.data.data);
+        setFilter({ ...filter, totalPage: res.data.pagination.totalPage });
       });
+  };
+
+  const handleSort = (val) => {
+    const { page, limit, location, sort, movie_id } = filter;
+    setFilter({ ...filter, sort: val });
+    getAllSchedule(page, limit, location, val, movie_id);
+  };
+
+  const handleLocation = (loc) => {
+    const { page, limit, location, sort, movie_id } = filter;
+    setFilter({ ...filter, location: loc });
+    getAllSchedule(page, limit, loc, sort, movie_id);
+  };
+
+  const handleMovieId = (id) => {
+    const { page, limit, location, sort, movie_id } = filter;
+    setFilter({ ...filter, movie_id: id });
+    getAllSchedule(page, limit, location, sort, id);
   };
 
   // console.log(selectedSchedule, "dipilih");
 
   useEffect(() => {
-    getAllSchedule();
+    const { page, limit, location, sort, movie_id } = filter;
+    getAllSchedule(page, limit, location, sort, movie_id);
+    getAllMovie();
   }, []);
+
+  console.log(filter);
   return (
     <>
       <div className="row mt-5 pt-3 justify-content-between">
@@ -54,21 +100,15 @@ const DataSchedule = (props) => {
                   Sort
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
+                  {sortList.map((item) => (
+                    <li
+                      key={item.val}
+                      onClick={() => handleSort(item.val)}
+                      className="hover-pointer"
+                    >
+                      <a className="dropdown-item">{item.text}</a>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="dropdown search-schedule mx-3">
@@ -82,21 +122,11 @@ const DataSchedule = (props) => {
                   Location
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
+                  {cities.map((item) => (
+                    <li className="hover-pointer" onClick={() => handleLocation(item)} key={item}>
+                      <a className="dropdown-item">{item === "" ? "All locations" : item}</a>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="dropdown search-schedule">
@@ -110,26 +140,20 @@ const DataSchedule = (props) => {
                   Movie
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
+                  {allMovies.map((item) => (
+                    <li
+                      onClick={() => handleMovieId(item.id_movie)}
+                      className="hover-pointer"
+                      key={item.id_movie}
+                    >
+                      <a className="dropdown-item">{item.movie_name}</a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
           </div>
-          <div className="wrapper p-4 pt-5 mt-4 mb-5 ">
+          <div className="wrapper p-4 pt-1 mt-4 mb-5 ">
             <div className="data-schedule__data ">
               <div className="row d-flex flex-wrap justify-content-between">
                 {/* <!-- mapping from here --> */}
@@ -188,6 +212,21 @@ const DataSchedule = (props) => {
                 ) : (
                   <div className="text-center">no data</div>
                 )}
+              </div>
+              <div className="pagination-nav mt-5 mb-2 d-flex justify-content-center">
+                {" "}
+                <Pagination
+                  previousLabel={false}
+                  nextLabel={false}
+                  breakLabel={"..."}
+                  pageCount={filter.totalPage}
+                  onPageChange={handlePagination}
+                  containerClassName={"pagination"}
+                  pageClassName={"page-item"}
+                  pageLinkClassName={"page-link"}
+                  disabledClassName={"disabled"}
+                  activeClassName={"active"}
+                />
               </div>
             </div>
           </div>

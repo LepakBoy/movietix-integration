@@ -174,17 +174,20 @@ const FormMovie = (props) => {
           <div className="wrapper p-4 pt-5 mt-4">
             <div className="form-movie__data row">
               <div className="col-md-3">
-                <div className="movie-banner p-3 d-flex justify-content-center align-items-center">
-                  <img
-                    src={
-                      imagePrev
-                        ? imagePrev
-                        : formData.image
-                        ? `${process.env.REACT_APP_BASEURL}uploads/movie/${formData.image}`
-                        : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
-                    }
-                    alt=""
-                  />
+                <div className="movie-banner mx-auto justify-content-center">
+                  <div className="mx-4">
+                    <img
+                      src={
+                        imagePrev
+                          ? imagePrev
+                          : formData.image
+                          ? `${process.env.REACT_APP_BASEURL}uploads/movie/${formData.image}`
+                          : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                      }
+                      alt=""
+                    />
+                  </div>
+
                   <input
                     type="file"
                     name="user_image"
@@ -193,7 +196,7 @@ const FormMovie = (props) => {
                     onChange={handleFile}
                   />
                   <button
-                    className="d-block mt-4 mx-auto btn-image"
+                    className="d-block mt-4 mx-auto btn-image button-submit p-1 mx-auto"
                     onClick={() => target.current.click()}
                   >
                     Choose image

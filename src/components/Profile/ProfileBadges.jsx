@@ -33,10 +33,6 @@ export default function ProfileBadges(props) {
     }
   };
 
-  // console.log(user.user);
-  // console.log(user.user, "selector");
-  // const dispatch = useDispatch(getDataUser(user.user.id_user));
-
   useEffect(() => {
     updateImage();
     dispatch(getDataUser(user.user.id_user)).then((res) => {
@@ -47,8 +43,6 @@ export default function ProfileBadges(props) {
       });
     });
   }, [dispatch, image]);
-
-  // console.log(dataUser, "dataaaa");
 
   return (
     <>
@@ -76,7 +70,10 @@ export default function ProfileBadges(props) {
             style={{ display: "none" }}
             onChange={(e) => setImage({ ...image, user_image: e.target.files[0] })}
           />
-          <button className="d-block mt-4 mx-auto btn-image" onClick={() => target.current.click()}>
+          <button
+            className="d-block mt-4 mx-auto button-submit btn-image"
+            onClick={() => target.current.click()}
+          >
             Choose image
           </button>
         </div>
