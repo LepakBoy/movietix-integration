@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import axios from "../../Utils/axios";
 
 const FormSchedule = (props) => {
+  const [cities, setCities] = useState(["", "jakarta", "bandung", "bogor", "depok"]);
   const { dataAllMovie } = props;
   const [allMovie, setAllMovie] = useState([]);
   const [schedule, setSchedule] = useState({});
@@ -110,21 +111,13 @@ const FormSchedule = (props) => {
                             Select Location
                           </button>
                           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li>
-                              <a className="dropdown-item" href="#">
-                                Action
-                              </a>
-                            </li>
-                            <li>
-                              <a className="dropdown-item" href="#">
-                                Another action
-                              </a>
-                            </li>
-                            <li>
-                              <a className="dropdown-item" href="#">
-                                Something else here
-                              </a>
-                            </li>
+                            {cities.map((item) => (
+                              <li key={item}>
+                                <a className="dropdown-item" href="#">
+                                  {item}
+                                </a>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       </div>
@@ -133,7 +126,7 @@ const FormSchedule = (props) => {
                           <div className="date-start col-6">
                             <div className="label mb-2">Date Start</div>
                             <input
-                              type="text"
+                              type="date"
                               className="schedule-input w-100"
                               value="07/05/2021"
                             />
@@ -141,7 +134,7 @@ const FormSchedule = (props) => {
                           <div className="date-end col-6">
                             <div className="label mb-2">Date End</div>
                             <input
-                              type="text"
+                              type="date"
                               className="schedule-input w-100"
                               value="07/06/2021"
                             />

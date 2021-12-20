@@ -64,7 +64,9 @@ const Ticket = (props) => {
                 </div>
                 <div className="col-md-4 ">
                   <div className="d-flex justify-content-center align-items-center  h-100 wi">
-                    <QRCode value={`/booking/ticket-status/${dataTicket.id_booking}`} />
+                    <QRCode
+                      value={`${process.env.REACT_APP_BASEURL}/booking/ticket-status/${dataTicket.id_booking}`}
+                    />
                   </div>
                 </div>
 

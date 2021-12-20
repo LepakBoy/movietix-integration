@@ -35,7 +35,6 @@ const AccountSetings = () => {
 
     axios.patch("/user/update-profile", getUser).then((res) => {
       console.log(res, "ssss");
-      // console.log(res.data.data.id, "res");
       getDataUser(res.data.data.id);
       setError("Success update data");
       setShow(true);

@@ -95,6 +95,7 @@ const DataMovie = (props) => {
             placeholder="Search movie name ..."
             className="movie-name-search text-center sort mt-0"
           />
+          <button className="ms-3 px-2">Search</button>
         </div>
         <div className="wrapper mb-5 p-4 pt-5 mt-4 d-flex flex-wrap justify-content-center">
           {dataMovie.map((item) => (
