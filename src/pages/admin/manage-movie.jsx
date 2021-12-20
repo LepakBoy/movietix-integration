@@ -7,9 +7,10 @@ import "../../assets/css/ManageMovieStyle.css";
 import { connect } from "react-redux";
 import { getAllMovie } from "../../stores/action/movieAll";
 import Pagination from "react-paginate";
-import axios from "axios";
+import axios from "../../Utils/axios";
 
 const ManageMovie = (props) => {
+  const [resetSearch, setResetSearch] = useState(false);
   const [search, setSearch] = useState([]);
   const [sort, setSort] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
@@ -34,7 +35,7 @@ const ManageMovie = (props) => {
       // console.log(res.value.data.pagination.totalPage, "dataaaa");
       setPaginate({ ...paginate, totalPage: res.value.data.pagination.totalPage });
     });
-  }, []);
+  }, [resetSearch]);
 
   // console.log(paginate);
 
@@ -45,9 +46,14 @@ const ManageMovie = (props) => {
 
     search.length < 1
       ? props.getAllMovie(selectedPage, order, sort, limit)
-      : axios.get(
-          `/movie/all?page=${selectedPage}&name=${key}&order=movie_name&sort=${sort}&limit=4`
-        );
+      : axios
+          .get(
+            `/movie/all?page=${selectedPage}&name=${key}&order=movie_name&sort=${sort}&limit=${limit}`
+          )
+          .then((res) => {
+            console.log(res.data, "resssdfawe2312");
+            setSearch(res.data.data);
+          });
   };
 
   const handleSort = (val) => {
@@ -71,6 +77,11 @@ const ManageMovie = (props) => {
     setPaginate({ ...paginate, totalPage: page });
   };
 
+  const handleResetSearch = (s) => {
+    setResetSearch(s);
+  };
+  console.log(resetSearch);
+
   return (
     <>
       <Navbar />
@@ -79,6 +90,7 @@ const ManageMovie = (props) => {
         <FormMovie isUpdate={isUpdate} form={form} totalPage={updateTotalPage} />
         {/* </div> */}
         <DataMovie
+          isResetSearch={handleResetSearch}
           keyword={handleKeyword}
           resultSearch={search}
           isSearch={getSearch}

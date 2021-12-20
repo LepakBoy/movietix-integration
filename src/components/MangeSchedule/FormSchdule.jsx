@@ -7,12 +7,62 @@ import hiflix from "../../assets/logo/hiflix.png";
 import { connect } from "react-redux";
 import axios from "../../Utils/axios";
 
+const teater = [
+  { id_teater: 1, teater_name: "ebu.id", img_teater: ebv },
+  { id_teater: 2, teater_name: "hiflix", img_teater: hiflix },
+  { id_teater: 3, teater_name: "cinepolis", img_teater: cineone }
+];
+
 const FormSchedule = (props) => {
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [showInput, setShowInput] = useState(false);
   const [cities, setCities] = useState(["", "jakarta", "bandung", "bogor", "depok"]);
   const { dataAllMovie } = props;
   const [allMovie, setAllMovie] = useState([]);
+  // schedule :data selected schedule from component data schedule
   const [schedule, setSchedule] = useState({});
   const [movieSchedule, setmovieSchedule] = useState({});
+  const [imagePreview, setImagePreview] = useState("");
+  const [form, setForm] = useState({
+    id_movie: "",
+    teater_name: "",
+    price: "",
+    location: "",
+    date_start: "",
+    date_end: "",
+    time_schedule: []
+  });
+
+  console.log(schedule, "skledule dari componnt");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    if (name === "id_movie") {
+      axios.get(`/movie/${value}`).then((res) => {
+        setImagePreview(res.data.data[0].image);
+      });
+    }
+  };
+
+  const updateSchedule = () => {
+    alert("ganti");
+  };
+
+  const postSchedule = () => {
+    for (const item in form) {
+      if (!form[item]) {
+        alert("isi");
+        return;
+      }
+    }
+    axios.post("/schedule", form).then((res) => {
+      alert("aowk");
+      console.log(res);
+      // LANJUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+      // axios.get()
+    });
+  };
 
   const getAllMovie = () => {
     axios.get("/movie/all").then((res) => {
@@ -20,25 +70,26 @@ const FormSchedule = (props) => {
     });
   };
 
-  const getMovieById = (id) => {
-    axios.get(`/movie/${id}`).then((res) => {
-      setmovieSchedule(res.data.data[0]);
-      // console.log(res.data.data[0], "data");
-    });
+  const selectTeater = (data) => {
+    setForm({ ...form, teater_name: data });
   };
-  // console.log(allMovie, "all movie");
-  console.log(schedule);
 
-  // props.schedule.id_schedule ? getMovieById(props.schedule.id_movie) : alert("gaada");
+  const handleTime = (e) => {
+    if (e.key === "Enter") {
+      setForm({ ...form, time_schedule: [...form.time_schedule, e.target.value] });
+    }
+    setShowInput(false);
+  };
 
   useEffect(() => {
+    if (Object.keys(schedule).length > 0) {
+      setIsUpdate(true);
+    }
+
     getAllMovie();
     setSchedule(props.schedule);
+  }, [props, isUpdate, schedule]);
 
-    // console.log(schedule, "props");
-  }, [props]);
-  // schedule ? alert("ada") : alert("ga ada");
-  // console.log(props.schedule, "state sch form sch");
   return (
     <>
       <div className="row pt-5">
@@ -48,7 +99,14 @@ const FormSchedule = (props) => {
             <div className="form-schedule__data">
               <div className="row">
                 <div className="col-md-3 movie-banner text-center">
-                  <img src={banner} alt="" />
+                  <img
+                    src={
+                      imagePreview
+                        ? `${process.env.REACT_APP_BASEURL}uploads/movie/${imagePreview}`
+                        : null
+                    }
+                    alt=""
+                  />
                 </div>
                 <div className="col-md-9 schedule-form">
                   <div className="row">
@@ -58,42 +116,46 @@ const FormSchedule = (props) => {
                           Movie
                         </div>
                         <div className="dropdown">
-                          <button
-                            className="btn btn-secondary dropdown-toggle w-100"
-                            type="button"
-                            id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            Select Movie
-                          </button>
-                          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <select onChange={handleChange} name="id_movie" value={form.id_movie}>
+                            <option>Select movie</option>
                             {allMovie.map((item) => (
-                              <li key={item.id_movie}>
-                                <a className="dropdown-item" href="#">
-                                  {item.movie_name}
-                                </a>
-                              </li>
+                              <option key={item.id_movie} value={item.id_movie}>
+                                {item.movie_name}
+                              </option>
                             ))}
-                          </ul>
+                          </select>
                         </div>
                       </div>
                       <div className="movie-price mt-3">
                         <div className="label mb-2">Price</div>
-                        <input type="text" className="schedule-input w-100" value="10" />
+                        <input
+                          name="price"
+                          onChange={handleChange}
+                          type="number"
+                          className="schedule-input w-100"
+                          value={form.price}
+                        />
                       </div>
                       <div className="movie-premier mt-3">
                         <div className="label mb-2">Premiere</div>
                         <div className="premiere-btn-group d-flex justify-content-between">
-                          <button type="submit" className="btn-premiere-ebuid btn-premiere">
-                            <img src={ebv} alt="" />
-                          </button>
-                          <button type="submit" className="btn-premiere-ebuid btn-premiere">
+                          {teater.map((item) => (
+                            <button
+                              onClick={() => selectTeater(item.teater_name)}
+                              key={item.id}
+                              type="submit"
+                              className="btn-premiere-ebuid btn-premiere"
+                            >
+                              <img src={item.img_teater} alt="" />
+                            </button>
+                          ))}
+
+                          {/* <button type="submit" className="btn-premiere-ebuid btn-premiere">
                             <img src={hiflix} alt="" />
                           </button>
                           <button type="submit" className="btn-premiere-ebuid btn-premiere">
                             <img src={cineone} alt="" />
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -101,7 +163,15 @@ const FormSchedule = (props) => {
                       <div className="movie-location">
                         <div className="label mb-2">Location</div>
                         <div className="dropdown">
-                          <button
+                          <select onChange={handleChange} name="location" value={form.location}>
+                            <option>Select location</option>
+                            {cities.map((item, index) => (
+                              <option key={index} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                          {/* <button
                             className="btn btn-secondary dropdown-toggle w-100"
                             type="button"
                             id="dropdownMenuButton1"
@@ -118,7 +188,7 @@ const FormSchedule = (props) => {
                                 </a>
                               </li>
                             ))}
-                          </ul>
+                          </ul> */}
                         </div>
                       </div>
                       <div className="movie-date mt-3">
@@ -126,17 +196,21 @@ const FormSchedule = (props) => {
                           <div className="date-start col-6">
                             <div className="label mb-2">Date Start</div>
                             <input
+                              value={form.date_start}
+                              name="date_start"
+                              onChange={handleChange}
                               type="date"
                               className="schedule-input w-100"
-                              value="07/05/2021"
                             />
                           </div>
                           <div className="date-end col-6">
                             <div className="label mb-2">Date End</div>
                             <input
+                              value={form.date_end}
+                              name="date_end"
+                              onChange={handleChange}
                               type="date"
                               className="schedule-input w-100"
-                              value="07/06/2021"
                             />
                           </div>
                         </div>
@@ -145,22 +219,34 @@ const FormSchedule = (props) => {
                         <div className="label mb-2">Time</div>
                         <div className="row">
                           <div className="time-list d-flex justify-content-between flex-wrap">
-                            <button className="btn-time-list col-3 add-time">
-                              <img src={addTime} alt="" />
-                            </button>
-                            <button className="btn-time-list col-3">08.30am</button>
-                            <button className="btn-time-list col-3">08.30am</button>
-                            <button className="btn-time-list col-3">08.30am</button>
-                            <button className="btn-time-list col-3">08.30am</button>
-                            <button className="btn-time-list col-3">08.30am</button>
-                            <button className="btn-time-list col-3">08.30am</button>
-                            <button className="btn-time-list col-3">08.30am</button>
+                            {showInput ? (
+                              <input onKeyPress={handleTime} type="time"></input>
+                            ) : (
+                              <button
+                                onClick={() => setShowInput(true)}
+                                className="btn-time-list col-3 add-time"
+                              >
+                                <img src={addTime} alt="" />
+                              </button>
+                            )}
+                            {form.time_schedule.length > 0
+                              ? form.time_schedule.map((item, index) => (
+                                  <button key={index} className="btn-time-list col-3">
+                                    {item}
+                                  </button>
+                                ))
+                              : null}
                           </div>
                         </div>
                       </div>
                       <div className="button-group text-end my-4 d-flex justify-content-between">
                         <button className="btn-reset btn-schedule">Reset</button>
-                        <button className="btn-submit btn-schedule">Submit</button>
+                        <button
+                          onClick={!isUpdate ? postSchedule : updateSchedule}
+                          className="btn-submit btn-schedule"
+                        >
+                          {!isUpdate ? "Submit" : "Update"}
+                        </button>
                       </div>
                     </div>
                   </div>

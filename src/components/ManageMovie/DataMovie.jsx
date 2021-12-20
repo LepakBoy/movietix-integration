@@ -31,19 +31,23 @@ const DataMovie = (props) => {
 
   const searchMovie = (key) => {
     const { page, order, sort, limit } = paginate;
-    !keyword
-      ? setSearch([])
-      : axios
-          .get(`/movie/all?page=${page}&name=${keyword}&order=movie_name&sort=${sort}&limit=4`)
-          .then((res) => {
-            console.log(res, "resssssdadasdd");
-            setSearch(res.data.data);
-            props.totalPage(res.data.pagination.totalPage);
-            props.isSearch(res.data.data);
-            props.keyword(keyword);
-            // setPaginate({ ...paginate, totalPage: res.data.pagination.totalPage });
-            // console.log(res.data, "resssss");
-          });
+    if (!keyword) {
+      setSearch([]);
+      props.isResetSearch(true);
+      return;
+    } else {
+      axios
+        .get(`/movie/all?page=${page}&name=${keyword}&order=movie_name&sort=${sort}&limit=4`)
+        .then((res) => {
+          console.log(res, "resssssdadasdd");
+          setSearch(res.data.data);
+          props.totalPage(res.data.pagination.totalPage);
+          props.isSearch(res.data.data);
+          props.keyword(keyword);
+          // setPaginate({ ...paginate, totalPage: res.data.pagination.totalPage });
+          // console.log(res.data, "resssss");
+        });
+    }
   };
 
   // console.log(paginate, "hasilll");
