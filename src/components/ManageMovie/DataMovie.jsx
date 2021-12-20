@@ -3,8 +3,11 @@ import { connect } from "react-redux";
 import { getAllMovie, deleteMovie } from "../../stores/action/movieAll";
 import { selectedMovieToManage } from "../../stores/action/manageMovie";
 import { Modal, Button } from "react-bootstrap";
+import axios from "../../Utils/axios";
 
 const DataMovie = (props) => {
+  const [search, setSearch] = useState(props.resultSearch);
+  const [keyword, setKeyword] = useState("");
   const [show, setShow] = useState(false);
   const [del, setDel] = useState(false);
   const [error, setError] = useState("");
@@ -21,6 +24,29 @@ const DataMovie = (props) => {
     limit: 4,
     totalPage: 0
   });
+
+  const changeKeyword = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const searchMovie = (key) => {
+    const { page, order, sort, limit } = paginate;
+    !keyword
+      ? setSearch([])
+      : axios
+          .get(`/movie/all?page=${page}&name=${keyword}&order=movie_name&sort=${sort}&limit=4`)
+          .then((res) => {
+            console.log(res, "resssssdadasdd");
+            setSearch(res.data.data);
+            props.totalPage(res.data.pagination.totalPage);
+            props.isSearch(res.data.data);
+            props.keyword(keyword);
+            // setPaginate({ ...paginate, totalPage: res.data.pagination.totalPage });
+            // console.log(res.data, "resssss");
+          });
+  };
+
+  // console.log(paginate, "hasilll");
 
   const deleteData = () => {
     // e.preventDefault();
@@ -94,47 +120,88 @@ const DataMovie = (props) => {
             type="text"
             placeholder="Search movie name ..."
             className="movie-name-search text-center sort mt-0"
+            onChange={changeKeyword}
           />
-          <button className="ms-3 px-2">Search</button>
+          <button onClick={searchMovie} className="ms-3 px-2">
+            Search
+          </button>
         </div>
         <div className="wrapper mb-5 p-4 pt-5 mt-4 d-flex flex-wrap justify-content-center">
-          {dataMovie.map((item) => (
-            <div className="movie-list-col py-5 px-1 text-center" key={item.id_movie}>
-              <div className="movie-card mx-auto p-4">
-                <img
-                  src={
-                    item.image
-                      ? `${process.env.REACT_APP_BASEURL}uploads/movie/${item.image}`
-                      : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
-                  }
-                  alt=""
-                  className="movie-card-banner w-100"
-                />
-                <div className="movie-card-name pt-2">
-                  <span>{item.movie_name}</span>
+          {search.length > 0
+            ? search.map((list) => (
+                <div className="movie-list-col py-5 px-1 text-center" key={list.id_movie}>
+                  <div className="movie-card mx-auto p-4">
+                    <img
+                      src={
+                        list.image
+                          ? `${process.env.REACT_APP_BASEURL}uploads/movie/${list.image}`
+                          : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                      }
+                      alt=""
+                      className="movie-card-banner w-100"
+                    />
+                    <div className="movie-card-name pt-2">
+                      <span>{list.movie_name}</span>
+                    </div>
+                    <div className="movie-card-category">
+                      <span>{list.category}</span>
+                    </div>
+                    <div className="button-group-card">
+                      <button
+                        className="btn-update btn-card d-block mx-auto w-100 my-3 py-1"
+                        // onClick={() => props.setIsUpdate(true, list)}
+                        onClick={() => props.setIsUpdate(true, list)}
+                      >
+                        Update
+                      </button>
+                      <button
+                        className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1"
+                        // onClick={(event) => deleteData(event, item.id_movie)}
+                        onClick={() => handleDeleteBtn(item.id_movie, item.movie_name)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="movie-card-category">
-                  <span>{item.category}</span>
+              ))
+            : dataMovie.map((item) => (
+                <div className="movie-list-col py-5 px-1 text-center" key={item.id_movie}>
+                  <div className="movie-card mx-auto p-4">
+                    <img
+                      src={
+                        item.image
+                          ? `${process.env.REACT_APP_BASEURL}uploads/movie/${item.image}`
+                          : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                      }
+                      alt=""
+                      className="movie-card-banner w-100"
+                    />
+                    <div className="movie-card-name pt-2">
+                      <span>{item.movie_name}</span>
+                    </div>
+                    <div className="movie-card-category">
+                      <span>{item.category}</span>
+                    </div>
+                    <div className="button-group-card">
+                      <button
+                        className="btn-update btn-card d-block mx-auto w-100 my-3 py-1"
+                        // onClick={() => props.setIsUpdate(true, item)}
+                        onClick={() => props.setIsUpdate(true, item)}
+                      >
+                        Update
+                      </button>
+                      <button
+                        className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1"
+                        // onClick={(event) => deleteData(event, item.id_movie)}
+                        onClick={() => handleDeleteBtn(item.id_movie, item.movie_name)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="button-group-card">
-                  <button
-                    className="btn-update btn-card d-block mx-auto w-100 my-3 py-1"
-                    // onClick={() => props.setIsUpdate(true, item)}
-                    onClick={() => props.setIsUpdate(true, item)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="btn-delete btn-card d-block mx-auto w-100 mt-3 mb-2 py-1"
-                    // onClick={(event) => deleteData(event, item.id_movie)}
-                    onClick={() => handleDeleteBtn(item.id_movie, item.movie_name)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+              ))}
         </div>
       </div>
     </>

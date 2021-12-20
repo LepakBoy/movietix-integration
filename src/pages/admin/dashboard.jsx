@@ -16,14 +16,10 @@ const Dashboard = () => {
   const { id_movie, location, teater_name } = filter;
 
   let label = [];
-  dataDashboard.length > 0
-    ? dataDashboard.map((item) => label.push(item.month))
-    : dataDashboard.map((item) => label.push(item.month));
+  dataDashboard.length > 0 ? dataDashboard.map((item) => label.push(item.month)) : null;
 
   let amountDashboard = [];
-  dataDashboard.length > 0
-    ? dataDashboard.map((item) => amountDashboard.push(item.total))
-    : dataDashboard.map((item) => amountDashboard.push(item.total));
+  dataDashboard.length > 0 ? dataDashboard.map((item) => amountDashboard.push(item.total)) : null;
 
   const getAllMovie = () => {
     axios.get("/movie/all").then((res) => {
@@ -68,7 +64,7 @@ const Dashboard = () => {
           <div className="col-md-9 dashboard-chart">
             <div className="dahsboard-header header">Dashboard</div>
             <div className="wrapper content d-flex align-items-center justify-content-center mt-4">
-              <Line
+              <Bar
                 data={{
                   labels: label,
                   datasets: [
@@ -90,7 +86,7 @@ const Dashboard = () => {
                         "rgba(153, 102, 255, 1)",
                         "rgba(255, 159, 64, 1)"
                       ],
-                      borderWidth: 1
+                      borderWidth: 2
                     }
                   ]
                 }}

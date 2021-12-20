@@ -7,8 +7,10 @@ import "../../assets/css/ManageMovieStyle.css";
 import { connect } from "react-redux";
 import { getAllMovie } from "../../stores/action/movieAll";
 import Pagination from "react-paginate";
+import axios from "axios";
 
 const ManageMovie = (props) => {
+  const [search, setSearch] = useState([]);
   const [sort, setSort] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [form, setForm] = useState({});
@@ -19,8 +21,13 @@ const ManageMovie = (props) => {
     limit: 4,
     totalPage: 0
   });
+  const [key, setKey] = useState("");
 
-  console.log(paginate);
+  const getSearch = (data) => {
+    setSearch(data);
+  };
+
+  console.log(paginate, "pareenty");
   useEffect(() => {
     const { page, order, sort, limit } = paginate;
     props.getAllMovie(page, order, sort, limit).then((res) => {
@@ -35,7 +42,12 @@ const ManageMovie = (props) => {
     const { order, sort, limit } = paginate;
     const selectedPage = e.selected + 1;
     setPaginate({ ...paginate, page: selectedPage });
-    props.getAllMovie(selectedPage, order, sort, limit);
+
+    search.length < 1
+      ? props.getAllMovie(selectedPage, order, sort, limit)
+      : axios.get(
+          `/movie/all?page=${selectedPage}&name=${key}&order=movie_name&sort=${sort}&limit=4`
+        );
   };
 
   const handleSort = (val) => {
@@ -44,6 +56,10 @@ const ManageMovie = (props) => {
     const { page, order, limit } = paginate;
 
     props.getAllMovie(page, order, newSort, limit);
+  };
+
+  const handleKeyword = (key) => {
+    setKey(key);
   };
 
   const handleIsUpdate = (stat, item) => {
@@ -63,6 +79,9 @@ const ManageMovie = (props) => {
         <FormMovie isUpdate={isUpdate} form={form} totalPage={updateTotalPage} />
         {/* </div> */}
         <DataMovie
+          keyword={handleKeyword}
+          resultSearch={search}
+          isSearch={getSearch}
           setIsUpdate={handleIsUpdate}
           handleSort={handleSort}
           totalPage={updateTotalPage}
