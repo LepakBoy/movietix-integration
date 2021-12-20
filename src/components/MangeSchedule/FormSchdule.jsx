@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import banner from "../../assets/img/mv5.jpg";
+
 import addTime from "../../assets/logo/add-time.png";
 import ebv from "../../assets/logo/ebv.png";
 import cineone from "../../assets/logo/cineone.png";
@@ -32,8 +32,14 @@ const FormSchedule = (props) => {
     date_end: "",
     time_schedule: []
   });
-
-  console.log(schedule, "skledule dari componnt");
+  const [filter, setFilter] = useState({
+    page: 1,
+    limit: 6,
+    location: "",
+    sort: "ASC",
+    movie_id: "",
+    totalPage: 0
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +52,25 @@ const FormSchedule = (props) => {
   };
 
   const updateSchedule = () => {
-    alert("ganti");
+    const { page, limit, location, sort, movie_id } = filter;
+    const data = { ...form, time_schedule: form.time_schedule.join(",") };
+    axios.patch(`/schedule/${schedule.id_schedule}`, data).then((res) => {
+      const getData = getAllSchedule(page, limit, location, sort, movie_id);
+      setIsUpdate(false);
+      setForm({
+        ...form,
+        id_movie: "",
+        teater_name: "",
+        price: "",
+        location: "",
+        date_start: "",
+        date_end: "",
+        time_schedule: []
+      });
+      setSchedule([]);
+      setImagePreview("");
+      console.log(form, "forminput");
+    });
   };
 
   const postSchedule = () => {
@@ -62,6 +86,18 @@ const FormSchedule = (props) => {
       // LANJUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
       // axios.get()
     });
+  };
+
+  const getAllSchedule = (page, limit, location, sort, movie_id) => {
+    axios
+      .get(
+        `/schedule/all?page=${page}&limit=${limit}&location=${location}&sort=${sort}&movie_id=${movie_id}`
+      )
+      .then((res) => {
+        // console.log(res.data.pagination.totalPage);
+        props.allSchedule(res.data.data);
+        setFilter({ ...filter, totalPage: res.data.pagination.totalPage });
+      });
   };
 
   const getAllMovie = () => {
@@ -80,10 +116,23 @@ const FormSchedule = (props) => {
     }
     setShowInput(false);
   };
-
+  // console.log(form);
   useEffect(() => {
     if (Object.keys(schedule).length > 0) {
       setIsUpdate(true);
+      setImagePreview(schedule.image);
+      setForm(schedule);
+    } else {
+      setForm({
+        ...form,
+        id_movie: "",
+        teater_name: "",
+        price: "",
+        location: "",
+        date_start: "",
+        date_end: "",
+        time_schedule: []
+      });
     }
 
     getAllMovie();
@@ -139,12 +188,15 @@ const FormSchedule = (props) => {
                       <div className="movie-premier mt-3">
                         <div className="label mb-2">Premiere</div>
                         <div className="premiere-btn-group d-flex justify-content-between">
-                          {teater.map((item) => (
+                          {teater.map((item, index) => (
                             <button
+                              // style={{ backgroundColor: "red" }}
                               onClick={() => selectTeater(item.teater_name)}
                               key={item.id}
                               type="submit"
-                              className="btn-premiere-ebuid btn-premiere"
+                              className={`btn-premiere-ebuid btn-premiere ${
+                                item.teater_name === form.teater_name ? "bg-primary" : ""
+                              }`}
                             >
                               <img src={item.img_teater} alt="" />
                             </button>

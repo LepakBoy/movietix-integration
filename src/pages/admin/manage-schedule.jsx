@@ -7,8 +7,15 @@ import DataSchedule from "../../components/MangeSchedule/DataSchedule";
 
 const ManageSchedule = () => {
   const [schedule, setSchedule] = useState({});
+  const [dataAllSchedule, setAllSchedule] = useState([]);
+
+  console.log(dataAllSchedule, "parent");
 
   // console.log(schedule, "parent");
+
+  const getAllSchedule = (data) => {
+    setAllSchedule(data);
+  };
 
   const getSelectedSchedule = (data) => {
     setSchedule(data);
@@ -17,8 +24,8 @@ const ManageSchedule = () => {
     <>
       <Navbar />
       <div className="container">
-        <FormSchedule schedule={schedule} />
-        <DataSchedule selectedSchedule={getSelectedSchedule} />
+        <FormSchedule allSchedule={getAllSchedule} schedule={schedule} />
+        <DataSchedule dataAllSchedule={dataAllSchedule} selectedSchedule={getSelectedSchedule} />
       </div>
       <Footer />
     </>

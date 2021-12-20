@@ -34,7 +34,7 @@ const DataSchedule = (props) => {
     });
   };
 
-  console.log(allMovies);
+  // console.log(allMovies);
 
   const handlePagination = (e) => {
     const { limit, location, sort, movie_id } = filter;
@@ -76,10 +76,11 @@ const DataSchedule = (props) => {
   // console.log(selectedSchedule, "dipilih");
 
   useEffect(() => {
+    props.dataAllSchedule.length > 0 ? setAllSchedule(props.dataAllSchedule) : null;
     const { page, limit, location, sort, movie_id } = filter;
     getAllSchedule(page, limit, location, sort, movie_id);
     getAllMovie();
-  }, []);
+  }, [props]);
 
   console.log(filter);
   return (
