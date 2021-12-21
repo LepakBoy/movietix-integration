@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-
 import addTime from "../../assets/logo/add-time.png";
 import ebv from "../../assets/logo/ebv.png";
 import cineone from "../../assets/logo/cineone.png";
 import hiflix from "../../assets/logo/hiflix.png";
 import { connect } from "react-redux";
 import axios from "../../Utils/axios";
+import { Modal, Button } from "react-bootstrap";
 
 const teater = [
   { id_teater: 1, teater_name: "ebu.id", img_teater: ebv },
@@ -14,6 +14,8 @@ const teater = [
 ];
 
 const FormSchedule = (props) => {
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [cities, setCities] = useState(["", "jakarta", "bandung", "bogor", "depok"]);
@@ -21,7 +23,7 @@ const FormSchedule = (props) => {
   const [allMovie, setAllMovie] = useState([]);
   // schedule :data selected schedule from component data schedule
   const [schedule, setSchedule] = useState({});
-  const [movieSchedule, setmovieSchedule] = useState({});
+  // const [movieSchedule, setmovieSchedule] = useState({});
   const [imagePreview, setImagePreview] = useState("");
   const [form, setForm] = useState({
     id_movie: "",
@@ -67,22 +69,38 @@ const FormSchedule = (props) => {
         date_end: "",
         time_schedule: []
       });
+      setError("Success update schedule");
+      setShow(true);
       setSchedule([]);
       setImagePreview("");
       console.log(form, "forminput");
     });
   };
 
+  const resetForm = () => {
+    window.location.reload();
+  };
+
+  const handleClose = () => {
+    setShow(false);
+    setError("");
+    window.location.reload();
+  };
+
   const postSchedule = () => {
     for (const item in form) {
       if (!form[item]) {
-        alert("isi");
+        setError("All input must be fiiled");
+        setShow(true);
         return;
       }
     }
-    axios.post("/schedule", form).then((res) => {
-      alert("aowk");
+    const data = { ...form, time_schedule: form.time_schedule.join(",") };
+    axios.post("/schedule", data).then((res) => {
+      setError("Success add schedule");
+      setShow(true);
       console.log(res);
+      // window.location.reload();
       // LANJUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
       // axios.get()
     });
@@ -141,6 +159,17 @@ const FormSchedule = (props) => {
 
   return (
     <>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+        <Modal.Header>
+          <Modal.Title>{error.split(" ")[0] === "Success" ? "Success.." : "Oopss.."}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{error}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="row pt-5">
         <div className="form-schedule col-md-12">
           <div className="form-movie__header">Form Schedule</div>
@@ -165,7 +194,12 @@ const FormSchedule = (props) => {
                           Movie
                         </div>
                         <div className="dropdown">
-                          <select onChange={handleChange} name="id_movie" value={form.id_movie}>
+                          <select
+                            onChange={handleChange}
+                            className="w-100"
+                            name="id_movie"
+                            value={form.id_movie}
+                          >
                             <option>Select movie</option>
                             {allMovie.map((item) => (
                               <option key={item.id_movie} value={item.id_movie}>
@@ -190,7 +224,6 @@ const FormSchedule = (props) => {
                         <div className="premiere-btn-group d-flex justify-content-between">
                           {teater.map((item, index) => (
                             <button
-                              // style={{ backgroundColor: "red" }}
                               onClick={() => selectTeater(item.teater_name)}
                               key={item.id}
                               type="submit"
@@ -201,18 +234,11 @@ const FormSchedule = (props) => {
                               <img src={item.img_teater} alt="" />
                             </button>
                           ))}
-
-                          {/* <button type="submit" className="btn-premiere-ebuid btn-premiere">
-                            <img src={hiflix} alt="" />
-                          </button>
-                          <button type="submit" className="btn-premiere-ebuid btn-premiere">
-                            <img src={cineone} alt="" />
-                          </button> */}
                         </div>
                       </div>
                     </div>
                     <div className="col-md-6 right-side">
-                      <div className="movie-location">
+                      <div className="movie-location ps-2">
                         <div className="label mb-2">Location</div>
                         <div className="dropdown">
                           <select onChange={handleChange} name="location" value={form.location}>
@@ -223,24 +249,6 @@ const FormSchedule = (props) => {
                               </option>
                             ))}
                           </select>
-                          {/* <button
-                            className="btn btn-secondary dropdown-toggle w-100"
-                            type="button"
-                            id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            Select Location
-                          </button>
-                          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            {cities.map((item) => (
-                              <li key={item}>
-                                <a className="dropdown-item" href="#">
-                                  {item}
-                                </a>
-                              </li>
-                            ))}
-                          </ul> */}
                         </div>
                       </div>
                       <div className="movie-date mt-3">
@@ -292,7 +300,9 @@ const FormSchedule = (props) => {
                         </div>
                       </div>
                       <div className="button-group text-end my-4 d-flex justify-content-between">
-                        <button className="btn-reset btn-schedule">Reset</button>
+                        <button onClick={resetForm} className="btn-reset btn-schedule">
+                          Reset
+                        </button>
                         <button
                           onClick={!isUpdate ? postSchedule : updateSchedule}
                           className="btn-submit btn-schedule"

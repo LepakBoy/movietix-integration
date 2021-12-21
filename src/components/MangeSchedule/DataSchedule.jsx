@@ -4,8 +4,13 @@ import ebv from "../../assets/logo/ebv.png";
 import hiflix from "../../assets/logo/hiflix.png";
 import cineone from "../../assets/logo/cineone.png";
 import Pagination from "react-paginate";
+import { Modal, Button } from "react-bootstrap";
 
 const DataSchedule = (props) => {
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
+  const [del, setDel] = useState(false);
+  const [idSelected, setIdSelected] = useState("");
   const [cities, setCities] = useState(["", "jakarta", "bandung", "bogor", "depok"]);
   const [selectedSchedule, setSelectedSchedule] = useState({});
   const [allMovies, setAllMovies] = useState([]);
@@ -24,6 +29,27 @@ const DataSchedule = (props) => {
   ]);
   // const { page, limit, location, sort, movie_id, totalPage } = filter;
 
+  const handleDeleteBtn = (id) => {
+    setShow(true);
+    setDel(true);
+    setIdSelected(id);
+    setError("Are you sure want to delete this schedule? ");
+  };
+
+  const deleteData = () => {
+    axios.delete(`/schedule/${idSelected}`).then((res) => {
+      window.location.reload();
+      setShow(false);
+      setIdSelected("");
+    });
+  };
+
+  const handleClose = () => {
+    setShow(false);
+    setIdSelected("");
+    setDel(false);
+  };
+
   const updateSelectedSchedule = (data) => {
     props.selectedSchedule(data);
   };
@@ -33,8 +59,6 @@ const DataSchedule = (props) => {
       setAllMovies(res.data.data);
     });
   };
-
-  // console.log(allMovies);
 
   const handlePagination = (e) => {
     const { limit, location, sort, movie_id } = filter;
@@ -49,7 +73,6 @@ const DataSchedule = (props) => {
         `/schedule/all?page=${page}&limit=${limit}&location=${location}&sort=${sort}&movie_id=${movie_id}`
       )
       .then((res) => {
-        // console.log(res.data.pagination.totalPage);
         setAllSchedule(res.data.data);
         setFilter({ ...filter, totalPage: res.data.pagination.totalPage });
       });
@@ -73,8 +96,6 @@ const DataSchedule = (props) => {
     getAllSchedule(page, limit, location, sort, id);
   };
 
-  // console.log(selectedSchedule, "dipilih");
-
   useEffect(() => {
     props.dataAllSchedule.length > 0 ? setAllSchedule(props.dataAllSchedule) : null;
     const { page, limit, location, sort, movie_id } = filter;
@@ -82,9 +103,24 @@ const DataSchedule = (props) => {
     getAllMovie();
   }, [props]);
 
-  console.log(filter);
   return (
     <>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+        <Modal.Header>
+          <Modal.Title>{error.split(" ")[0] === "Success" ? "Success.." : "Oopss.."}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{error}</Modal.Body>
+        <Modal.Footer>
+          <Button variant={del ? "danger" : "primary"} onClick={deleteData}>
+            {del ? "Delete" : "Ok"}
+          </Button>
+          {del ? (
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+          ) : null}
+        </Modal.Footer>
+      </Modal>
       <div className="row mt-5 pt-3 justify-content-between">
         <div className="data-schedule col-md-12">
           <div className="data-schedule__header d-flex justify-content-between">
@@ -205,7 +241,12 @@ const DataSchedule = (props) => {
                           >
                             Update
                           </button>
-                          <button className="btn-delete w-100 ms-2">Delete</button>
+                          <button
+                            onClick={() => handleDeleteBtn(item.id_schedule)}
+                            className="btn-delete w-100 ms-2"
+                          >
+                            Delete
+                          </button>
                         </div>
                       </div>
                     </div>
