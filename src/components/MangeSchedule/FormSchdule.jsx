@@ -18,12 +18,11 @@ const FormSchedule = (props) => {
   const [error, setError] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [showInput, setShowInput] = useState(false);
-  const [cities, setCities] = useState(["", "jakarta", "bandung", "bogor", "depok"]);
+  const [cities, setCities] = useState(["jakarta", "bandung", "bogor", "depok"]);
   const { dataAllMovie } = props;
   const [allMovie, setAllMovie] = useState([]);
   // schedule :data selected schedule from component data schedule
   const [schedule, setSchedule] = useState({});
-  // const [movieSchedule, setmovieSchedule] = useState({});
   const [imagePreview, setImagePreview] = useState("");
   const [form, setForm] = useState({
     id_movie: "",
@@ -99,10 +98,6 @@ const FormSchedule = (props) => {
     axios.post("/schedule", data).then((res) => {
       setError("Success add schedule");
       setShow(true);
-      console.log(res);
-      // window.location.reload();
-      // LANJUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-      // axios.get()
     });
   };
 
@@ -112,7 +107,6 @@ const FormSchedule = (props) => {
         `/schedule/all?page=${page}&limit=${limit}&location=${location}&sort=${sort}&movie_id=${movie_id}`
       )
       .then((res) => {
-        // console.log(res.data.pagination.totalPage);
         props.allSchedule(res.data.data);
         setFilter({ ...filter, totalPage: res.data.pagination.totalPage });
       });
@@ -134,7 +128,7 @@ const FormSchedule = (props) => {
     }
     setShowInput(false);
   };
-  // console.log(form);
+
   useEffect(() => {
     if (Object.keys(schedule).length > 0) {
       setIsUpdate(true);
@@ -196,7 +190,7 @@ const FormSchedule = (props) => {
                         <div className="dropdown">
                           <select
                             onChange={handleChange}
-                            className="w-100"
+                            className="w-100 input-select"
                             name="id_movie"
                             value={form.id_movie}
                           >
@@ -241,7 +235,12 @@ const FormSchedule = (props) => {
                       <div className="movie-location ps-2">
                         <div className="label mb-2">Location</div>
                         <div className="dropdown">
-                          <select onChange={handleChange} name="location" value={form.location}>
+                          <select
+                            onChange={handleChange}
+                            className="w-100 input-select"
+                            name="location"
+                            value={form.location}
+                          >
                             <option>Select location</option>
                             {cities.map((item, index) => (
                               <option key={index} value={item}>

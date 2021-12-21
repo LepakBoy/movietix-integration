@@ -4,7 +4,6 @@ import Footer from "../../components/Footer";
 import "../../assets/css/DashboardStyle.css";
 import axios from "../../Utils/axios";
 import { Bar } from "react-chartjs-2";
-import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
 const Dashboard = () => {
@@ -27,6 +26,11 @@ const Dashboard = () => {
     });
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFilter({ ...filter, [name]: value });
+  };
+
   const getDashboard = () => {
     axios
       .get(`/booking/?id_movie=${id_movie}&location=${location}&teater_name=${teater_name}`)
@@ -34,6 +38,8 @@ const Dashboard = () => {
         setDataDashboard(res.data.data);
       });
   };
+
+  console.log(filter, "filter");
 
   const handleId = (id) => {
     setFilter({ ...filter, id_movie: id });
@@ -152,72 +158,47 @@ const Dashboard = () => {
             <div className="filter-header header">Filtered</div>
             <div className="wrapper mt-4 content p-4">
               <div className="dropdown">
-                {/* <select>
-                  <option value={"a"}>asdasd</option>
-                  <option value={"a"}>asda2313d</option>
-                  <option value={"a"}>asasdasd</option>
-                  <option value={"a"}>asda23412fjyk</option>
-                </select> */}
-                <button
-                  className="btn btn-secondary dropdown-toggle my-2 w-100 text-start"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                <select
+                  className="w-100 my-2 p-2 input-select"
+                  name="id_movie"
+                  value={filter.id_movie}
+                  onChange={handleChange}
                 >
-                  Select Movie
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <option>Select movie</option>
                   {allMovies.map((item) => (
-                    <li
-                      className="hover-pointer"
-                      onClick={() => handleId(item.id_movie)}
-                      key={item.id_movie}
-                    >
-                      <a className="dropdown-item">{item.movie_name}</a>
-                    </li>
+                    <option key={item.id_movie} value={item.id_movie}>
+                      {item.movie_name}
+                    </option>
                   ))}
-                </ul>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle my-2 w-100 text-start"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Select Premiere
-                  </button>
-                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    {teater.map((item) => (
-                      <li className="hover-pointer" onClick={() => handleTeater(item)} key={item}>
-                        <a className="dropdown-item" href="#">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle my-2 w-100 text-start"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Select Location
-                  </button>
-                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    {cities.map((item) => (
-                      <li onClick={() => handleLocation(item)} key={item}>
-                        <a className="dropdown-item" href="#">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                </select>
+
+                <select
+                  className="w-100 my-2 p-2 input-select"
+                  name="teater_name"
+                  value={filter.teater_name}
+                  onChange={handleChange}
+                >
+                  <option>Select teater</option>
+                  {teater.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  className="w-100 my-2 p-2 input-select"
+                  name="location"
+                  value={filter.location}
+                  onChange={handleChange}
+                >
+                  <option>Select teater</option>
+                  {cities.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
                 <button onClick={getDashboard} className="btn w-100 btn-filter my-2">
                   Filter
                 </button>

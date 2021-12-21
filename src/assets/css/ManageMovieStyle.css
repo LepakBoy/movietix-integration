@@ -57,8 +57,11 @@ textarea {
   background-color: #5f2eea;
   border: 3px solid #5f2eea;
   color: #ffffff;
+  border-radius: 4px;
 }
-
+.buttin-search-movie {
+  padding: 4px;
+}
 /* data movie */
 .sort-button {
   height: 42px !important;

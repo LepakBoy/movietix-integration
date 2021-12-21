@@ -126,7 +126,7 @@ const DataMovie = (props) => {
             className="movie-name-search text-center sort mt-0"
             onChange={changeKeyword}
           />
-          <button onClick={searchMovie} className="ms-3 px-2">
+          <button onClick={searchMovie} className="ms-3 px-2 button-submit button-serach-movie">
             Search
           </button>
         </div>
