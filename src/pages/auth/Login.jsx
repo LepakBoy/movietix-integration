@@ -15,7 +15,8 @@ class LoginPage extends Component {
     this.state = {
       form: {
         email: "",
-        password: ""
+        password: "",
+        error: false
       }
     };
   }
@@ -96,7 +97,7 @@ class LoginPage extends Component {
                 <button className="sign-in__button" type="submit">
                   Sign In
                 </button>
-                {isError && <div className="alert alert-danger">{msg}</div>}
+                {isError ? <div className="alert alert-danger">{msg}</div> : null}
               </form>
               <div className="forgot-pass">
                 Forgot your password?{" "}

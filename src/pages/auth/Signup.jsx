@@ -45,7 +45,7 @@ const Signup = (props) => {
   };
 
   const { msg, isError } = props.auth;
-  console.log(dataRegister.password);
+
   return (
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>

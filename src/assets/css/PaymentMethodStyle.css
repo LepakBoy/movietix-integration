@@ -12,7 +12,9 @@
   border: 2px solid #dedede;
   width: 140px;
 }
-
+.selected-payment {
+  border: 2px solid blueviolet !important;
+}
 .or {
   font-size: 14px;
   color: #a0a3bd;

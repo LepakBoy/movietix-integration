@@ -91,6 +91,11 @@ class Navbar extends Component {
                     </li>
                   </>
                 ) : null}
+                <li className="nav-item hidden-item">
+                  <Link to="/login" className="nav-link mx-3 ms-5" aria-current="page">
+                    Login
+                  </Link>
+                </li>
               </ul>
               <form className="d-flex justify-content-end" id="search-navbar">
                 {token ? (
@@ -107,7 +112,7 @@ class Navbar extends Component {
                   <img
                     src={
                       dataUser.user.user_image
-                        ? `http://localhost:3000/uploads/user/${dataUser.user.user_image}`
+                        ? `${process.env.REACT_APP_BASEURL}uploads/user/${dataUser.user.user_image}`
                         : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
                     }
                     alt="photo"

@@ -20,7 +20,7 @@ class ShowingList extends Component {
 
   getDataMovie = () => {
     axios
-      .get(`movie/all?order=id_movie&filter=${this.state.month}`)
+      .get(`movie/all?order=movie_name&filter=${this.state.month}`)
       .then((res) => {
         this.setState({
           data: res.data.data
@@ -64,15 +64,15 @@ class ShowingList extends Component {
                         className="movie-poster"
                         alt="movie-banner"
                       />
-                      <div>
-                        <p className="movie-card__name text-center ">{item.movie_name}</p>
+                      <div className="movie-card__name text-center">
+                        <span>{item.movie_name}</span>
                       </div>
                       <div className="movie-card__genre text-center">
                         <span>{item.category}</span>
                       </div>
-                      <div className="movie-card__genre text-center">
+                      {/* <div className="movie-card__genre text-center">
                         <span>{item.director}</span>
-                      </div>
+                      </div> */}
                       {dataUser.user.role === "user" ? (
                         <button className="detail-btn mt-2 w-100">Detail</button>
                       ) : null}

@@ -42,6 +42,9 @@ Link {
   background-color: white;
   height: unset;
 }
+.hidden-item {
+  display: none;
+}
 .btn-sign-up-navbar {
   width: 36%;
   height: 40px;
@@ -68,6 +71,9 @@ Link {
 @media (max-width: 991px) {
   .navbar-nav {
     margin-top: 36px;
+  }
+  .hidden-item {
+    display: unset;
   }
   .search-mobile {
     border-bottom: none !important;

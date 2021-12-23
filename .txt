@@ -1,1 +1,3 @@
 REACT_APP_BASEURL=http://localhost:3000/
+
+REACT_APP_BASEURL=https://backend-fikri.fwebdev2.xyz/
