@@ -32,7 +32,18 @@ Fitur - Fitur dalam Project
 
 ![asdfsdf](https://user-images.githubusercontent.com/42567590/147197012-33a15ad1-e8b1-4018-a2e8-75f3a6c5921d.PNG)
 
+![zxczx](https://user-images.githubusercontent.com/42567590/147197111-f400be65-935c-498a-b3c1-d54e393404a8.PNG)
+
 ![Capture](https://user-images.githubusercontent.com/42567590/147197025-0592d769-dd4c-4619-8dcc-9b4ff8c76d4d.PNG)
+
+![dfgdfg](https://user-images.githubusercontent.com/42567590/147197141-7d6ae94b-e246-40a6-b651-f2c3e716804f.PNG)
+
+![ghs5](https://user-images.githubusercontent.com/42567590/147197097-c3fce560-90c7-427c-86d0-7522603d751a.PNG)
+
+![5et4dfg](https://user-images.githubusercontent.com/42567590/147197131-cb50b550-e70f-4489-8f0c-c9dc4b4957c3.PNG)
+
+![fghdfhf](https://user-images.githubusercontent.com/42567590/147197154-2e13271c-82b6-4796-a4e6-62986369d502.PNG)
+
 
 
 # Deploy
