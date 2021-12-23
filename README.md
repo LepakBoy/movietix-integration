@@ -56,6 +56,9 @@ Fitur - Fitur dalam Project
 ![fghdfhf](https://user-images.githubusercontent.com/42567590/147197154-2e13271c-82b6-4796-a4e6-62986369d502.PNG)
 
 
+# API Backend
+
+- [MovieTix Backend](https://github.com/LepakBoy/movieTIx)
 
 # Deploy
 
