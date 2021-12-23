@@ -30,11 +30,12 @@ Fitur - Fitur dalam Project
 
 # Screen Shot
 
+- Login Page
 ![asdfsdf](https://user-images.githubusercontent.com/42567590/147197012-33a15ad1-e8b1-4018-a2e8-75f3a6c5921d.PNG)
 
+- Landing Page
 ![zxczx](https://user-images.githubusercontent.com/42567590/147197111-f400be65-935c-498a-b3c1-d54e393404a8.PNG)
 
-![Capture](https://user-images.githubusercontent.com/42567590/147197025-0592d769-dd4c-4619-8dcc-9b4ff8c76d4d.PNG)
 
 ![dfgdfg](https://user-images.githubusercontent.com/42567590/147197141-7d6ae94b-e246-40a6-b651-f2c3e716804f.PNG)
 
