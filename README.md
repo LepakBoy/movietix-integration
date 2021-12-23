@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# Project Backgorund
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MovieTix adalah aplikasi pemesanan tiket film yang berbasis onine. Pada repository ini, khusus menyediakan sisi Frontend aplikasi yang akan dihubungkan dengan API backend, aplikasi ini dibangun dengan menggunakan framework ReactJs dan juga react-redux untuk state management
 
-## Available Scripts
+Pada aplikasi movieTix ini user dapat melakukan pemesanan tiket, melihat jadwal film yang sedang tayang, dan daftar film yang akan tayang.
+User pada aplikasi ini dibagi menjadi dua role, yaitu user dan admin. Pada user dengan role admin, dimungkinkan untuk melakukan perubahan, penambahan dan menghapus detail film maupun
+jadwal film, sedangkan pada user degan role user, dapat memesan lebih dari satu tiket pada satu kali transaksi.
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Fitur - fitur Project
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Fitur - Fitur dalam Project
 
-### `npm test`
+- Email Validation
+- Forgot Password
+- Register
+- Login
+- Pemesanan lebih dari 1 ticket
+- Mengatur film dan jadwal film oleh admin, seperti hapus, tambah, dan ubah
+- Order history yang memungkinkan user untuk melihat semua tiket yang pernah dipesan baik yang sudah terpakai maupun yang masih aktif
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Teknologi Yang Digunakan
 
-### `npm run build`
+- [Node Js](https://nodejs.org/en/docs/)
+- [React Js](https://reactjs.org/docs/getting-started.html)
+- [React redux](https://react-redux.js.org/)
+- [React chartJs 2](https://www.npmjs.com/package/react-chartjs-2)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Screen Shot
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![asdfsdf](https://user-images.githubusercontent.com/42567590/147197012-33a15ad1-e8b1-4018-a2e8-75f3a6c5921d.PNG)
 
-### `npm run eject`
+![Capture](https://user-images.githubusercontent.com/42567590/147197025-0592d769-dd4c-4619-8dcc-9b4ff8c76d4d.PNG)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Deploy
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-SOON
