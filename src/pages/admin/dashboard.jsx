@@ -39,20 +39,6 @@ const Dashboard = () => {
       });
   };
 
-  console.log(filter, "filter");
-
-  const handleId = (id) => {
-    setFilter({ ...filter, id_movie: id });
-  };
-
-  const handleTeater = (teater) => {
-    setFilter({ ...filter, teater_name: teater });
-  };
-
-  const handleLocation = (loc) => {
-    setFilter({ ...filter, location: loc });
-  };
-
   const resetFilter = () => {
     setFilter({ ...filter, id_movie: "", location: "", teater_name: "" });
     setDataDashboard([]);

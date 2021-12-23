@@ -34,6 +34,7 @@ const DataMovie = (props) => {
     if (!keyword) {
       setSearch([]);
       props.isResetSearch(true);
+      window.location.reload();
       return;
     } else {
       axios

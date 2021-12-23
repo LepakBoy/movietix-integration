@@ -72,7 +72,6 @@ const FormSchedule = (props) => {
       setShow(true);
       setSchedule([]);
       setImagePreview("");
-      console.log(form, "forminput");
     });
   };
 

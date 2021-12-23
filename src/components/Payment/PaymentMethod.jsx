@@ -15,7 +15,9 @@ import VISA from "../../assets/logo/visa.png";
 class PaymentMethod extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      payment: ""
+    };
   }
 
   click = (event) => {};
