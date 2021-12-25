@@ -62,4 +62,4 @@ Fitur - Fitur dalam Project
 
 # Deploy
 
--SOON
+- https://movietix.netlify.app/
