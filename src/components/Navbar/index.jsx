@@ -91,11 +91,13 @@ class Navbar extends Component {
                     </li>
                   </>
                 ) : null}
-                <li className="nav-item hidden-item">
-                  <Link to="/login" className="nav-link mx-3 ms-5" aria-current="page">
-                    Login
-                  </Link>
-                </li>
+                {!token ? (
+                  <li className="nav-item hidden-item">
+                    <Link to="/login" className="nav-link mx-3 ms-5" aria-current="page">
+                      Login
+                    </Link>
+                  </li>
+                ) : null}
               </ul>
               <form className="d-flex justify-content-end" id="search-navbar">
                 {token ? (

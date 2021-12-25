@@ -89,12 +89,30 @@
 }
 /* responsive */
 @media (max-width: 768px) {
+  .month-name {
+    padding: 6px 2px;
+    display: inline-block;
+    width: 100px;
+    font-size: 12px;
+    color: #5f2eea;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+  .upcoming-list__header--title {
+    font-size: 18px;
+  }
+  .movie-poster_upcoming {
+    width: 118px;
+    height: 185px;
+    border-radius: 6px;
+  }
   .upcoming-list__movie-card {
     margin: 18px 0;
     padding: 20px 12px;
   }
   .upcoming-list__movie-card {
-    width: 200px;
+    width: 142px;
+    height: 282px;
   }
   .movie-card__name {
     height: 42px;

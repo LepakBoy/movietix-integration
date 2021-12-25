@@ -15,7 +15,7 @@ class Jumbotron extends Component {
     return (
       <>
         <header>
-          <div className="container">
+          <div className="container custom-height">
             <section className="jumbotron pt-5">
               <div className="jumbotron__slogan col-md-6">
                 <h3>Nearest Cinema, Newest Movie,</h3>

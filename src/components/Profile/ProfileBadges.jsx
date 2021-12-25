@@ -20,10 +20,8 @@ export default function ProfileBadges(props) {
   };
 
   const updateImage = () => {
-    if (!image.user_image) {
-    } else {
+    if (image.user_image) {
       const formData = new FormData();
-
       for (const data in image) {
         formData.append(data, image[data]);
       }
@@ -31,8 +29,9 @@ export default function ProfileBadges(props) {
       axios
         .patch("/user/change-photo", formData)
         .then((res) => {
-          console.log(res, "ressssssssssssssssssssss");
           dispatch(getDataUser(user.user.id_user));
+          setError("Success update image");
+          setShow(true);
         })
         .catch((err) => {
           setError(err.response.data.msg);
@@ -41,16 +40,20 @@ export default function ProfileBadges(props) {
     }
   };
 
+  const uploadImage = (e) => {
+    setImage({ ...image, user_image: e.target.files[0] });
+  };
+
   useEffect(() => {
     updateImage();
-    dispatch(getDataUser(user.user.id_user)).then((res) => {
-      setDataUser({
-        ...dataUser,
-        first_name: res.value.data.data[0].first_name,
-        last_name: res.value.data.data[0].last_name
-      });
-    });
-  }, [dispatch, image]);
+    // dispatch(getDataUser(user.user.id_user)).then((res) => {
+    //   setDataUser({
+    //     ...dataUser,
+    //     first_name: res.value.data.data[0].first_name,
+    //     last_name: res.value.data.data[0].last_name
+    //   });
+    // });
+  }, [image]);
 
   return (
     <>
@@ -87,7 +90,7 @@ export default function ProfileBadges(props) {
             name="user_image"
             ref={target}
             style={{ display: "none" }}
-            onChange={(e) => setImage({ ...image, user_image: e.target.files[0] })}
+            onChange={(e) => uploadImage(e)}
           />
           <button
             className="d-block mt-4 mx-auto button-submit btn-image"
@@ -97,7 +100,7 @@ export default function ProfileBadges(props) {
           </button>
         </div>
         <div className="profile-name text-center py-3">
-          <span>{`${user.user.first_name} ${dataUser.last_name}`}</span>
+          <span>{`${user.user.first_name} ${user.user.last_name}`}</span>
         </div>
         <div className="profile-title text-center pb-5">
           <span>Moviegoers</span>

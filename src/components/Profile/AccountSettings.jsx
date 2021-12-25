@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "../../Utils/axios";
 import { Modal, Button } from "react-bootstrap";
+import { getDataUser } from "../../stores/action/dataUser";
 
 const AccountSetings = () => {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const dataUser = useSelector((state) => state.getDataUser);
   const { user } = dataUser;
@@ -11,16 +13,6 @@ const AccountSetings = () => {
   const [getUser, setGetUser] = useState({ first_name: "", last_name: "" });
   const [newPass, setnewPass] = useState({ password: "", conPassword: "" });
   const [error, setError] = useState("");
-
-  const getDataUser = (id) => {
-    axios.get(`/user/${id}`).then((res) => {
-      // setGetUser({
-      //   ...getUser,
-      //   first_name: res.data.data[0].first_name,
-      //   last_name: res.data.data[0].last_name
-      // });
-    });
-  };
 
   const handleClose = () => {
     setShow(false);
@@ -35,9 +27,11 @@ const AccountSetings = () => {
 
     axios.patch("/user/update-profile", getUser).then((res) => {
       console.log(res, "ssss");
-      getDataUser(res.data.data.id);
+      dispatch(getDataUser(res.data.data.id));
+      // getDataUser(res.data.data.id);
       setError("Success update data");
       setShow(true);
+      setGetUser({ ...getUser, first_name: "", last_name: "" });
     });
   };
 

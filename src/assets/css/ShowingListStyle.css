@@ -27,7 +27,7 @@
 }
 .showing-list__header {
   width: 100%;
-  padding: 38px 0;
+  /* padding: 38px 0; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -140,12 +140,26 @@
 
 /* responsive */
 @media (max-width: 768px) {
+  .showing-list {
+    height: 360px;
+  }
   .showing-list__movie--banner {
-    margin: 18px;
+    margin: 12px;
+    /* padding: 20px 12px; */
+  }
+  .showing-list__movie--content {
+    padding: 12px !important;
     /* padding: 20px 12px; */
   }
   .movie-poster {
-    width: 125px;
-    height: 200px;
+    width: 105px;
+    height: 180px;
+  }
+  .showing-list__title {
+    font-weight: 900;
+    font-size: 18px;
+  }
+  .movie-card__name {
+    font-size: 12px;
   }
 }
